@@ -2,10 +2,10 @@
 const fs = require('fs'), assert = require('assert'), vm = require('vm');
 const ctx = {};
 vm.createContext(ctx);
-for (const f of ['data/provinces.js', 'data/history.js']) vm.runInContext(fs.readFileSync(__dirname + '/' + f, 'utf8'), ctx);
+for (const f of ['data/provinces.js', 'data/history.js', 'data/images.js']) vm.runInContext(fs.readFileSync(__dirname + '/' + f, 'utf8'), ctx);
 // through JSON: arrays made inside the vm context fail deepStrictEqual against this realm's arrays
-const { GEO, START, END, ERAS, PHASES, DYES, CLANS, BASE, BASE_NOTES, CHANGES, EVENTS, ALLIANCES } = JSON.parse(
-  vm.runInContext('JSON.stringify({GEO, START, END, ERAS, PHASES, DYES, CLANS, BASE, BASE_NOTES, CHANGES, EVENTS, ALLIANCES})', ctx));
+const { GEO, START, END, ERAS, PHASES, DYES, CLANS, BASE, BASE_NOTES, CHANGES, EVENTS, ALLIANCES, CAMPS_1600 } = JSON.parse(
+  vm.runInContext('JSON.stringify({GEO, START, END, ERAS, PHASES, DYES, CLANS, BASE, BASE_NOTES, CHANGES, EVENTS, ALLIANCES, CAMPS_1600})', ctx));
 const M = require('./model.js');
 
 const provs = Object.keys(GEO.provinces);
@@ -49,6 +49,15 @@ for (const [id, from, to, clans, en, ja, short] of ALLIANCES) {
   assert(from <= to && clans.every(c => c in CLANS) && en && ja && short, `alliance ${id}`);
 }
 
+for (const [k, m] of Object.entries(CAMPS_1600)) assert(k in CLANS && m.every(c => c in CLANS), `CAMPS_1600.${k}`);
+
+const IMAGES = JSON.parse(vm.runInContext('JSON.stringify(IMAGES)', ctx));
+for (const [k, im] of Object.entries(IMAGES)) {
+  const [type, id] = k.split(':');
+  assert(type === 'clan' ? id in CLANS : EVENTS.some(e => e.id === id), `image for unknown ${k}`);
+  assert(fs.existsSync(__dirname + '/' + im.src) && im.licence && im.artist, `image ${k}: file, licence and author`);
+}
+
 // the model
 const states = M.buildStates(BASE, CHANGES, START, END);
 assert.strictEqual(states.length, END - START + 1);
@@ -74,4 +83,11 @@ const used = new Set(states.flatMap(s => Object.values(s).flatMap(M.holders)));
 for (const e of EVENTS) (e.sides || []).forEach(c => c && used.add(c));
 for (const a of ALLIANCES) a[3].forEach(c => used.add(c));
 for (const id of Object.keys(CLANS)) assert(used.has(id), `clan ${id} never appears`);
+// clans that share a dye are never neighbours in the same year (centres closer than 60 map units count as neighbours)
+const near = (a, b) => Math.hypot(GEO.provinces[a].cx - GEO.provinces[b].cx, GEO.provinces[a].cy - GEO.provinces[b].cy) < 60;
+states.forEach((s, i) => {
+  for (const a of provs) for (const b of provs) if (a < b && near(a, b))
+    for (const x of M.holders(s[a])) for (const y of M.holders(s[b]))
+      assert(x === y || CLANS[x].dye !== CLANS[y].dye, `${x} and ${y} share ${CLANS[x].dye} side by side in ${START + i}`);
+});
 console.log('ok:', CHANGES.length, 'changes,', EVENTS.length, 'events,', Object.keys(CLANS).length, 'clans');

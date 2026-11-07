@@ -30,6 +30,7 @@ const DYES = {
   fuji: '#9a86c0', matsuba: '#3d7a58', bengara: '#a8452f', kaki: '#c06a2c', uguisu: '#8c8a3a', suo: '#8e3a5c',
   beni: '#cf6f80', asagi: '#4f9cab', yamabuki: '#dc9a2a', kihada: '#d8c75e', akane: '#9a2638', tobi: '#7d5038',
   murasaki: '#6a4a92', yomogi: '#6f8f4a', kariyasu: '#c8a43a',
+  kuchiba: '#b5874a', shikon: '#5a3f7a', hiwa: '#a5b04f', ume: '#b0607a',
 };
 
 const CLANS = {
@@ -57,14 +58,14 @@ const CLANS = {
              ['Yamana Toyokuni', '山名豊国', '1548–1626', 'Last Yamana lord of Inaba; left Tottori before Hideyoshi\'s siege.']],
   },
   hatakeyama: {
-    en: 'Hatakeyama', ja: '畠山', dye: 'kaki', motif: 'dots', title: 'A succession split in two',
+    en: 'Hatakeyama', ja: '畠山', dye: 'hiwa', motif: 'dots', title: 'A succession split in two',
     short: 'A great shugo house whose two rival heirs, Masanaga and Yoshinari, took opposite sides in 1467. Their feud outlived the war by decades and drained the clan.',
     long: 'The Hatakeyama held Kawachi, Kii and Etchū, with a branch line in Noto. The quarrel between Hatakeyama Masanaga (Eastern Army) and his cousin Yoshinari (Western Army) was the spark of the Ōnin War: the first fighting in Kyoto, at Kamigoryō shrine in 1467, was between them. Their lines kept fighting in Kawachi and Yamato long after 1477, and the endless armies in southern Yamashiro provoked the province\'s own people to expel both in 1485. The main line was finally pushed out of Kawachi by the Miyoshi in 1560. The Noto branch lasted until Uesugi Kenshin took Nanao castle in 1577.',
     people: [['Hatakeyama Masanaga', '畠山政長', '1442–1493', 'Eastern Army claimant; killed in the Meiō coup.'],
              ['Hatakeyama Yoshinari', '畠山義就', 'd. 1491', 'Western Army claimant who fought on in Kawachi for decades.']],
   },
   shiba: {
-    en: 'Shiba', ja: '斯波', dye: 'uguisu', motif: 'dots', title: 'Governors overthrown by their deputies',
+    en: 'Shiba', ja: '斯波', dye: 'kuchiba', motif: 'dots', title: 'Governors overthrown by their deputies',
     short: 'In 1467 the Shiba governed Echizen, Owari and Tōtōmi. Within fifty years they had lost all three to their own deputies and neighbours: the Asakura, the Oda and the Imagawa.',
     long: 'One of the three houses that could serve as kanrei, the Shiba were weakened by their own succession dispute, which, like the Hatakeyama\'s, fed the Ōnin War: Yoshikado joined the West, Yoshitoshi the East. Their deputies did the rest. The Asakura took Echizen in 1471, the Oda houses ruled Owari in their name, and the Imagawa took Tōtōmi by 1517. The Shiba lingered as figureheads in Owari; the last, Yoshimune, was killed by an Oda faction in 1554. It is the classic case of gekokujō, "the low overthrowing the high".',
     people: [['Shiba Yoshikado', '斯波義廉', 'dates uncertain', 'Western Army claimant to the Shiba headship.'],
@@ -91,7 +92,7 @@ const CLANS = {
     people: [['Kyōgoku Mochikiyo', '京極持清', '1407–1470', 'Eastern Army general and governor of four provinces.']],
   },
   rokkaku: {
-    en: 'Rokkaku', ja: '六角', dye: 'yamabuki', motif: 'dots', title: 'Southern Ōmi',
+    en: 'Rokkaku', ja: '六角', dye: 'shikon', motif: 'dots', title: 'Southern Ōmi',
     short: 'Governors of southern Ōmi, astride the roads into Kyoto. They held out for a century, then fell in weeks when Nobunaga marched on the capital in 1568.',
     long: 'From Kannonji castle the Rokkaku controlled the road from the east into Kyoto, and repeatedly took in fugitive shoguns. Rokkaku Sadayori was one of the strongest lords in central Japan in the 1540s. His son Yoshikata refused to let Oda Nobunaga pass in 1568; Nobunaga took Kannonji in days, and the Rokkaku became guerrillas, joining every coalition against him until they faded away.',
     people: [['Rokkaku Sadayori', '六角定頼', '1495–1552', 'Kingmaker in Kyoto politics in the 1530s and 1540s.'],
@@ -138,7 +139,7 @@ const CLANS = {
     short: 'A branch of the Ashikaga that ruled Suruga, took Tōtōmi and Mikawa, and under Imagawa Yoshimoto was the strongest house on the Pacific road. Yoshimoto\'s death at Okehazama in 1560 began their fall.',
     long: 'The Imagawa were Ashikaga cousins and proud of it. Imagawa Ujichika conquered Tōtōmi from the Shiba by 1517 and issued one of the first written house codes. His son Yoshimoto, advised by the warrior-monk Taigen Sessai, took Mikawa in 1549, keeping the young Matsudaira heir, the future Tokugawa Ieyasu, as a hostage. In 1554 he joined the Takeda and Hōjō in a three-way alliance. In 1560 Yoshimoto marched west with a large army and was killed in a surprise attack by Oda Nobunaga at Okehazama. His son Ujizane could not hold the realm: Mikawa broke away at once, and in 1568–69 the Takeda took Suruga while Ieyasu took Tōtōmi.',
     people: [['Imagawa Yoshimoto', '今川義元', '1519–1560', 'Master of three provinces, killed at Okehazama.'],
-             ['Taigen Sessai', '太原雪斎', '1496–1555', 'Monk, strategist and Yoshimoto\'s chief adviser.'],
+             ['Taigen Sessai', '太原雪斎', '1496–1555 (some say 1557)', 'Monk, strategist and Yoshimoto\'s chief adviser.'],
              ['Imagawa Ujizane', '今川氏真', '1538–1615', 'Lost his father\'s domain; lived on as a poet under Tokugawa protection.']],
   },
   takeda: {
@@ -155,20 +156,20 @@ const CLANS = {
     long: 'Two Uesugi lines, Yamanouchi and Ōgigayatsu, governed the Kantō as deputies of the Ashikaga, while another held Echigo with the Nagao as its deputies. The Kantō Uesugi wore themselves out in the long wars of the east, and the rising Hōjō smashed both lines at Kawagoe in 1546. Uesugi Norimasa fled to Echigo in 1552 and adopted its young master, Nagao Kagetora, who took the name Uesugi in 1561 and is remembered as Uesugi Kenshin. Kenshin campaigned every year: against the Takeda at Kawanakajima, into the Kantō against the Hōjō, and west through Etchū and Noto, beating an Oda army at Tedorigawa in 1577. After his death in 1578 his adopted sons fought for the succession; Kagekatsu won, served Hideyoshi, was moved to Aizu in 1598, and opposed Tokugawa in 1600.',
     people: [['Uesugi Kenshin', '上杉謙信', '1530–1578', 'The "Dragon of Echigo"; Shingen\'s great rival.'],
              ['Uesugi Kagekatsu', '上杉景勝', '1556–1623', 'Kenshin\'s heir; one of Hideyoshi\'s Five Elders.'],
-             ['Naoe Kanetsugu', '直江兼続', '1560–1620', 'Kagekatsu\'s chief retainer, whose defiant letter helped provoke the 1600 war.']],
+             ['Naoe Kanetsugu', '直江兼続', '1559–1620', 'Kagekatsu\'s chief retainer, whose defiant letter helped provoke the 1600 war.']],
   },
   hojo: {
     en: 'Hōjō', ja: '北条', dye: 'kariyasu', motif: 'uroko', title: 'Five generations at Odawara',
     short: 'Founded by an adventurer who took Izu in 1493 and Odawara in 1495, the Hōjō built the best-governed realm in the Kantō over five generations, until Hideyoshi besieged Odawara in 1590.',
     long: 'Ise Shinkurō, remembered as Hōjō Sōun, arrived in the east as an envoy to the Imagawa, overthrew the Horigoe kubō in Izu in 1493 and seized Odawara around 1495. His son Ujitsuna took the old name Hōjō (with its triangle crest) and Edo castle in 1524. His grandson Ujiyasu won the night battle of Kawagoe in 1546 against a much larger Uesugi coalition and made the Hōjō masters of the Kantō. They ran their lands with land surveys, fixed taxes and a careful administration, and survived sieges by both Kenshin (1561) and Shingen (1569). In 1590 Ujimasa and Ujinao refused to submit to Hideyoshi; Odawara was besieged by an enormous army and surrendered, and the Kantō went to Tokugawa Ieyasu.',
-    people: [['Hōjō Sōun', '北条早雲', 'c. 1456–1519', 'Founder; took Izu and Odawara.'],
+    people: [['Hōjō Sōun', '北条早雲', '1432 or 1456–1519', 'Founder; took Izu and Odawara.'],
              ['Hōjō Ujiyasu', '北条氏康', '1515–1571', 'Victor of Kawagoe; the clan at its height.'],
              ['Hōjō Ujimasa', '北条氏政', '1538–1590', 'Ruled through the 1580s; made to commit suicide after Odawara fell.']],
   },
   satake: {
     en: 'Satake', ja: '佐竹', dye: 'yomogi', motif: 'dots', title: 'Hitachi',
     short: 'An old house of Hitachi that fought the Hōjō for decades, joined Hideyoshi in time, and ruled all of Hitachi in the 1590s. Wavering in 1600 cost them: Tokugawa moved them north to Akita in 1602.',
-    long: 'The Satake governed northern Hitachi for centuries. Satake Yoshishige, called the "Demon of Bandō", led the northern Kantō lords against the Hōjō in the 1570s and 1580s. His son Yoshinobu sided with Hideyoshi and was confirmed in all of Hitachi in 1590. In 1600 he stayed out of the fighting and was suspected of sympathy for Uesugi; in 1602 the Tokugawa moved the clan to Akita in Dewa, where it stayed until 1871.',
+    long: 'The Satake governed northern Hitachi for centuries. Satake Yoshishige, called the "Demon of Bandō", led the northern Kantō lords against the Hōjō in the 1570s and 1580s. His son Yoshinobu sided with Hideyoshi and was confirmed in all of Hitachi in 1590. In 1600 he leaned to the Western side but never took the field; in 1602 the Tokugawa moved the clan to Akita in Dewa, where it stayed until 1871.',
     people: [['Satake Yoshishige', '佐竹義重', '1547–1612', 'The northern Kantō\'s champion against the Hōjō.'],
              ['Satake Yoshinobu', '佐竹義宣', '1570–1633', 'Lord of Hitachi, moved to Akita in 1602.']],
   },
@@ -183,7 +184,7 @@ const CLANS = {
     short: 'Deputies in Owari who, under Oda Nobunaga, rose to hold most of central Japan: Okehazama (1560), Kyoto (1568), Nagashino (1575). Nobunaga died at Honnō-ji in 1582 with unification in sight.',
     long: 'The Oda governed Owari for the absent Shiba, divided into rival branches. Oda Nobuhide built up one branch; his son Nobunaga, mocked in his youth as "the fool of Owari", united the province by 1559. In 1560 he destroyed Imagawa Yoshimoto at Okehazama, allied with Tokugawa Ieyasu in 1562, and took Mino in 1567. In 1568 he marched into Kyoto with Ashikaga Yoshiaki and made him shogun. A ring of enemies formed: the Azai and Asakura, the Takeda, the Ikkō leagues and Yoshiaki himself. Nobunaga broke it piece by piece, burning Mount Hiei (1571), expelling Yoshiaki (1573), destroying the Azai and Asakura (1573) and shattering the Takeda with massed guns at Nagashino (1575). He built Azuchi castle, encouraged free markets and welcomed the Jesuits. In 1582, as his generals advanced on every front, his general Akechi Mitsuhide turned on him at Honnō-ji in Kyoto. His heirs lost the leadership to Hideyoshi within a year.',
     people: [['Oda Nobunaga', '織田信長', '1534–1582', 'The first of the three unifiers.'],
-             ['Oda Nobuhide', '織田信秀', '1511–1552', 'Nobunaga\'s father, who made his branch the strongest in Owari.'],
+             ['Oda Nobuhide', '織田信秀', '1510–1551', 'Nobunaga\'s father, who made his branch the strongest in Owari.'],
              ['Akechi Mitsuhide', '明智光秀', 'c. 1528–1582', 'Conqueror of Tanba for Nobunaga, then his killer at Honnō-ji.'],
              ['Shibata Katsuie', '柴田勝家', 'c. 1522–1583', 'Senior general in the north; defeated by Hideyoshi in 1583.']],
   },
@@ -311,11 +312,11 @@ const CLANS = {
              ['Maeda Toshinaga', '前田利長', '1562–1614', 'Sided with Tokugawa in 1600.']],
   },
   kobayakawa: {
-    en: 'Kobayakawa', ja: '小早川', dye: 'murasaki', motif: 'uroko', title: 'The Mōri branch that decided Sekigahara',
+    en: 'Kobayakawa', ja: '小早川', dye: 'ume', motif: 'uroko', title: 'The Mōri branch that decided Sekigahara',
     short: 'A Mōri branch line. Kobayakawa Takakage held Iyo, then Chikuzen; his adopted heir Hideaki, Hideyoshi\'s nephew, turned on the Western Army in mid-battle at Sekigahara.',
-    long: 'Kobayakawa Takakage, Mōri Motonari\'s third son, was the Mōri\'s diplomat and admiral, and Hideyoshi\'s trusted ally after 1582: he received Iyo in 1585 and Chikuzen in 1587. He adopted Hideyoshi\'s nephew Hideaki, who inherited in 1597. At Sekigahara Hideaki\'s 15,000 men sat on Matsuo-yama above the Western Army\'s flank; after hours of hesitation, they attacked their own side, and the battle was decided. Hideaki was rewarded with Bizen and Mimasaka, and died in 1602 at twenty, without an heir.',
+    long: 'Kobayakawa Takakage, Mōri Motonari\'s third son, was the Mōri\'s diplomat and admiral, and Hideyoshi\'s trusted ally after 1582: he received Iyo in 1585 and Chikuzen in 1587. He adopted Hideyoshi\'s nephew Hideaki, who inherited in 1597. At Sekigahara Hideaki\'s 15,000 men sat on Matsuo-yama above the Western Army\'s flank; after hours of hesitation, they attacked their own side, and the battle was decided. Hideaki was rewarded with Bizen and Mimasaka, and died in 1602, aged about 25, without an heir.',
     people: [['Kobayakawa Takakage', '小早川隆景', '1533–1597', 'Mōri Motonari\'s third son.'],
-             ['Kobayakawa Hideaki', '小早川秀秋', '1582–1602', 'The turncoat of Sekigahara.']],
+             ['Kobayakawa Hideaki', '小早川秀秋', '1577–1602', 'The turncoat of Sekigahara.']],
   },
   east: {
     en: 'Eastern Army', ja: '東軍', dye: 'matsuba', motif: 'hishi', title: 'Tokugawa and his allies, 1600',
@@ -330,8 +331,8 @@ const CLANS = {
     short: 'The coalition Ishida Mitsunari raised in Hideyori\'s name in 1600, nominally headed by Mōri Terumoto, with Ukita, Shimazu, Konishi, Ōtani and Chōsokabe; it fell apart at Sekigahara when its own allies defected.',
     long: 'Ishida Mitsunari, a brilliant administrator but not a well-liked man, organised the lords loyal to the Toyotomi against Ieyasu: Mōri Terumoto (as nominal commander in Osaka castle), Ukita Hideie, Konishi Yukinaga, Ōtani Yoshitsugu, Shimazu Yoshihiro, Chōsokabe Morichika, and Uesugi Kagekatsu in the north. Many of them were already negotiating with the East. At Sekigahara the Mōri and Kikkawa forces never moved, and Kobayakawa Hideaki attacked Ōtani\'s flank. Mitsunari was captured and executed in Kyoto. On this map, the provinces in 1600 are dyed by the side their lords took.',
     people: [['Ishida Mitsunari', '石田三成', '1560–1600', 'Organiser of the Western Army.'],
-             ['Ōtani Yoshitsugu', '大谷吉継', 'c. 1558–1600', 'Mitsunari\'s friend; died when Kobayakawa turned on his flank.'],
-             ['Konishi Yukinaga', '小西行長', 'c. 1555–1600', 'Christian lord of southern Higo; executed after the battle.']],
+             ['Ōtani Yoshitsugu', '大谷吉継', '1558 or 1565–1600', 'Mitsunari\'s friend; died when Kobayakawa turned on his flank.'],
+             ['Konishi Yukinaga', '小西行長', '1558–1600', 'Christian lord of southern Higo; executed after the battle.']],
   },
   tozama: {
     en: 'Allied lords (tozama)', ja: '外様', dye: 'tobi', motif: 'hishi', title: 'The lords outside the Tokugawa house',
@@ -344,6 +345,12 @@ const CLANS = {
 };
 
 // 1467: who held each province as the Ōnin War began
+// the houses under each army in 1600, so they stay visible while the map is dyed by side
+const CAMPS_1600 = {
+  east: ['tokugawa', 'date', 'maeda', 'hosokawa', 'kyogoku', 'satomi'],
+  west: ['mori', 'ukita', 'uesugi', 'shimazu', 'chosokabe', 'otomo', 'satake', 'kobayakawa'],
+};
+
 const BASE = {
   mutsu: null, dewa: null, sado: null, echigo: 'uesugi', noto: 'hatakeyama', etchu: 'hatakeyama', kaga: null,
   shimotsuke: null, hitachi: 'satake', shimosa: 'ashikaga', kazusa: null, awa_boso: 'satomi', kozuke: 'uesugi',
@@ -549,7 +556,7 @@ const CHANGES = [
   [1600, 'izu', 'east', null], [1600, 'sagami', 'east', null], [1600, 'musashi', 'east', null],
   [1600, 'kozuke', 'east', null], [1600, 'kazusa', 'east', null], [1600, 'shimosa', 'east', null],
   [1600, 'awa_boso', 'east', 'Satomi Yoshiyasu.'], [1600, 'shimotsuke', 'east', 'Yūki Hideyasu, Ieyasu\'s son.'],
-  [1600, 'hitachi', null, 'Satake Yoshinobu stays out of the war.'],
+  [1600, 'hitachi', 'west', 'Satake Yoshinobu leans to the West but never takes the field.'],
   [1600, 'mutsu', ['east', 'west'], 'Date for the East; Uesugi in Aizu for the West.'],
   [1600, 'dewa', ['east', 'west'], 'Mogami Yoshiaki holds off the Uesugi at Hasedō.'],
   [1600, 'sado', 'west', null],
@@ -591,7 +598,7 @@ const CHANGES = [
   [1600, 'higo', ['east', 'west'], 'Katō Kiyomasa for the East; Konishi Yukinaga for the West.'],
   [1600, 'hyuga', null, null],
   [1600, 'satsuma', 'west', 'The Shimazu.'], [1600, 'osumi', 'west', null],
-  [1600, 'tsushima', 'west', null], [1600, 'iki', null, null],
+  [1600, 'tsushima', null, 'Accounts differ: English Wikipedia puts the Sō with Tokugawa, many Japanese histories with the West. They fought in no decisive battle.'], [1600, 'iki', null, null],
   // 1601: the victors' settlement
   [1601, 'izu', 'tokugawa', null], [1601, 'sagami', 'tokugawa', null], [1601, 'musashi', 'tokugawa', null],
   [1601, 'kozuke', 'tokugawa', null], [1601, 'kazusa', 'tokugawa', null], [1601, 'shimosa', 'tokugawa', null],
@@ -661,7 +668,7 @@ const EVENTS = [
     long: 'Motonari built a small fort on Itsukushima as bait and let rumours spread that he feared it would be attacked. Sue landed some 20,000 men on the island. On a stormy night Motonari crossed with about 4,000; at dawn his force struck from the hills behind the Sue camp while the fleets of the Murakami sea lords cut off the escape. Sue Harukata died on the island. Within two years the Mōri held all the old Ōuchi provinces of Suō and Nagato.' },
   { id: 'okehazama', year: 1560, en: 'Battle of Okehazama', ja: '桶狭間の戦い', at: 'owari', dx: 6, dy: 5, kind: 'battle', threshold: true,
     sides: ['oda', 'imagawa'], winner: 'oda',
-    short: 'Oda Nobunaga, 26 and outnumbered by perhaps ten to one, surprises Imagawa Yoshimoto\'s army resting in a narrow valley during a storm, and kills him.',
+    short: 'Oda Nobunaga, 25 and outnumbered by perhaps ten to one, surprises Imagawa Yoshimoto\'s army resting in a narrow valley during a storm, and kills him.',
     long: 'Imagawa Yoshimoto, lord of three provinces, marched west into Owari in June 1560, perhaps aiming at Kyoto, perhaps only at the Oda border forts. His vanguard, led by the young Matsudaira Motoyasu, the future Ieyasu, took the fort of Marune. Yoshimoto halted to rest in the gorge of Okehazama. Nobunaga, with two or three thousand men, approached under cover of a sudden storm and charged the Imagawa headquarters. Yoshimoto was killed. The battle made Nobunaga\'s name, freed the Matsudaira from the Imagawa, and began the Imagawa collapse.' },
   { id: 'kawanakajima', year: 1561, en: 'Fourth battle of Kawanakajima', ja: '第四次川中島の戦い', at: 'shinano', dx: 2, dy: -14, kind: 'battle',
     sides: ['takeda', 'uesugi'], winner: null,
@@ -691,7 +698,7 @@ const EVENTS = [
     long: 'Ishiyama Hongan-ji, at the mouth of the Yodo river where Osaka castle now stands, was the headquarters of the True Pure Land sect and its leagues. In 1570 the abbot Kennyo called on the faithful to resist Nobunaga. Supplied by sea by the Mōri, whose fleet beat the Oda navy in 1576, the temple held out until 1580, when Kennyo accepted the emperor\'s mediation and left. The buildings burned.' },
   { id: 'hiei', year: 1571, en: 'Mount Hiei burned', ja: '比叡山焼き討ち', at: 'omi', dx: -8, dy: 8, kind: 'event',
     short: 'Nobunaga burns the great monastery of Enryaku-ji on Mount Hiei, which had sheltered his enemies, killing thousands of monks and lay people.',
-    long: 'Enryaku-ji, above Kyoto, had for centuries been a religious and military power with its own warrior monks. It had sheltered the Azai and Asakura armies. In September 1571 Nobunaga surrounded the mountain and burned its temples and the town at its foot; contemporary sources speak of thousands killed. The act shocked the country and showed that Nobunaga would recognise no authority beyond his own.' },
+    long: 'Enryaku-ji, above Kyoto, had for centuries been a religious and military power with its own warrior monks. It had sheltered the Azai and Asakura armies. In September 1571 Nobunaga surrounded the mountain and burned its temples and the town at its foot; contemporary sources speak of thousands killed, though excavations suggest the destruction may have been smaller than they claim. The act shocked the country and showed that Nobunaga would recognise no authority beyond his own.' },
   { id: 'mikatagahara', year: 1573, en: 'Battle of Mikatagahara', ja: '三方ヶ原の戦い', at: 'totomi', kind: 'battle',
     sides: ['takeda', 'tokugawa'], winner: 'takeda',
     short: 'Takeda Shingen crushes Tokugawa Ieyasu on a plateau north of Hamamatsu. It is Ieyasu\'s worst defeat; Shingen dies a few months later.',
@@ -702,11 +709,11 @@ const EVENTS = [
   { id: 'nagashino', year: 1575, en: 'Battle of Nagashino', ja: '長篠の戦い', at: 'mikawa', dx: 6, dy: -6, kind: 'battle',
     sides: ['oda', 'takeda'], winner: 'oda',
     short: 'Oda and Tokugawa guns, firing from behind wooden palisades, destroy Takeda Katsuyori\'s army as it attacks across open ground. Many of the Takeda\'s senior generals die.',
-    long: 'Takeda Katsuyori besieged the Tokugawa castle of Nagashino in Mikawa. Nobunaga and Ieyasu came to its relief with some 38,000 men and placed perhaps 3,000 arquebusiers behind a line of wooden fences across the Shitarabara plain. Katsuyori attacked. The Takeda charges were shot down, and the Oda and Tokugawa counter-attacked. How many guns, and whether they fired in rotating volleys, is still debated, but the result is not: the Takeda lost much of their leadership, and never recovered.' },
+    long: 'Takeda Katsuyori besieged the Tokugawa castle of Nagashino in Mikawa. Nobunaga and Ieyasu came to its relief with some 38,000 men and placed perhaps 3,000 arquebusiers behind a line of wooden fences across the plain of Shitaragahara. Katsuyori attacked. The Takeda charges were shot down, and the Oda and Tokugawa counter-attacked. How many guns, and whether they fired in rotating volleys, is still debated, but the result is not: the Takeda lost much of their leadership, and never recovered.' },
   { id: 'tedorigawa', year: 1577, en: 'Battle of Tedorigawa', ja: '手取川の戦い', at: 'kaga', dx: -4, dy: 4, kind: 'battle',
     sides: ['uesugi', 'oda'], winner: 'uesugi',
-    short: 'Uesugi Kenshin catches Shibata Katsuie\'s Oda army crossing the flooded Tedori river in Kaga and defeats it. Kenshin dies the next spring.',
-    long: 'Having taken Nanao castle in Noto, Kenshin moved into Kaga against the Oda army under Shibata Katsuie, which had come north too late to save Nanao. The Oda tried to withdraw across the swollen Tedori river at night and were attacked. Kenshin\'s victory raised fears of a march on Kyoto, but he died in April 1578, and his adopted sons fought each other for the succession.' },
+    short: 'Uesugi Kenshin catches Shibata Katsuie\'s Oda army at the Tedori river in Kaga; the Oda lose about a thousand men. It is Kenshin\'s last battle: he dies the next spring.',
+    long: 'Having taken Nanao castle in Noto, Kenshin moved into Kaga against the Oda army under Shibata Katsuie, which had come north too late to save Nanao. Accounts differ on how it went: in one, Kenshin lured the Oda into a frontal attack across the river; in another, he caught them withdrawing across it at night. Either way the Oda lost about a thousand men and fell back south. Kenshin\'s victory raised fears of a march on Kyoto, but he died in April 1578, and his adopted sons fought each other for the succession.' },
   { id: 'mimigawa', year: 1578, en: 'Battle of Mimigawa', ja: '耳川の戦い', at: 'hyuga', kind: 'battle',
     sides: ['shimazu', 'otomo'], winner: 'shimazu',
     short: 'The Shimazu destroy the great Ōtomo army sent into Hyūga, and northern Kyushu begins to fall away from the Ōtomo.',
@@ -714,11 +721,11 @@ const EVENTS = [
   { id: 'tottori', year: 1581, en: 'Siege of Tottori', ja: '鳥取城の戦い', at: 'inaba', kind: 'battle',
     sides: ['oda', 'mori'], winner: 'oda',
     short: 'Hideyoshi surrounds Tottori castle after buying up the region\'s rice, and starves the Mōri garrison into surrender.',
-    long: 'Before the siege, Hideyoshi had merchants buy rice in Inaba at high prices, so the castle had little in store. He then built a ring of forts around Tottori and waited. After about four months the garrison was starving; its commander, Kikkawa Tsuneie, killed himself in exchange for the lives of his men. The "starvation siege" became one of the period\'s grimmest stories.' },
+    long: 'Before the siege, Hideyoshi had merchants buy rice in Inaba at high prices, so the castle had little in store. He then built a ring of forts around Tottori and waited. After months of siege (accounts give up to 200 days) the garrison was starving; its commander, Kikkawa Tsuneie, killed himself in exchange for the lives of his men. The "starvation siege" became one of the period\'s grimmest stories.' },
   { id: 'tenmokuzan', year: 1582, en: 'The end of the Takeda', ja: '武田氏滅亡', at: 'kai', kind: 'battle',
     sides: ['oda', 'takeda'], winner: 'oda',
     short: 'Oda and Tokugawa armies invade the Takeda lands. Vassals defect, castles fall, and Takeda Katsuyori dies with his family at Tenmokuzan.',
-    long: 'In early 1582 a Takeda vassal in Kiso went over to the Oda, and Nobunaga\'s son Nobutada led armies into Shinano while Ieyasu came up from Suruga and the Hōjō from the east. The Takeda realm collapsed in about a month. Katsuyori, abandoned by most of his men, killed himself near Tenmokuzan in April. Nobunaga divided the Takeda lands among his generals.' },
+    long: 'In early 1582 a Takeda vassal in Kiso went over to the Oda, and Nobunaga\'s son Nobutada led armies into Shinano while Ieyasu came up from Suruga and the Hōjō from the east. The Takeda realm collapsed in about a month. Katsuyori, refused shelter by his own retainer Oyamada Nobushige, killed himself with his wife near Tenmokuzan. Nobunaga divided the Takeda lands among his generals.' },
   { id: 'honnoji', year: 1582, en: 'The Honnō-ji incident', ja: '本能寺の変', at: 'yamashiro', dx: 4, dy: -4, kind: 'battle', threshold: true,
     sides: ['oda', 'oda'], winner: null,
     short: 'At dawn on 21 June 1582, Nobunaga\'s general Akechi Mitsuhide surrounds the temple of Honnō-ji in Kyoto, where Nobunaga is staying with a small guard. Nobunaga dies in the burning temple.',
@@ -738,7 +745,7 @@ const EVENTS = [
   { id: 'okitanawate', year: 1584, en: 'Battle of Okitanawate', ja: '沖田畷の戦い', at: 'hizen', dx: 8, dy: 14, kind: 'battle',
     sides: ['shimazu', 'ryuzoji'], winner: 'shimazu',
     short: 'Shimazu Iehisa and Arima Harunobu trap Ryūzōji Takanobu\'s far larger army on narrow paths through the marshes of Shimabara. Takanobu is killed.',
-    long: 'Ryūzōji Takanobu marched on the Arima of Shimabara, who had called on the Shimazu for help. Shimazu Iehisa placed his small army where the road narrowed between marsh and sea, then used a feigned retreat to draw the Ryūzōji forward. Trapped on the causeways and shot at from the flanks, the Ryūzōji army broke, and Takanobu was killed in his palanquin. The Shimazu were now the strongest power in Kyushu.' },
+    long: 'Ryūzōji Takanobu marched on the Arima of Shimabara, who had called on the Shimazu for help. Shimazu Iehisa, with Portuguese guns and a Portuguese ship supplied through the Jesuit mission, placed his small army where the road narrowed between marsh and sea, then used a feigned retreat to draw the Ryūzōji forward. Trapped on the causeways and shot at from the flanks, the Ryūzōji army broke, and Takanobu was killed in his palanquin. The Shimazu were now the strongest power in Kyushu.' },
   { id: 'shikoku', year: 1585, en: 'The conquest of Shikoku', ja: '四国征伐', at: 'awa_shikoku', kind: 'event',
     short: 'Hideyoshi sends over 100,000 men into Shikoku. Chōsokabe Motochika, who had just united the island, surrenders and keeps only Tosa.',
     long: 'With central Japan secure, Hideyoshi turned on Shikoku. His half-brother Hidenaga landed in Awa, Ukita Hideie in Sanuki, and the Mōri under Kobayakawa Takakage in Iyo. Chōsokabe Motochika, facing armies far bigger than his, surrendered within weeks. The same year Hideyoshi became regent (kampaku), and the next he took the new surname Toyotomi.' },

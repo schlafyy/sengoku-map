@@ -13,15 +13,15 @@
 
 :root {
   /* indigo: only the ground and the sea */
-  --kachi: #0b1529;      /* the deepest vat, the cloth's edge */
-  --kon: #10203f;        /* the sea */
-  --hanada: #284d82;     /* lighter indigo near the coasts */
-  --lining: #0d1a33;     /* the panel: the same cloth, folded under */
+  --kachi: #13152f;      /* kachi-iro, the deepest vat: the cloth's edge */
+  --kon: #1a1e47;        /* the sea */
+  --hanada: #33478a;     /* lighter indigo near the coasts */
+  --lining: #16193a;     /* the panel: the same cloth, folded under */
   --cream: #efe6d3;      /* unbleached cotton: text and resist lines */
   --undyed: #e2d9c5;     /* land held by no single power */
-  --muted: #a7b4ca;      /* secondary text, tinted from the indigo */
-  --faint: #7d8daa;
-  --war: #d65a3c;        /* red thread: only war */
+  --muted: #adb2d2;      /* secondary text, tinted from the indigo */
+  --faint: #8489ad;
+  --war: #ff5b3f;        /* red thread: only war; brighter than any dye */
   --mincho: 'Shippori', 'Yu Mincho', 'Hiragino Mincho ProN', serif;
   --gothic: 'Zen', 'Yu Gothic UI', 'Hiragino Sans', sans-serif;
   --ease: cubic-bezier(.16, 1, .3, 1);
@@ -47,26 +47,27 @@ p { margin: 0; }
   background:
     repeating-linear-gradient(0deg, rgba(255, 255, 255, .02) 0 1px, transparent 1px 3px),
     repeating-linear-gradient(90deg, rgba(0, 0, 0, .07) 0 1px, transparent 1px 3px),
-    radial-gradient(ellipse 70% 75% at 58% 52%, #16305a 0%, var(--kon) 50%, var(--kachi) 100%);
+    radial-gradient(ellipse 70% 75% at 58% 52%, #252c63 0%, var(--kon) 50%, var(--kachi) 100%);
 }
 #map { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .prov use { stroke: var(--cream); stroke-opacity: .5; stroke-width: .8; vector-effect: non-scaling-stroke; cursor: pointer; transition: stroke-opacity .2s; }
 .prov:hover use { stroke-opacity: 1; stroke-width: 1.6; }
 .prov.sel use { stroke-opacity: 1; stroke-width: 2.2; stroke-dasharray: 4 3; }
-#ezo use { fill: #1b3460; stroke: none; }
-#lakes use { fill: #1a3768; stroke: var(--cream); stroke-opacity: .35; stroke-width: .6; vector-effect: non-scaling-stroke; pointer-events: none; }
+#ezo use { fill: #252b5e; stroke: none; }
+#lakes use { fill: #262f68; stroke: var(--cream); stroke-opacity: .35; stroke-width: .6; vector-effect: non-scaling-stroke; pointer-events: none; }
 #mottle { pointer-events: none; mix-blend-mode: multiply; opacity: .5; }
 #soak { pointer-events: none; }
-.clan-label { font-family: var(--mincho); fill: var(--cream); paint-order: stroke; stroke: rgba(11, 21, 41, .78); stroke-linejoin: round; pointer-events: none; }
+.clan-label { font-family: var(--mincho); fill: var(--cream); paint-order: stroke; stroke: rgba(19, 21, 47, .78); stroke-linejoin: round; pointer-events: none; }
 .stitch { fill: none; stroke: var(--cream); stroke-linecap: round; pointer-events: none; }
 .stitch.under { stroke: var(--kachi); stroke-opacity: .55; }
 .stitch.draw { animation: stitch 1.4s var(--ease) both; }
 @keyframes stitch { from { stroke-dashoffset: var(--len); opacity: .2; } }
 .battle { cursor: pointer; }
-.battle .x { stroke: var(--war); stroke-width: 2.4; stroke-linecap: round; }
-.battle .x-under { stroke: var(--cream); stroke-width: 4.8; stroke-linecap: round; }
+/* the battle mark: a cross-stitch in red thread, its shadow sunk into the cloth */
+.battle .x, .mark .x { stroke: var(--war); stroke-linecap: round; fill: none; }
+.battle .x-under, .mark .x-under { stroke: var(--kachi); stroke-opacity: .85; stroke-linecap: round; fill: none; }
 .battle .hit { fill: transparent; }
-.battle:hover .x-under, .battle.sel .x-under { stroke: #fff; }
+.battle:hover .x-under, .battle.sel .x-under { stroke: var(--cream); stroke-opacity: 1; }
 .battle .ring { fill: none; stroke: var(--war); stroke-width: 1.2; opacity: 0; }
 .battle.now .ring { animation: ring 1.6s var(--ease) both; }
 @keyframes ring { from { r: 2; opacity: .9; } to { r: 22; opacity: 0; } }
@@ -78,7 +79,8 @@ p { margin: 0; }
 #era .roman { color: var(--muted); font: 400 .85rem/1 var(--gothic); margin-left: .6em; letter-spacing: .04em; }
 #phase { margin-top: .45rem; font: 500 .8rem/1.3 var(--gothic); color: var(--muted); letter-spacing: .09em; text-transform: uppercase; }
 
-#start { margin-top: 1.3rem; font-size: .88rem; color: var(--muted); max-width: 17rem; line-height: 1.5; transition: opacity .6s var(--ease); }
+#approx { margin-top: .7rem; font-size: .76rem; color: var(--faint); max-width: 19rem; line-height: 1.45; }
+#start { margin-top: 1.1rem; font-size: .88rem; color: var(--muted); max-width: 17rem; line-height: 1.5; transition: opacity .6s var(--ease); }
 body.started #start { opacity: 0; }
 
 /* a decisive moment sets its name across the sea, then settles into its marker */
@@ -104,7 +106,7 @@ body.started #start { opacity: 0; }
 #tip .who { display: block; color: var(--muted); }
 
 /* ---------- the side panel: the cloth's lining ---------- */
-#side { grid-column: 2; grid-row: 1; position: relative; background: var(--lining); overflow-y: auto; overflow-x: hidden; padding: 26px 26px 22px 30px; scrollbar-width: thin; scrollbar-color: var(--hanada) transparent; }
+#side { grid-column: 2; grid-row: 1; position: relative; background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .018) 0 1px, transparent 1px 3px), var(--lining); overflow-y: auto; overflow-x: hidden; padding: 26px 26px 22px 30px; scrollbar-width: thin; scrollbar-color: var(--hanada) transparent; }
 #seam { /* a sashiko running stitch down the seam between cloth and lining */
   grid-column: 2; grid-row: 1; justify-self: start; width: 2px; margin-left: 12px; pointer-events: none; z-index: 1;
   background: repeating-linear-gradient(180deg, rgba(239, 230, 211, .32) 0 7px, transparent 7px 13px);
@@ -118,6 +120,9 @@ body.started #start { opacity: 0; }
 .roster .name [lang=ja] { color: var(--muted); font-size: .86rem; margin-left: .45em; }
 .roster .n { font: 500 .9rem/1 var(--gothic); font-variant-numeric: tabular-nums; min-width: 2.4em; text-align: right; }
 .roster .gone .name, .roster .gone .n { color: var(--faint); }
+.roster .members { list-style: none; margin: 0 0 .4rem 38px; padding: 0; display: flex; flex-wrap: wrap; gap: 2px 12px; }
+.roster .members button { display: inline-flex; width: auto; grid-template-columns: none; gap: 6px; padding: 2px 4px 2px 0; font: 400 .86rem/1.3 var(--mincho); color: var(--muted); }
+.roster .members .swatch { width: 12px; height: 12px; }
 .sep { font: 500 .72rem/1.3 var(--gothic); color: var(--faint); letter-spacing: .12em; text-transform: uppercase; margin: 1.5rem 0 .5rem; }
 .local { display: flex; gap: 11px; align-items: center; margin-top: .7rem; padding-left: 3px; font-size: .85rem; line-height: 1.45; color: var(--muted); }
 .local .swatch { flex: none; }
@@ -157,10 +162,16 @@ body.started #start { opacity: 0; }
 .chip:hover { background: rgba(239, 230, 211, .06); }
 .chip .swatch { width: 18px; height: 18px; }
 .chip .won { font: 500 .66rem/1 var(--gothic); letter-spacing: .12em; text-transform: uppercase; border: 1px dashed rgba(239, 230, 211, .5); padding: 3px 5px 2px; border-radius: 2px; }
+/* a print stitched onto the lining: cream mount, a running stitch around it */
+.plate { margin: 1.2rem 0 0; padding: 7px; background: #e9e0cc; position: relative; }
+.plate::after { content: ''; position: absolute; inset: -6px; border: 1.5px dashed rgba(239, 230, 211, .4); border-radius: 2px; pointer-events: none; }
+.plate img { display: block; width: 100%; height: auto; max-height: 300px; object-fit: cover; background: #d8cfba; }
+.plate.tall img { max-height: 340px; object-fit: contain; }
+.plate figcaption { font: 400 .7rem/1.4 var(--gothic); color: #5d5a66; margin-top: 6px; overflow-wrap: anywhere; }
 canvas.strip { display: block; width: 100%; height: 22px; border-radius: 2px; margin: .2rem 0 .8rem; }
 
 /* ---------- the woven band ---------- */
-#band { grid-column: 1 / -1; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 22px; padding: 10px 26px 12px 20px; background: var(--kachi); border-top: 1px solid rgba(239, 230, 211, .08); }
+#band { grid-column: 1 / -1; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 22px; padding: 10px 26px 12px 20px; background: repeating-linear-gradient(90deg, rgba(0, 0, 0, .12) 0 1px, transparent 1px 3px), var(--kachi); border-top: 1px solid rgba(239, 230, 211, .08); }
 #play { width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; position: relative; border: 1.5px dashed rgba(239, 230, 211, .6); transition: border-color .2s, background .2s; }
 #play:hover { border-color: var(--cream); background: rgba(239, 230, 211, .07); }
 #play svg { width: 18px; height: 18px; fill: var(--cream); }
@@ -174,9 +185,9 @@ body.playing #play .go { display: none; }
 #marks { position: absolute; left: 0; right: 0; top: 0; height: 24px; pointer-events: none; }
 #marks .t { position: absolute; bottom: 7px; transform: translateX(-50%); font: 500 .7rem/1 var(--gothic); color: var(--muted); white-space: nowrap; letter-spacing: .03em; }
 #marks .t::after { content: ''; position: absolute; left: 50%; bottom: -7px; width: 1px; height: 6px; background: rgba(239, 230, 211, .7); }
-#marks .w { position: absolute; bottom: 0; width: 5px; height: 5px; margin-left: -2.5px; background: var(--war); transform: rotate(45deg); }
-#head { position: absolute; top: 18px; height: 58px; width: 2px; margin-left: -1px; background: var(--cream); pointer-events: none; box-shadow: 0 0 0 1px rgba(11, 21, 41, .7); }
-#head::before { content: ''; position: absolute; left: 50%; top: -3px; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: var(--cream); box-shadow: 0 0 0 2px var(--kachi); }
+#marks .w { position: absolute; bottom: 0; width: 6px; height: 6px; margin-left: -3px; background: var(--war); transform: rotate(45deg); box-shadow: 0 0 0 1.5px var(--kachi); }
+#head { position: absolute; top: 25px; height: 50px; width: 2px; margin-left: -1px; background: var(--cream); pointer-events: none; box-shadow: 0 0 0 1px rgba(19, 21, 47, .7); }
+#head::before { content: ''; position: absolute; left: 50%; top: -6px; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: var(--cream); box-shadow: 0 0 0 2px var(--kachi); }
 
 @media (max-width: 860px) {
   body { grid-template-columns: 1fr; grid-template-rows: 62vh auto auto; overflow: auto; }
@@ -185,6 +196,7 @@ body.playing #play .go { display: none; }
   #seam { display: none; }
   #band { gap: 14px; padding: 10px 16px 12px; }
   #ticks .minor, #marks .t { display: none; }
+  #marks .w { width: 4px; height: 4px; margin-left: -2px; box-shadow: none; opacity: .8; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before { animation-duration: .01ms !important; transition-duration: .01ms !important; }
@@ -198,6 +210,7 @@ body.playing #play .go { display: none; }
     <p id="year">1467</p>
     <p id="era"></p>
     <p id="phase"></p>
+    <p id="approx">Each province shows the power that dominated it: an approximation, since many were shared.</p>
     <p id="start">Press play, or drag the woven band, to move through the years.</p>
   </div>
   <div id="flash" aria-hidden="true"><div class="ja"></div><div class="en"></div></div>
@@ -219,6 +232,7 @@ body.playing #play .go { display: none; }
 </footer>
 <script src="data/provinces.js"></script>
 <script src="data/history.js"></script>
+<script src="data/images.js"></script>
 <script src="model.js"></script>
 <script src="app.js"></script>
 </body>

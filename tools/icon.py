@@ -1,5 +1,5 @@
 """Renders icon.png (256 px) and icon.ico for the exe from an SVG drawn in the app's own world:
-indigo cloth, a disc dyed in two clans' colours as kasuri stripes, a sashiko ring, and the red cross-stitch of war.
+indigo cloth, a disc dyed in two clans' colours as kasuri stripes, and a sashiko ring.
 Run: python tools/icon.py"""
 import os
 from playwright.sync_api import sync_playwright
@@ -8,7 +8,7 @@ from PIL import Image
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
 <defs>
-  <radialGradient id="g" cx="50%" cy="45%" r="70%"><stop offset="0" stop-color="#1d3a6a"/><stop offset="1" stop-color="#0b1529"/></radialGradient>
+  <radialGradient id="g" cx="50%" cy="45%" r="70%"><stop offset="0" stop-color="#2a3170"/><stop offset="1" stop-color="#13152f"/></radialGradient>
   <pattern id="k" patternUnits="userSpaceOnUse" width="44" height="44" patternTransform="rotate(38)">
     <rect width="22" height="44" fill="#dc9a2a"/><rect x="22" width="22" height="44" fill="#3d7a58"/>
   </pattern>
@@ -18,8 +18,6 @@ SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="25
   <rect width="256" height="256" fill="url(#g)"/>
   <circle cx="128" cy="128" r="74" fill="url(#k)"/>
   <circle cx="128" cy="128" r="94" fill="none" stroke="#efe6d3" stroke-width="7" stroke-dasharray="17 12" stroke-linecap="round"/>
-  <path d="M100 100L156 156M156 100L100 156" stroke="#efe6d3" stroke-width="26" stroke-linecap="round"/>
-  <path d="M100 100L156 156M156 100L100 156" stroke="#d65a3c" stroke-width="15" stroke-linecap="round"/>
 </g></svg>"""
 
 with sync_playwright() as p:

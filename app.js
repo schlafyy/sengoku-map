@@ -57,9 +57,19 @@
     const key = h.map(x => x || 'none').join('-');
     if (!splitIds.has(key)) {
       const id = 'split-' + key;
-      const pat = el('pattern', { id, patternUnits: 'userSpaceOnUse', width: 9, height: 9, patternTransform: 'rotate(38)' }, defs);
-      el('rect', { width: 4.5, height: 9, fill: `url(#dye-${h[0] || 'none'})` }, pat);
-      el('rect', { x: 4.5, width: 4.5, height: 9, fill: `url(#dye-${h[1] || 'none'})` }, pat);
+      const W = 22, pat = el('pattern', { id, patternUnits: 'userSpaceOnUse', width: W, height: W, patternTransform: 'rotate(38)' }, defs);
+      el('rect', { width: W, height: W, fill: `url(#dye-${h[0] || 'none'})` }, pat);
+      // each band of threads was dyed out of register: the edge jumps sideways every few threads, and a half-dyed
+      // feather runs past it, the blur that gives kasuri its name
+      const L = [0, 2.6, .8, 3.2, 1.4, 2.9, .3, 2], R = [1.8, 0, 3, 1, 2.4, .5, 3.2, 1.2], step = W / 8;
+      let d = '', f = '';
+      for (let i = 0; i < 8; i++) {
+        const y0 = i * step, y1 = y0 + step + .03, l = 9.5 + L[i], r = 19.5 + R[i];
+        d += `M${l} ${y0}H${r}V${y1}H${l}Z`;
+        f += `M${l - 1.6} ${y0 + step * .3}H${l}V${y0 + step * .7}H${l - 1.6}ZM${r} ${y0 + step * .2}H${r + 1.8}V${y0 + step * .6}H${r}Z`;
+      }
+      el('path', { d: f, fill: `url(#dye-${h[1] || 'none'})`, opacity: .55 }, pat);
+      el('path', { d, fill: `url(#dye-${h[1] || 'none'})` }, pat);
       splitIds.set(key, `url(#${id})`);
     }
     return splitIds.get(key);
@@ -84,9 +94,11 @@
 
   // the indigo is lighter near the coasts, where the resist paste kept the dye from biting deep
   const glow = el('filter', { id: 'glow', x: '-10%', y: '-10%', width: '120%', height: '120%' }, defs);
-  el('feGaussianBlur', { stdDeviation: 7 }, glow);
+  el('feTurbulence', { type: 'fractalNoise', baseFrequency: .035, numOctaves: 2, seed: 4, result: 'n' }, glow);
+  el('feDisplacementMap', { in: 'SourceGraphic', in2: 'n', scale: 16, result: 'd' }, glow);
+  el('feGaussianBlur', { in: 'd', stdDeviation: 6 }, glow);
   const coast = el('g', { id: 'coast', filter: 'url(#glow)', opacity: .9 }, svg);
-  for (const id of allLand) el('use', { href: '#' + id, fill: 'none', stroke: '#2f5a94', 'stroke-width': 9 }, coast);
+  for (const id of allLand) el('use', { href: '#' + id, fill: 'none', stroke: '#3a4f95', 'stroke-width': 10 }, coast);
   const ezo = el('g', { id: 'ezo' }, svg);
   for (const id of ezoIds) el('use', { href: '#' + id }, ezo);
 
@@ -98,17 +110,25 @@
   }
   // dye never takes evenly: a mottled noise over all the land, multiplied in
   {
-    const cv = document.createElement('canvas'), N = 160;
+    const cv = document.createElement('canvas'), N = 256;
     cv.width = cv.height = N;
     const cx = cv.getContext('2d'), img = cx.createImageData(N, N);
+    const octave = cells => { // a wrapping grid of random values, smoothly interpolated
+      const g = Array.from({ length: cells * cells }, Math.random), at = (i, j) => g[(j % cells) * cells + (i % cells)];
+      return (x, y) => {
+        const fx = x / N * cells, fy = y / N * cells, i = Math.floor(fx), j = Math.floor(fy);
+        const u = (fx - i) ** 2 * (3 - 2 * (fx - i)), v = (fy - j) ** 2 * (3 - 2 * (fy - j));
+        return (at(i, j) * (1 - u) + at(i + 1, j) * u) * (1 - v) + (at(i, j + 1) * (1 - u) + at(i + 1, j + 1) * u) * v;
+      };
+    };
+    const o = [octave(4), octave(9), octave(23), octave(64)], w = [.45, .3, .17, .08];
     for (let i = 0; i < N * N; i++) {
-      const x = i % N, y = i / N | 0;
-      const v = 200 + 40 * Math.sin(x * .09 + Math.sin(y * .05) * 2) * Math.cos(y * .07) + Math.random() * 25;
+      const x = i % N, y = i / N | 0, v = 178 + 77 * o.reduce((s, f, k) => s + f(x, y) * w[k], 0);
       img.data.set([v, v, v, 255], i * 4);
     }
     cx.putImageData(img, 0, 0);
-    const pat = el('pattern', { id: 'mottle-pat', patternUnits: 'userSpaceOnUse', width: 60, height: 60 }, defs);
-    el('image', { href: cv.toDataURL(), width: 60, height: 60 }, pat);
+    const pat = el('pattern', { id: 'mottle-pat', patternUnits: 'userSpaceOnUse', width: 230, height: 230 }, defs);
+    el('image', { href: cv.toDataURL(), width: 230, height: 230 }, pat);
     const clip = el('clipPath', { id: 'landclip' }, defs);
     for (const p of PIDS) for (const id of shapeIds[p]) el('use', { href: '#' + id }, clip);
     el('rect', { id: 'mottle', x: -100, y: -100, width: 1000, height: 1000, fill: 'url(#mottle-pat)', 'clip-path': 'url(#landclip)' }, svg);
@@ -132,20 +152,29 @@
   // ---------- painting a year ----------
 
   let shown = {}; // province -> fill currently painted
-  const sameHolder = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+  const ghosts = {}; // province -> the soak still running over it
   function paintMap(animate) {
     const st = stateAt(year), prev = stateAt(Math.max(START, year - 1));
     for (const p of PIDS) {
       const f = fillOf(st[p]);
       if (shown[p] === f) continue;
-      if (animate && shown[p] && !reduced) soakIn(p, f, prev, st[p]);
-      else for (const u of provG[p].children) u.setAttribute('fill', f);
+      ghosts[p]?.();
+      const old = shown[p];
+      for (const u of provG[p].children) u.setAttribute('fill', f);
       shown[p] = f;
+      if (animate && old && !reduced && Object.keys(ghosts).length < 30) soakIn(p, old, prev, st[p]);
     }
   }
+  // the dye front wicks through the fibres instead of drawing a clean circle
+  {
+    const wick = el('filter', { id: 'wick', x: '-30%', y: '-30%', width: '160%', height: '160%' }, defs);
+    el('feTurbulence', { type: 'fractalNoise', baseFrequency: .09, numOctaves: 3, seed: 9, result: 'n' }, wick);
+    el('feDisplacementMap', { in: 'SourceGraphic', in2: 'n', scale: 11 }, wick);
+  }
 
-  // the signature: the new dye soaks across the province from the conqueror's side while the old one stays beneath
-  function soakIn(p, fill, prev, holder) {
+  // the signature: the new dye soaks across the province from the conqueror's side; ahead of the front the old dye
+  // lingers as a ghost, fading as it goes
+  function soakIn(p, oldFill, prev, holder) {
     const conq = (Array.isArray(holder) ? holder : [holder]).find(c => c && !holders(prev[p]).includes(c));
     let src = center(p), best = Infinity;
     if (conq) for (const q of PIDS) {
@@ -156,22 +185,26 @@
     const id = 'mask-' + p + '-' + Date.now();
     const mask = el('mask', { id, maskUnits: 'userSpaceOnUse', x: -200, y: -200, width: 1200, height: 1200 }, defs);
     const grad = el('radialGradient', { id: id + 'g' }, defs);
-    el('stop', { offset: '78%', 'stop-color': '#fff' }, grad);
-    el('stop', { offset: '100%', 'stop-color': '#fff', 'stop-opacity': 0 }, grad);
-    const circ = el('circle', { cx: src[0], cy: src[1], r: 0, fill: `url(#${id}g)` }, mask);
+    el('stop', { offset: '72%', 'stop-color': '#000' }, grad);
+    el('stop', { offset: '100%', 'stop-color': '#000', 'stop-opacity': 0 }, grad);
+    el('rect', { x: -200, y: -200, width: 1200, height: 1200, fill: '#fff' }, mask);
+    const circ = el('circle', { cx: src[0], cy: src[1], r: 0, fill: `url(#${id}g)`, filter: 'url(#wick)' }, mask);
     const g = el('g', { mask: `url(#${id})` }, soak);
-    for (const s of shapeIds[p]) el('use', { href: '#' + s, fill }, g);
+    for (const s of shapeIds[p]) el('use', { href: '#' + s, fill: oldFill }, g);
     const box = provG[p].getBBox();
     const far = Math.max(...[[box.x, box.y], [box.x + box.width, box.y], [box.x, box.y + box.height], [box.x + box.width, box.y + box.height]]
       .map(([x, y]) => Math.hypot(x - src[0], y - src[1]))) * 1.3;
     const near = best === Infinity ? 0 : Math.max(0, Math.hypot(P[p].cx - src[0], P[p].cy - src[1]) - Math.max(box.width, box.height) * .7);
-    const t0 = performance.now(), dur = 1100;
+    const t0 = performance.now(), dur = 1600;
+    const end = () => { g.remove(); mask.remove(); grad.remove(); if (ghosts[p] === end) delete ghosts[p]; };
+    ghosts[p] = end;
     const step = t => {
-      const k = Math.min(1, Math.max(0, (t - t0) / dur)) /* the first frame's time can predate t0 */, e = 1 - Math.pow(2, -10 * k);
+      if (!g.isConnected) return;
+      const k = Math.min(1, Math.max(0, (t - t0) / dur)) /* the first frame's time can predate t0 */, e = 1 - (1 - k) ** 3; // dye spreads fast, then slowly
       circ.setAttribute('r', near + (far - near) * e);
-      if (k < 1 && g.isConnected) return requestAnimationFrame(step);
-      for (const u of provG[p].children) u.setAttribute('fill', shown[p]);
-      g.remove(); mask.remove(); grad.remove();
+      g.setAttribute('opacity', k < .45 ? 1 : 1 - (k - .45) / .55); // the old dye fades as the new one takes
+      if (k < 1) return requestAnimationFrame(step);
+      end();
     };
     requestAnimationFrame(step);
   }
@@ -187,13 +220,22 @@
       }
     }
     const placed = [], hits = (a, b) => a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
+    for (const b of battles.children) { const [, x, y] = b.getAttribute('transform').match(/([-\d.]+) ([-\d.]+)/).map(Number); placed.push({ x: x - 7, y: y - 7, width: 14, height: 14 }); }
+    for (const s of stitches.querySelectorAll('.stitch:not(.under)')) {
+      const len = s.getTotalLength();
+      for (let d = 0; d < len; d += 8) { const q = s.getPointAtLength(d); placed.push({ x: q.x - 2, y: q.y - 2, width: 4, height: 4 }); }
+    }
+    const scale = svg.getScreenCTM()?.a || 1; // map units to screen pixels
     for (const [c, s] of Object.entries(sums).sort((a, b) => b[1].n - a[1].n)) {
       if (s.n < 2) continue;
       const size = Math.min(17, 7 + Math.sqrt(s.n) * 2.6), x = s.x / s.n;
       const t = el('text', { class: 'clan-label', x, 'text-anchor': 'middle', 'font-size': size, 'stroke-width': size * .32, 'font-weight': 700 }, labels);
       t.textContent = CLANS[c].en.replace(/ \(.*/, '');
-      const j = el('tspan', { x, dy: size * .95, 'font-size': size * .6, 'font-weight': 400, 'letter-spacing': size * .12 }, t);
-      j.textContent = CLANS[c].ja;
+      const kanji = Math.max(size * .6, 10.5 / scale); // at least 10.5 px on screen, or not at all
+      if (kanji <= size * .85) {
+        const j = el('tspan', { x, dy: size * .7 + kanji * .9, 'font-size': kanji, 'font-weight': 400, 'letter-spacing': kanji * .14 }, t);
+        j.textContent = CLANS[c].ja;
+      }
       let ok = false;
       for (const dy of [0, -size * 1.3, size * 1.3, -size * 2.4, size * 2.4]) {
         t.setAttribute('y', s.y / s.n + dy);
@@ -247,12 +289,21 @@
       const g = el('g', { class: 'battle' + (age === 0 ? ' now' : '') + (sel?.type === 'event' && sel.id === e.id ? ' sel' : ''), transform: `translate(${X} ${Y})`, opacity: [1, .75, .55, .4][age], tabindex: 0, role: 'button', 'aria-label': `${e.en}, ${e.year}` }, battles);
       g.dataset.e = e.id;
       el('circle', { class: 'ring', r: 2 }, g);
-      el('circle', { class: 'hit', r: 9 }, g);
-      const s = e.kind === 'battle' ? 4.2 : 3;
-      const cross = `M${-s} ${-s}L${s} ${s}M${s} ${-s}L${-s} ${s}`;
-      el('path', { class: 'x-under', d: cross, 'vector-effect': 'non-scaling-stroke' }, g);
-      el('path', { class: 'x', d: cross, 'vector-effect': 'non-scaling-stroke' }, g);
+      el('circle', { class: 'hit', r: 10 }, g);
+      g.insertAdjacentHTML('beforeend', stitchMark(e.kind === 'battle' ? 6 : 4.4));
     }
+  }
+
+  // a cross-stitch in red thread: the top stitch whole, the under stitch broken where it passes beneath, a sheen on each
+  function stitchMark(s) {
+    const top = `M${-s} ${-s * .82}L${s} ${s * .9}`;
+    const under = `M${s * .92} ${-s}L${s * .22} ${-s * .18}M${-s * .2} ${s * .22}L${-s * .88} ${s * .95}`;
+    const sheen = d => `<path d="${d}" stroke="#ffb29e" stroke-width="${s * .12}" stroke-linecap="round" opacity=".75" transform="translate(${-s * .08} ${-s * .08})"/>`;
+    // where the thread goes down into the cloth: a small hole at each end of each stitch
+    const holes = [[-s, -s * .82], [s, s * .9], [s * .92, -s], [-s * .88, s * .95]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="${s * .2}" fill="#13152f"/>`).join('');
+    return `<path class="x-under" d="${top}${under}" stroke-width="${s * .78}"/>` +
+      `<path class="x" d="${under}" stroke-width="${s * .42}" style="stroke:#b8402b"/>` +
+      `<path class="x" d="${top}" stroke-width="${s * .42}"/>${sheen(top)}${holes}`;
   }
 
   function paintWhen() {
@@ -275,9 +326,11 @@
   function renderRoster() {
     const cnt = counts(stateAt(year));
     const now = Object.keys(cnt).sort((a, b) => cnt[b] - cnt[a] || CLANS[a].en.localeCompare(CLANS[b].en));
-    const fallen = Object.keys(seenBy).filter(c => seenBy[c] <= year && lastHeld(c) < year).sort((a, b) => lastHeld(b) - lastHeld(a));
+    const inCamp = c => year === 1600 && Object.values(CAMPS_1600).flat().includes(c);
+    const fallen = Object.keys(seenBy).filter(c => seenBy[c] <= year && lastHeld(c) < year && !inCamp(c)).sort((a, b) => lastHeld(b) - lastHeld(a));
     const local = Object.values(stateAt(year)).filter(h => h == null || (Array.isArray(h) && h.includes(null))).length;
-    const row = (c, gone) => `<li><button data-clan="${c}" class="${gone ? 'gone' : ''}">${gone ? '<span class="swatch empty" aria-hidden="true"></span>' : swatch(c)}<span class="name">${clanName(c)}</span><span class="n">${gone ? lastHeld(c) : fmt(cnt[c])}</span></button></li>`;
+    const members = c => CAMPS_1600[c] && year === 1600 ? `<li><ul class="members" aria-label="Houses of the ${CLANS[c].en}">${CAMPS_1600[c].map(m => `<li><button data-clan="${m}">${swatch(m)}${esc(CLANS[m].en)}</button></li>`).join('')}</ul></li>` : '';
+    const row = (c, gone) => `<li><button data-clan="${c}" class="${gone ? 'gone' : ''}">${gone ? '<span class="swatch empty" aria-hidden="true"></span>' : swatch(c)}<span class="name">${clanName(c)}</span><span class="n">${gone ? lastHeld(c) : fmt(cnt[c])}</span></button></li>${gone ? '' : members(c)}`;
     side.innerHTML = `<h2>The great houses<span class="count">${year}</span></h2>
       <ol class="roster" aria-label="Clans ranked by provinces held">${now.map(c => row(c, false)).join('')}</ol>
       <p class="local"><span class="swatch none" aria-hidden="true"></span>${local} of 68 provinces split among local lords</p>
@@ -290,8 +343,18 @@
     if (c in lastHeldCache) return lastHeldCache[c];
     let last = null;
     STATES.forEach((s, i) => { if (Object.values(s).some(h => holders(h).includes(c))) last = START + i; });
+    if (Object.values(CAMPS_1600).flat().includes(c) && last === 1599) last = 1600; // held land under an army in 1600
     return (lastHeldCache[c] = last);
   }
+
+  // a picture from the article, mounted like a print stitched onto the lining, with its author and licence
+  const plate = key => {
+    const im = typeof IMAGES !== 'undefined' && IMAGES[key];
+    if (!im) return '';
+    const tall = im.h > im.w * 1.1;
+    return `<figure class="plate${tall ? ' tall' : ''}"><img src="${im.src}" alt="${esc(im.desc || im.file.replace(/\.\w+$/, '').replace(/_/g, ' '))}" width="${im.w}" height="${im.h}" loading="lazy" decoding="async">` +
+      `<figcaption>${esc(im.artist || 'Unknown')} · ${esc(im.licence)} · Wikimedia Commons</figcaption></figure>`;
+  };
 
   const back = () => `<button class="back" data-act="back"><svg viewBox="0 0 8 10" aria-hidden="true"><path d="M8 0v10L0 5z"/></svg>All clans in ${year}</button>`;
 
@@ -301,6 +364,7 @@
     const als = ALLIANCES.filter(a => a[3].includes(c));
     side.innerHTML = `${back()}
       <div class="head">${swatch(c)}<h3>${esc(k.en)}<span lang="ja">${k.ja}</span></h3></div>
+      ${plate('clan:' + c)}
       <p class="sub">${esc(k.title)} · ${cnt ? `${fmt(cnt)} province${cnt === 1 ? '' : 's'} in ${year}` : seenBy[c] && seenBy[c] > year ? `holds land from ${seenBy[c]}` : lastHeld(c) ? `last held land in ${lastHeld(c)}` : 'no land of its own'}</p>
       <p class="lede">${esc(k.short)}</p>
       <button class="more" data-act="more" aria-expanded="false">Read the full story</button>
@@ -329,7 +393,8 @@
     const e = EVENTS.find(x => x.id === id), era = eraOf(e.year, ERAS);
     const sides = [...new Set((e.sides || []).filter(Boolean))];
     side.innerHTML = `${back()}
-      <div class="head"><svg class="swatch" viewBox="0 0 40 40" aria-hidden="true" style="box-shadow:none"><path d="M10 10L30 30M30 10L10 30" stroke="#efe6d3" stroke-width="8" stroke-linecap="round"/><path d="M10 10L30 30M30 10L10 30" stroke="#d65a3c" stroke-width="4.5" stroke-linecap="round"/></svg><h3>${esc(e.en)}<span lang="ja">${e.ja}</span></h3></div>
+      <div class="head"><svg class="swatch mark" viewBox="-20 -20 40 40" aria-hidden="true" style="box-shadow:none">${stitchMark(13)}</svg><h3>${esc(e.en)}<span lang="ja">${e.ja}</span></h3></div>
+      ${plate('event:' + e.id)}
       <p class="sub">${e.year} · ${era.en} ${era.n} · ${esc(P[e.at].en)} <span lang="ja">${P[e.at].ja}</span></p>
       ${sides.length ? `<div class="sides">${sides.map(c => `<button class="chip" data-clan="${c}">${swatch(c)}${clanName(c)}${e.winner === c ? '<span class="won">Won</span>' : ''}</button>`).join('')}</div>` : ''}
       <p class="lede">${esc(e.short)}</p>
@@ -374,9 +439,9 @@
         y += h;
       }
       // the weft: every other column a shade darker, like threads passing under
-      if (i % 2) { cx.fillStyle = 'rgba(11,21,41,.16)'; cx.fillRect(x0, 0, x1 - x0, H); }
+      if (i % 2) { cx.fillStyle = 'rgba(19,21,47,.16)'; cx.fillRect(x0, 0, x1 - x0, H); }
     }
-    for (let y = 0; y < H; y += 3 * dpr) { cx.fillStyle = 'rgba(11,21,41,.13)'; cx.fillRect(0, y, W, dpr); } // the warp
+    for (let y = 0; y < H; y += 3 * dpr) { cx.fillStyle = 'rgba(19,21,47,.13)'; cx.fillRect(0, y, W, dpr); } // the warp
   }
   function drawStrip(cv, p) {
     const r = cv.getBoundingClientRect(), dpr = devicePixelRatio || 1;
@@ -408,8 +473,8 @@
     if (y === year && shown.owari) return;
     const step = y - year;
     year = y;
-    paintMap(animate && step === 1);
-    paintLabels(); paintStitches(); paintBattles(); paintWhen();
+    paintMap(animate && step > 0 && step <= 3);
+    paintStitches(); paintBattles(); paintLabels(); paintWhen();
     $('#head').style.left = xOf(year) * 100 + '%';
     loom.setAttribute('aria-valuenow', year);
     loom.setAttribute('aria-valuetext', `${year}, ${phaseOf(year, PHASES).en}`);
@@ -449,7 +514,7 @@
   const yearAtX = x => { const r = weave.getBoundingClientRect(); return START + Math.floor((x - r.left) / r.width * (END - START + 1)); };
   loom.addEventListener('pointerdown', e => {
     stop(); document.body.classList.add('started'); loom.setPointerCapture(e.pointerId); setYear(yearAtX(e.clientX));
-    const move = ev => setYear(yearAtX(ev.clientX));
+    const move = ev => setYear(yearAtX(ev.clientX), true); // scrubbing forward soaks the dye in too
     const up = () => { loom.removeEventListener('pointermove', move); loom.removeEventListener('pointerup', up); };
     loom.addEventListener('pointermove', move); loom.addEventListener('pointerup', up);
   });
@@ -461,7 +526,7 @@
   });
   addEventListener('keydown', e => {
     if (e.key === ' ' && !e.target.closest('button')) { e.preventDefault(); timer ? stop() : play(); }
-    if (e.key === 'Escape' && sel) { sel = null; renderSide(); paintBattles(); }
+    if (e.key === 'Escape' && sel) { sel = null; renderSide(); paintBattles(); paintLabels(); }
   });
 
   // ---------- pointing at things ----------
@@ -480,13 +545,13 @@
   svg.addEventListener('click', e => {
     const b = e.target.closest('.battle'), g = e.target.closest('.prov');
     sel = b ? { type: 'event', id: b.dataset.e } : g ? { type: 'province', id: g.dataset.p } : null;
-    renderSide(); paintBattles();
+    renderSide(); paintBattles(); paintLabels();
   });
   battles.addEventListener('keydown', e => { if (e.key === 'Enter') e.target.dispatchEvent(new MouseEvent('click', { bubbles: true })); });
   side.addEventListener('click', e => {
     const b = e.target.closest('button');
     if (!b) return;
-    if (b.dataset.act === 'back') { sel = null; renderSide(); paintBattles(); return; }
+    if (b.dataset.act === 'back') { sel = null; renderSide(); paintBattles(); paintLabels(); return; }
     if (b.dataset.act === 'more') {
       const long = side.querySelector('.long'); long.hidden = !long.hidden;
       b.setAttribute('aria-expanded', !long.hidden); b.textContent = long.hidden ? 'Read the full story' : 'Show less';
@@ -497,7 +562,7 @@
     if (b.dataset.year) { stop(); setYear(+b.dataset.year); }
   });
 
-  addEventListener('resize', () => { drawWeave(); if (sel?.type === 'province') renderSide(); });
+  addEventListener('resize', () => { drawWeave(); paintLabels(); if (sel?.type === 'province') renderSide(); });
   document.fonts.ready.then(() => { drawWeave(); setYear(START); });
   drawWeave();
   year = START; setYear(START);

@@ -61,5 +61,13 @@ with sync_playwright() as p:
     pg.wait_for_timeout(1150)
     pg.screenshot(path=f"{out}/play-soak.png")
     pg.click("#play")
+    pg.focus("#loom"); pg.keyboard.press("Home")
+    for _ in range(1567 - 1467):
+        pg.keyboard.press("ArrowRight")
+    pg.wait_for_timeout(1500)
+    pg.keyboard.press("ArrowRight")  # 1568: Nobunaga marches on Kyoto, six provinces change hands
+    pg.wait_for_timeout(400)
+    pg.screenshot(path=f"{out}/mid-soak.png")
+    pg.wait_for_timeout(1500)
     print("errors:", errors or "none")
     b.close()
