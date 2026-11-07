@@ -1,0 +1,109 @@
+ok: 322 changes, 36 events, 43 clans
+140 INFO: PyInstaller: 6.22.3, contrib hooks: 2026.9
+140 INFO: Python: 3.11.9
+151 INFO: Platform: Windows-10-10.0.26200-SP0
+151 INFO: Python environment: C:\Users\ok3yd\AppData\Local\Programs\Python\Python311
+151 INFO: wrote D:\claudiu\projects\sengoku-map\Sengoku.spec
+159 INFO: Module search paths (PYTHONPATH):
+['C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Scripts\\pyinstaller.exe',
+ 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\python311.zip',
+ 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\DLLs',
+ 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib',
+ 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311',
+ 'C:\\Users\\ok3yd\\AppData\\Roaming\\Python\\Python311\\site-packages',
+ 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages',
+ 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\win32',
+ 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\win32\\lib',
+ 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\Pythonwin',
+ 'D:\\claudiu\\projects\\sengoku-map']
+541 INFO: Appending 'datas' from .spec
+543 INFO: checking Analysis
+543 INFO: Building Analysis because Analysis-00.toc is non existent
+543 INFO: Looking for Python shared library...
+543 INFO: Using Python shared library: C:\Users\ok3yd\AppData\Local\Programs\Python\Python311\python311.dll
+543 INFO: Running Analysis Analysis-00.toc
+543 INFO: Target bytecode optimization level: 0
+543 INFO: Initializing module dependency graph...
+544 INFO: Initializing module graph hook caches...
+606 INFO: Analyzing modules for base_library.zip ...
+1351 INFO: Processing standard module hook 'hook-heapq.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+1417 INFO: Processing standard module hook 'hook-encodings.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+2429 INFO: Processing standard module hook 'hook-math.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+2508 INFO: Processing standard module hook 'hook-pickle.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+3582 INFO: Caching module dependency graph...
+3607 INFO: Analyzing D:\claudiu\projects\sengoku-map\main.py
+3613 INFO: Processing standard module hook 'hook-webview.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\webview\\__pyinstaller'
+3669 INFO: Processing standard module hook 'hook-platform.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+3852 INFO: Processing standard module hook 'hook-webbrowser.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+4167 INFO: Processing standard module hook 'hook-multiprocessing.util.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+4244 INFO: Processing standard module hook 'hook-xml.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+4504 INFO: Processing standard module hook 'hook-_ctypes.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+4935 INFO: Processing standard module hook 'hook-jinja2.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+4949 INFO: Processing pre-safe-import-module hook 'hook-typing_extensions.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+4951 INFO: SetuptoolsInfo: initializing cached setuptools info...
+7980 INFO: Processing pre-safe-import-module hook 'hook-gi.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+8056 INFO: Processing standard module hook 'hook-clr.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\pythonnet\\_pyinstaller'
+8070 INFO: Processing standard module hook 'hook-clr_loader.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+8132 INFO: Processing standard module hook 'hook-pycparser.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+8247 INFO: Processing standard module hook 'hook-setuptools.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+8273 INFO: Processing pre-safe-import-module hook 'hook-distutils.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+8274 INFO: Processing pre-find-module-path hook 'hook-distutils.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_find_module_path'
+8541 INFO: Processing standard module hook 'hook-distutils.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+8569 INFO: Processing standard module hook 'hook-distutils.util.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+8628 INFO: Processing standard module hook 'hook-sysconfig.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+8663 INFO: Processing standard module hook 'hook-_osx_support.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+8694 INFO: Processing pre-safe-import-module hook 'hook-packaging.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+8927 INFO: Processing pre-safe-import-module hook 'hook-jaraco.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+8928 INFO: Setuptools: 'jaraco' appears to be a full setuptools-vendored copy - creating alias to 'setuptools._vendor.jaraco'!
+8941 INFO: Processing standard module hook 'hook-setuptools._vendor.jaraco.text.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+8942 INFO: Processing pre-safe-import-module hook 'hook-importlib_resources.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+8955 INFO: Processing pre-safe-import-module hook 'hook-more_itertools.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+8956 INFO: Setuptools: 'more_itertools' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.more_itertools'!
+9147 INFO: Processing pre-safe-import-module hook 'hook-backports.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+9147 INFO: Setuptools: 'backports' appears to be a full setuptools-vendored copy - creating alias to 'setuptools._vendor.backports'!
+9299 INFO: Processing pre-safe-import-module hook 'hook-importlib_metadata.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+9300 INFO: Setuptools: 'importlib_metadata' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.importlib_metadata'!
+9332 INFO: Processing standard module hook 'hook-setuptools._vendor.importlib_metadata.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+9333 INFO: Processing pre-safe-import-module hook 'hook-zipp.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+9335 INFO: Setuptools: 'zipp' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.zipp'!
+9675 INFO: Processing pre-safe-import-module hook 'hook-tomli.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+9676 INFO: Setuptools: 'tomli' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.tomli'!
+10230 INFO: Processing pre-safe-import-module hook 'hook-wheel.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+10855 INFO: Processing standard module hook 'hook-xml.etree.cElementTree.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+10899 INFO: Processing module hooks (post-graph stage)...
+10899 WARNING: Hidden import "pycparser.lextab" not found!
+10900 WARNING: Hidden import "pycparser.yacctab" not found!
+11076 INFO: Processing standard module hook 'hook-difflib.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks'
+11730 INFO: Performing binary vs. data reclassification (40 entries)
+12128 INFO: Looking for ctypes DLLs
+12171 INFO: Analyzing run-time hooks ...
+12174 INFO: Including run-time hook 'pyi_rth_inspect.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+12175 INFO: Including run-time hook 'pyi_rth_pkgutil.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+12182 INFO: Including run-time hook 'pyi_rth_multiprocessing.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+12190 INFO: Including run-time hook 'pyi_rth_setuptools.py' from 'C:\\Users\\ok3yd\\AppData\\Local\\Programs\\Python\\Python311\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+12201 INFO: Creating base_library.zip...
+12211 INFO: Looking for dynamic libraries
+12655 INFO: Extra DLL search directories (AddDllDirectory): []
+12655 INFO: Extra DLL search directories (PATH): []
+12855 INFO: Warnings written to D:\claudiu\projects\sengoku-map\build\Sengoku\warn-Sengoku.txt
+12891 INFO: Graph cross-reference written to D:\claudiu\projects\sengoku-map\build\Sengoku\xref-Sengoku.html
+12907 INFO: checking PYZ
+12907 INFO: Building PYZ because PYZ-00.toc is non existent
+12907 INFO: Building PYZ (ZlibArchive) D:\claudiu\projects\sengoku-map\build\Sengoku\PYZ-00.pyz
+13278 INFO: Building PYZ (ZlibArchive) D:\claudiu\projects\sengoku-map\build\Sengoku\PYZ-00.pyz completed successfully.
+13289 INFO: checking PKG
+13289 INFO: Building PKG because PKG-00.toc is non existent
+13289 INFO: Building PKG (CArchive) Sengoku.pkg
+14928 INFO: Building PKG (CArchive) Sengoku.pkg completed successfully.
+14929 INFO: Bootloader C:\Users\ok3yd\AppData\Local\Programs\Python\Python311\Lib\site-packages\PyInstaller\bootloader\Windows-64bit-intel\runw.exe
+14929 INFO: checking EXE
+14930 INFO: Building EXE because EXE-00.toc is non existent
+14930 INFO: Building EXE from EXE-00.toc
+14930 INFO: Copying bootloader EXE to D:\claudiu\projects\sengoku-map\dist\Sengoku.exe
+14958 INFO: Copying icon to EXE
+14987 INFO: Copying 0 resources to EXE
+14987 INFO: Embedding manifest in EXE
+15011 INFO: Appending PKG archive to EXE
+15052 INFO: Fixing EXE headers
+15212 INFO: Building EXE from EXE-00.toc completed successfully.
+15214 INFO: Build complete! The results are available in: D:\claudiu\projects\sengoku-map\dist
