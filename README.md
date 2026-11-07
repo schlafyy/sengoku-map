@@ -61,23 +61,40 @@ Smaller notes were also added: the Mount Hiei excavations and the Portuguese gun
 
 **Fetching from Wikimedia:** it throttles automated downloads (HTTP 429). The fetch scripts resume where they stopped and wait 5 seconds between requests. If they get blocked, let them rest for half an hour before trying again.
 
-## Where we left off (2026-11-08)
+## Where we left off (2026-11-08, about 01:00)
 
-Done: the first build, two finish-review rounds (ship), the Wikipedia check of 1467–1603, pictures, crests, castles, following a life, the years to 1945, and zoom.
+Done:
+- the first build, reviewed (ship)
+- the Wikipedia check of 1467–1603
+- pictures, crests, castles, following a life, the years to 1945 and zoom
+- a finish review of those new features, and one batch of fixes (commit 6cb3b3a)
 
 Open, in order:
-1. **The late downloads.** A background job fetches the missing crests (Mōri, Ukita, Ōtomo, Ryūzōji, Shimazu, Sō, Date, Toyotomi, Maeda, Kobayakawa), the authors of 7 crests that came in without one, and pictures for the new events, the four new sides (the Saigō and Yoshinobu portraits) and three new castles. Its logs are `late-*.log` in the session scratchpad. If it didn't finish, run in order:
-   1. `tools/fetch_crests.py`
-   2. `tools/fetch_images.py`
-   3. `tools/fetch_castle_images.py`
-   4. `tools/shrink_images.py`
+1. **Verdict on the review fixes.** The reviewer's last list had 8 fixes, all applied, recaptures in `.impeccable/review/round3/`. The verdict pass was stopped (usage limit), so re-run the finish reviewer on round3.
+   - Known open item: some Commons crest SVGs are drawn as a light figure on a dark disc or square (the Hōjō one, for example), so the resist filter shows them as a cream tile. They need a per-file inversion flag in `data/crests.js`.
+2. **The late downloads.** A background job, started about 00:40, waits 30 minutes, then runs in turn:
+   1. `tools/fetch_crests.py`: the missing crests, plus the authors of 7 crests that came in without one;
+   2. `tools/fetch_images.py`: the new events, the 4 new sides, and the Saigō and Yoshinobu portraits;
+   3. `tools/fetch_castle_images.py`;
+   4. `tools/shrink_images.py`;
+   5. `tools/wiki_check.py`.
 
-   Then embed each new picture's origin with `impeccable embed-prompt`, re-run `tools/subset_fonts.py`, and rebuild.
-2. **Wikipedia check of 1604–1945.** Run `tools/wiki_check.py` and compare the new events and people the same way as before.
-3. **Design review of tonight's features:** crests, castles, lives, the later years, zoom. Then update DESIGN.md, which describes only the first build.
-4. **The landmarks map (user's idea).** A switch to a second map with nothing about wars or dynasties: the country's landmarks (temples, shrines, mountains, castles, natural sites), each with a photo and a short text, over a map that shows the landforms (relief).
-   - **The plan:** georeference the province map by fitting a transform from known latitudes and longitudes of province centres to the map's own coordinates. Then place the landmarks by their coordinates, and warp public-domain Natural Earth shaded relief onto the map.
-5. **Ideas not started:** a search box, a phone version (Home Screen, like the reading app).
+   Its logs are `late-*.log` and `late-wiki.txt` in the session scratchpad. If it didn't finish, run the same steps by hand. Then:
+   - embed each new picture's origin with `impeccable embed-prompt`;
+   - re-run `tools/subset_fonts.py`;
+   - rebuild with `build.bat`.
+3. **Wikipedia check of 1604–1945** (`data/modern.js`), using `late-wiki.txt`, the same way as before.
+4. **The landmarks map (user's idea).** A switch to a map with no wars or dynasties: landmarks with a photo and info, over the landforms. The groundwork is done and committed, but none of it is wired in yet:
+   - `data/georef.js` converts between map positions and longitude/latitude (`tools/georef.py`; median error 3.8 map units).
+   - `images/relief.jpg` and `data/relief.js` hold Natural Earth shaded relief (public domain) warped onto the map (`tools/relief.py`; the source SR_HR.tif was downloaded to the scratchpad).
+   - `data/landmarks.js` has 52 landmarks with latitude/longitude, a kind, a text and a Wikipedia title for the photo.
+
+   To do: a History/Landmarks switch. In landmarks mode:
+   - Hide the band, battles, castles, alliances and clan labels.
+   - Show undyed land with the relief (clipped to the land) and the landmark marks by kind.
+   - Give each landmark a panel with its photo, fetched like the castle photos.
+5. **Update DESIGN.md** with tonight's features (run the documenter after the verdict).
+6. **Ideas not started:** a search box, a phone version (Home Screen, like the reading app).
 
 ## Credits
 
