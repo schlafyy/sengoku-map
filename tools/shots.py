@@ -69,5 +69,37 @@ with sync_playwright() as p:
     pg.wait_for_timeout(400)
     pg.screenshot(path=f"{out}/mid-soak.png")
     pg.wait_for_timeout(1500)
+    # following a life: Nobunaga in 1575, the year of Nagashino
+    pg.keyboard.press("Escape")
+    pg.focus("#loom"); pg.keyboard.press("Home")
+    for _ in range(1575 - 1467):
+        pg.keyboard.press("ArrowRight")
+    pg.wait_for_timeout(1200)
+    pg.click('.lives button[data-follow="nobunaga"]')
+    pg.wait_for_timeout(1000)
+    pg.screenshot(path=f"{out}/follow.png")
+    pg.click('.back[data-act="unfollow"]')
+    pg.wait_for_timeout(300)
+    # a castle's story
+    pg.click('.castle[data-c="odawara"]')
+    pg.wait_for_timeout(700)
+    pg.screenshot(path=f"{out}/castle.png")
+    # later years: jump by clicking the band where the year sits
+    pg.keyboard.press("Escape")
+    def jump(y):
+        x = pg.evaluate(f"(() => {{ const r = document.querySelector('#weave').getBoundingClientRect(); const h = document.querySelector('#head'); return null; }})()")
+        pg.focus("#loom"); pg.keyboard.press("End")
+        for _ in range(1945 - y):
+            pg.keyboard.press("ArrowLeft")
+        pg.wait_for_timeout(1300)
+    jump(1868); pg.screenshot(path=f"{out}/1868.png")
+    jump(1945); pg.screenshot(path=f"{out}/1945.png")
+    # zoom into the Kinai, around Kyoto, in 1582
+    jump(1582)
+    box = pg.eval_on_selector('.prov[data-p="yamashiro"]', "g => { const r = g.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; }")
+    for _ in range(6):
+        pg.mouse.move(*box); pg.mouse.wheel(0, -300); pg.wait_for_timeout(120)
+    pg.wait_for_timeout(800)
+    pg.screenshot(path=f"{out}/zoom.png")
     print("errors:", errors or "none")
     b.close()

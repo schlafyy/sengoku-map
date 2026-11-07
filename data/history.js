@@ -3,7 +3,7 @@
 // Holder: a clan id, [a, b] for a province split between two powers (null in the pair = local lords), or null when
 // no single power held it.
 
-const START = 1467, END = 1603;
+const START = 1467, END = 1945; // data/modern.js carries the years after 1603
 
 // Japanese era names (nengō); a year takes the era that began latest on or before it
 const ERAS = [

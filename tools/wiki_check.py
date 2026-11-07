@@ -20,6 +20,16 @@ EVENT_TITLES = {
     "shikoku": "Invasion of Shikoku (1585)", "kyushu": "Kyūshū Campaign", "suriagehara": "Battle of Suriagehara",
     "odawara": "Siege of Odawara (1590)", "korea": "Japanese invasions of Korea (1592–1598)",
     "hideyoshi_dies": "Toyotomi Hideyoshi", "sekigahara": "Battle of Sekigahara", "shogun": "Tokugawa shogunate",
+    "osaka": "Siege of Osaka", "sankin": "Sankin-kōtai", "shimabara": "Shimabara Rebellion", "sakoku": "Sakoku",
+    "meireki": "Great fire of Meireki", "ako": "Forty-seven rōnin", "hoei": "Hōei eruption", "tenmei": "Great Tenmei famine",
+    "oshio": "Ōshio Heihachirō", "perry": "Perry Expedition", "ansei": "Ansei Treaties", "sakuradamon": "Sakuradamon Incident (1860)",
+    "kagoshima": "Bombardment of Kagoshima", "shimonoseki": "Shimonoseki campaign", "taisei": "Taisei Hōkan", "toba": "Battle of Toba–Fushimi",
+    "edo1868": "Fall of Edo", "aizu": "Battle of Aizu", "hakodate": "Battle of Hakodate", "haihan": "Abolition of the han system",
+    "seinan": "Satsuma Rebellion", "constitution": "Meiji Constitution", "sinojapanese": "First Sino-Japanese War",
+    "tsushima1905": "Battle of Tsushima", "korea1910": "Japan–Korea Treaty of 1910", "kanto1923": "1923 Great Kantō earthquake",
+    "manchuria": "Mukden incident", "china1937": "Second Sino-Japanese War", "pearl": "Attack on Pearl Harbor",
+    "midway": "Battle of Midway", "tokyo1945": "Bombing of Tokyo (10 March 1945)", "okinawa": "Battle of Okinawa",
+    "atomic": "Atomic bombings of Hiroshima and Nagasaki", "surrender": "Surrender of Japan",
 }
 CLAN_TITLES = {"wtakeda": "Wakasa-Takeda clan", "ikko": "Ikkō-ikki", "hojo": "Late Hōjō clan", "east": None, "west": None,
                "tozama": "Tozama daimyō", "ashikaga": "Ashikaga shogunate", "takeda": "Takeda clan", "uesugi": "Uesugi clan"}
@@ -28,7 +38,7 @@ CLAN_TITLES = {"wtakeda": "Wakasa-Takeda clan", "ikko": "Ikkō-ikki", "hojo": "L
 def get(params):
     url = API + "?" + urllib.parse.urlencode({"format": "json", "formatversion": 2, **params})
     for attempt in range(6):
-        time.sleep(1.5)  # Wikipedia answers 429 to anything faster
+        time.sleep(5)  # Wikipedia answers 429 to anything faster
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=30) as r:
                 return json.load(r)
@@ -65,7 +75,7 @@ def search(term):
 
 
 def load_history():
-    js = "const fs=require('fs'),vm=require('vm'),c={};vm.createContext(c);vm.runInContext(fs.readFileSync('data/history.js','utf8'),c);" \
+    js = "const fs=require('fs'),vm=require('vm'),c={};vm.createContext(c);for(const f of ['data/history.js','data/places.js','data/modern.js'])vm.runInContext(fs.readFileSync(f,'utf8'),c);" \
          "console.log(vm.runInContext('JSON.stringify({CLANS,EVENTS})',c))"
     return json.loads(subprocess.run(["node", "-e", js], cwd=ROOT, capture_output=True, text=True, encoding="utf8").stdout)
 

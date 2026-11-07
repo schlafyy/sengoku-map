@@ -2,10 +2,12 @@
 const fs = require('fs'), assert = require('assert'), vm = require('vm');
 const ctx = {};
 vm.createContext(ctx);
-for (const f of ['data/provinces.js', 'data/history.js', 'data/images.js']) vm.runInContext(fs.readFileSync(__dirname + '/' + f, 'utf8'), ctx);
+for (const f of ['data/provinces.js', 'data/history.js', 'data/images.js', 'data/places.js', 'data/modern.js']) vm.runInContext(fs.readFileSync(__dirname + '/' + f, 'utf8'), ctx);
 // through JSON: arrays made inside the vm context fail deepStrictEqual against this realm's arrays
-const { GEO, START, END, ERAS, PHASES, DYES, CLANS, BASE, BASE_NOTES, CHANGES, EVENTS, ALLIANCES, CAMPS_1600 } = JSON.parse(
-  vm.runInContext('JSON.stringify({GEO, START, END, ERAS, PHASES, DYES, CLANS, BASE, BASE_NOTES, CHANGES, EVENTS, ALLIANCES, CAMPS_1600})', ctx));
+const { GEO, START, END, ERAS, PHASES, DYES, CLANS, BASE, BASE_NOTES, CHANGES, EVENTS, ALLIANCES, CAMPS_1600, BAND_WEIGHTS, EZO_HOLDERS } = JSON.parse(
+  vm.runInContext('JSON.stringify({GEO, START, END, ERAS, PHASES, DYES, CLANS, BASE, BASE_NOTES, CHANGES, EVENTS, ALLIANCES, CAMPS_1600, BAND_WEIGHTS, EZO_HOLDERS})', ctx));
+for (const [a, b, w] of BAND_WEIGHTS) assert(a <= b && w > 0 && w <= 1, `band weight ${a}`);
+for (const [y, h] of EZO_HOLDERS) assert(y >= START && (h === null || h in CLANS), `Ezo ${y}`);
 const M = require('./model.js');
 
 const provs = Object.keys(GEO.provinces);
@@ -39,12 +41,13 @@ for (const [id, c] of Object.entries(CLANS)) {
 }
 
 for (const e of EVENTS) {
-  assert(e.year >= START && e.year <= END && provs.includes(e.at), `event ${e.id}`);
+  assert(e.year >= START && e.year <= END && (provs.includes(e.at) || e.at === 'ezo'), `event ${e.id}`);
+  assert(!e.abroad || ['west', 'east', 'south'].includes(e.abroad), `event ${e.id}: abroad`);
   for (const s of e.sides || []) assert(s === null || s in CLANS, `event ${e.id}: side ${s}`);
   assert(!e.winner || e.winner in CLANS, `event ${e.id}: winner`);
   assert(e.short && e.long && e.en && e.ja, `event ${e.id}: text`);
 }
-assert.deepStrictEqual(EVENTS.filter(e => e.threshold).map(e => e.year), [1467, 1560, 1582, 1590, 1600]);
+assert.deepStrictEqual(EVENTS.filter(e => e.threshold).map(e => e.year), [1467, 1560, 1582, 1590, 1600, 1853, 1868, 1945]);
 for (const [id, from, to, clans, en, ja, short] of ALLIANCES) {
   assert(from <= to && clans.every(c => c in CLANS) && en && ja && short, `alliance ${id}`);
 }
@@ -54,8 +57,17 @@ for (const [k, m] of Object.entries(CAMPS_1600)) assert(k in CLANS && m.every(c 
 const IMAGES = JSON.parse(vm.runInContext('JSON.stringify(IMAGES)', ctx));
 for (const [k, im] of Object.entries(IMAGES)) {
   const [type, id] = k.split(':');
-  assert(type === 'clan' ? id in CLANS : EVENTS.some(e => e.id === id), `image for unknown ${k}`);
+  const castleIds = JSON.parse(vm.runInContext('JSON.stringify(CASTLES.map(c => c.id))', ctx));
+  assert(type === 'clan' ? id in CLANS : type === 'castle' ? castleIds.includes(id) : EVENTS.some(e => e.id === id), `image for unknown ${k}`);
   assert(fs.existsSync(__dirname + '/' + im.src) && im.licence && im.artist, `image ${k}: file, licence and author`);
+}
+
+const { CASTLES, PEOPLE } = JSON.parse(vm.runInContext('JSON.stringify({CASTLES, PEOPLE})', ctx));
+for (const c of CASTLES) assert(provs.includes(c.at) && c.from <= c.to && c.short && c.en && c.ja, `castle ${c.id}`);
+for (const p of PEOPLE) {
+  assert(p.born < p.died && p.portrait && p.short, `person ${p.id}`); // the portrait may still be downloading: the app shows the name alone
+  for (const [from, to, clan, how] of p.roles) assert(from <= to && clan in CLANS && ['leads', 'serves'].includes(how), `${p.id} role ${clan}`);
+  for (const [y, text, ev] of p.life) assert(y >= p.born && y <= p.died && text && (!ev || EVENTS.some(e => e.id === ev)), `${p.id} life ${y}`);
 }
 
 // the model
@@ -78,6 +90,10 @@ assert.strictEqual(M.kanjiYear(3), '三');
 assert.strictEqual(M.kanjiYear(10), '十');
 assert.strictEqual(M.kanjiYear(23), '二十三');
 assert.strictEqual(M.phaseOf(1582, PHASES).en, 'Hideyoshi unites the realm');
+assert.deepStrictEqual(M.eraOf(1868, ERAS), { en: 'Meiji', ja: '明治', n: 1 });
+assert.deepStrictEqual(M.eraOf(1945, ERAS), { en: 'Shōwa', ja: '昭和', n: 20 });
+assert.strictEqual(at(1700).settsu, 'tokugawa');
+assert.strictEqual(at(1900).satsuma, 'empire');
 // every clan appears somewhere: on the map, in an event or an alliance
 const used = new Set(states.flatMap(s => Object.values(s).flatMap(M.holders)));
 for (const e of EVENTS) (e.sides || []).forEach(c => c && used.add(c));

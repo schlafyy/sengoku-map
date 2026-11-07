@@ -589,5 +589,215 @@ const IMAGES = {
   "w": 640,
   "h": 830,
   "desc": "Portrait of Katō Kiyomasa."
+ },
+ "castle:edo": {
+  "src": "images/castle_edo.jpg",
+  "file": "Edo_P_detail.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Edo_P_detail.jpg",
+  "licence": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "w": 640,
+  "h": 434,
+  "desc": "Part of the left screen of a pair of six-panel folding screens, \"View of Edo\" (Edo zu), from the 17th century. Upper middle of first panel, left screen. Central enceinte of Edo Castle, Castle Tower, B"
+ },
+ "castle:odawara": {
+  "src": "images/castle_odawara.jpg",
+  "file": "Odawara-jo.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Odawara-jo.jpg",
+  "licence": "CC BY 4.0",
+  "artist": "Akonnchiroll",
+  "w": 640,
+  "h": 457,
+  "desc": "Odawara Castle in 2024"
+ },
+ "castle:kasugayama": {
+  "src": "images/castle_kasugayama.jpg",
+  "file": "Kasaugayama_Castle.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Kasaugayama_Castle.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "柴錬アワー",
+  "w": 640,
+  "h": 480,
+  "desc": "Kasaugayama Castle from Joetsu-shi Maizo Bunkazai Center"
+ },
+ "castle:tsutsujigasaki": {
+  "src": "images/castle_tsutsujigasaki.jpg",
+  "file": "躑躅ヶ崎館.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:%E8%BA%91%E8%BA%85%E3%83%B6%E5%B4%8E%E9%A4%A8.jpg",
+  "licence": "Public domain",
+  "artist": "前田左衛門佐",
+  "w": 640,
+  "h": 480,
+  "desc": "躑躅ヶ崎館"
+ },
+ "castle:sunpu": {
+  "src": "images/castle_sunpu.jpg",
+  "file": "Sunpu-castle_tatsumi-yagura.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Sunpu-castle_tatsumi-yagura.JPG",
+  "licence": "CC0",
+  "artist": "Saigen Jiro",
+  "w": 640,
+  "h": 425,
+  "desc": "駿府城 巽櫓"
+ },
+ "castle:okazaki": {
+  "src": "images/castle_okazaki.jpg",
+  "file": "Okazaki_Castle_2023.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Okazaki_Castle_2023.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Akonnchiroll",
+  "w": 640,
+  "h": 512,
+  "desc": "Okazaki Castle"
+ },
+ "castle:kiyosu": {
+  "src": "images/castle_kiyosu.jpg",
+  "file": "Kiyosu_Castle.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Kiyosu_Castle.JPG",
+  "licence": "CC BY-SA 3.0",
+  "artist": "de:Benutzer:Oliver Mayer",
+  "w": 640,
+  "h": 853,
+  "desc": "The castle of Kiyosu in Kiyosu, Aichi, Japan"
+ },
+ "castle:gifu": {
+  "src": "images/castle_gifu.jpg",
+  "file": "Gifu_Castle.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Gifu_Castle.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Alpsdake",
+  "w": 640,
+  "h": 429,
+  "desc": "Gifu Castle on Mount Kinka"
+ },
+ "castle:odani": {
+  "src": "images/castle_odani.jpg",
+  "file": "Odanij18.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Odanij18.jpg",
+  "licence": "Public domain",
+  "artist": "投稿者が撮影",
+  "w": 640,
+  "h": 480,
+  "desc": "大石垣"
+ },
+ "castle:azuchi": {
+  "src": "images/castle_azuchi.jpg",
+  "file": "近江国蒲生郡安土城之.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:%E8%BF%91%E6%B1%9F%E5%9B%BD%E8%92%B2%E7%94%9F%E9%83%A1%E5%AE%89%E5%9C%9F%E5%9F%8E%E4%B9%8B.jpg",
+  "licence": "Public domain",
+  "artist": "Iwasaki Ōu 岩崎鴎雨",
+  "w": 640,
+  "h": 473,
+  "desc": "Painting of Azuchi Castle in Gamō District, Ōmi Province (Ōmi-no-kuni Gamō-gun Azuchi-jō no zu) colours on silk 87.8 × 121.9 cm Osaka Castle Museum, Osaka, Japan. The text on the upper right reads: Th"
+ },
+ "castle:ichijodani": {
+  "src": "images/castle_ichijodani.jpg",
+  "file": "Asakura_Yakata_of_Ichijodani_Asakura_Family_Historic_Ruins02s3s4440.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Asakura_Yakata_of_Ichijodani_Asakura_Family_Historic_Ruins02s3s4440.jpg",
+  "licence": "CC BY 2.5",
+  "artist": "663highland",
+  "w": 640,
+  "h": 427,
+  "desc": "Asakura Yakata of Ichijōdani Asakura Family Historic Ruins in Fukui, Fukui prefecture, Japan."
+ },
+ "castle:honganji": {
+  "src": "images/castle_honganji.jpg",
+  "file": "大坂本願寺.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:%E5%A4%A7%E5%9D%82%E6%9C%AC%E9%A1%98%E5%AF%BA.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Takafuji",
+  "w": 640,
+  "h": 480,
+  "desc": "大坂本願寺"
+ },
+ "castle:osaka": {
+  "src": "images/castle_osaka.jpg",
+  "file": "Osaka_Castle_03bs3200.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Osaka_Castle_03bs3200.jpg",
+  "licence": "CC BY 2.5",
+  "artist": "663highland",
+  "w": 640,
+  "h": 427,
+  "desc": "Osaka Castle in Chuo-ku, Osaka, Osaka prefecture, Japan"
+ },
+ "castle:fushimi": {
+  "src": "images/castle_fushimi.jpg",
+  "file": "Fushimimomoyamajo_03.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Fushimimomoyamajo_03.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Maechan0360",
+  "w": 640,
+  "h": 480,
+  "desc": "伏見桃山城"
+ },
+ "castle:himeji": {
+  "src": "images/castle_himeji.jpg",
+  "file": "Himeji_castle_in_may_2015.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Himeji_castle_in_may_2015.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Nikos Kitsakis",
+  "w": 640,
+  "h": 427,
+  "desc": "Himeji castle in may 2015 after the five year renovation of the roof and walls."
+ },
+ "castle:gassantoda": {
+  "src": "images/castle_gassantoda.jpg",
+  "file": "月山.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:%E6%9C%88%E5%B1%B1.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "安来市政策秘書課",
+  "w": 640,
+  "h": 427,
+  "desc": "月山富田城跡"
+ },
+ "castle:koriyama": {
+  "src": "images/castle_koriyama.jpg",
+  "file": "Yoshida-kouriyama_Castle_Honmaru.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Yoshida-kouriyama_Castle_Honmaru.JPG",
+  "licence": "CC BY-SA 3.0",
+  "artist": "TT mk2",
+  "w": 640,
+  "h": 480,
+  "desc": "吉田郡山城跡の本丸周辺（安芸高田市）。画像手前が二の丸、中央が本丸、最奥部が本丸櫓台。"
+ },
+ "castle:oko": {
+  "src": "images/castle_oko.jpg",
+  "file": "Oko_Castle_11.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Oko_Castle_11.JPG",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Reggaeman",
+  "w": 640,
+  "h": 425,
+  "desc": "Okō-jō San-no-dan and stone wall"
+ },
+ "castle:nanao": {
+  "src": "images/castle_nanao.jpg",
+  "file": "Nanaojo-tyoudomaru.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Nanaojo-tyoudomaru.JPG",
+  "licence": "Public domain",
+  "artist": "tom-spring",
+  "w": 640,
+  "h": 480,
+  "desc": "七尾城跡調度丸"
+ },
+ "castle:kurokawa": {
+  "src": "images/castle_kurokawa.jpg",
+  "file": "若松城（鶴ヶ城）20220917-P1003471.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:%E8%8B%A5%E6%9D%BE%E5%9F%8E%EF%BC%88%E9%B6%B4%E3%83%B6%E5%9F%8E%EF%BC%8920220917-P1003471.jpg",
+  "licence": "CC BY 4.0",
+  "artist": "くろふね",
+  "w": 640,
+  "h": 480,
+  "desc": "若松城（鶴ヶ城）"
+ },
+ "castle:kumamoto": {
+  "src": "images/castle_kumamoto.jpg",
+  "file": "Kumamoto_Castle_Keep_Tower_20221022-3.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Kumamoto_Castle_Keep_Tower_20221022-3.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Suicasmo",
+  "w": 640,
+  "h": 427,
+  "desc": "Kumamoto Castle Keep Tower"
  }
 };
