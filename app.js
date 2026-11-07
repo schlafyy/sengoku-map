@@ -95,7 +95,7 @@
   // every shape once in <defs>, then used by the coast glow, the land, the dye mottling and the soak overlays
   const shapeIds = {}; // province -> [shape ids]
   let n = 0;
-  const addShape = s => { const id = 's' + n++; el('path', { id, d: s.d, transform: `matrix(${s.m.join(' ')})` }, defs); return id; };
+  const addShape = s => { const id = 's' + n++; el('path', { id, d: s.d, transform: `matrix(${s.m.join(' ')})`, 'vector-effect': 'non-scaling-stroke' }, defs); return id; };
   for (const p of PIDS) shapeIds[p] = P[p].shapes.map(addShape);
   const ezoIds = GEO.ezo.map(addShape), lakeIds = GEO.lakes.map(addShape);
   const allLand = [...PIDS.flatMap(p => shapeIds[p]), ...ezoIds];
@@ -285,6 +285,28 @@
     requestAnimationFrame(step);
   }
 
+  // each clan's crest, resist-dyed into the largest province it holds, for every clan with a crest and two provinces
+  const crestsG = el('g', { id: 'crests' });
+  land.after(crestsG);
+  const provArea = {};
+  function paintCrests(st, realm) {
+    crestsG.replaceChildren();
+    const best = {};
+    for (const p of PIDS) {
+      if (Array.isArray(st[p]) || !st[p] || !crestOf(st[p])) continue;
+      const b = provArea[p] ||= provG[p].getBBox(), a = b.width * b.height;
+      if (!best[st[p]] || a > best[st[p]].a) best[st[p]] = { p, a, b };
+    }
+    const cnt = counts(st);
+    for (const [c, { p, b }] of Object.entries(best)) {
+      if ((cnt[c] || 0) < 2) continue;
+      const size = Math.min(26, Math.max(9, Math.min(b.width, b.height) * .5));
+      el('image', { href: crestOf(c).src, x: P[p].cx - size / 2, y: P[p].cy - size / 2, width: size, height: size, filter: 'url(#resist)',
+                    class: 'crest' + (realm && !realm.clans.includes(c) ? ' dim' : '') }, crestsG);
+    }
+  }
+  const realm0 = () => followRealm();
+
   function paintLabels() {
     labels.replaceChildren();
     const st = stateAt(year), sums = {};
@@ -296,6 +318,12 @@
       }
     }
     const placed = [], hits = (a, b) => a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
+    // the overlays drawn over the map (the year, the zoom buttons) are no-go areas for labels
+    for (const id of ['#when', '#zoom']) {
+      const r = $(id).getBoundingClientRect(), a = toMap(r.left, r.top), b = toMap(r.right, r.bottom);
+      placed.push({ x: a.x, y: a.y, width: b.x - a.x, height: b.y - a.y });
+    }
+    paintCrests(st, realm0());
     const mk = 7 * markScale();
     for (const b of [...battles.children, ...castlesG.children]) { const [, x, y] = b.getAttribute('transform').match(/([-\d.]+) ([-\d.]+)/).map(Number); placed.push({ x: x - mk, y: y - mk, width: mk * 2, height: mk * 2 }); }
     for (const s of stitches.querySelectorAll('.stitch:not(.under)')) {
@@ -316,9 +344,6 @@
         const j = el('tspan', { x, dy: size * .7 + kanji * .9, 'font-size': kanji, 'font-weight': 400, 'letter-spacing': kanji * .14 }, t);
         j.textContent = CLANS[c].ja;
       }
-      const cr = crestOf(c), cs = size * 1.9;
-      // with its crest only where both fit over the clan's own land; otherwise the name alone, nudged if it must be
-      const crest = cr && s.n >= 3 && el('image', { href: cr.src, x: x - cs / 2, y: -size * .95 - cs, width: cs, height: cs, filter: 'url(#resist)', class: 'crest' }, g);
       const tryAt = offsets => {
         const local = g.getBBox();
         for (const dy of offsets) {
@@ -327,12 +352,12 @@
         }
         return false;
       };
-      const ok = (crest && tryAt([cs * .45, cs * .45 - size * 1.3])) || ((crest && crest.remove()), tryAt([0, -size * 1.3, size * 1.3, -size * 2.4, size * 2.4]));
+      const ok = tryAt([0, -size * 1.3, size * 1.3, -size * 2.4, size * 2.4]);
       if (!ok) g.remove(); // no room: the roster still names it
     }
     // close in, each province shows its own name where there is room
     if (zoom >= 2.2) {
-      const fs = 10.5 / scale;
+      const fs = 12.5 / scale;
       for (const p of PIDS) {
         const t = el('text', { class: 'prov-label', x: P[p].cx, y: P[p].cy, 'text-anchor': 'middle', 'font-size': fs, 'stroke-width': fs * .3 }, labels);
         t.textContent = P[p].en + ' ';
@@ -465,17 +490,19 @@
     const cnt = counts(stateAt(year));
     const now = Object.keys(cnt).sort((a, b) => cnt[b] - cnt[a] || CLANS[a].en.localeCompare(CLANS[b].en));
     const inCamp = c => year === 1600 && Object.values(CAMPS_1600).flat().includes(c);
-    const fallen = Object.keys(seenBy).filter(c => seenBy[c] <= year && lastHeld(c) < year && !inCamp(c)).sort((a, b) => lastHeld(b) - lastHeld(a));
+    const ABSORBED = ['east', 'imperial', 'shogunate']; // sides that became the settlement or the state, not houses that fell
+    const fallen = Object.keys(seenBy).filter(c => seenBy[c] <= year && lastHeld(c) < year && !inCamp(c) && !ABSORBED.includes(c)).sort((a, b) => lastHeld(b) - lastHeld(a));
     const local = Object.values(stateAt(year)).filter(h => h == null || (Array.isArray(h) && h.includes(null))).length;
     const members = c => CAMPS_1600[c] && year === 1600 ? `<li><ul class="members" aria-label="Houses of the ${CLANS[c].en}">${CAMPS_1600[c].map(m => `<li><button data-clan="${m}">${swatch(m)}${esc(CLANS[m].en)}</button></li>`).join('')}</ul></li>` : '';
     const row = (c, gone) => `<li><button data-clan="${c}" class="${gone ? 'gone' : ''}">${gone ? '<span class="swatch empty" aria-hidden="true"></span>' : swatch(c)}<span class="name">${clanName(c)}</span><span class="n">${gone ? lastHeld(c) : fmt(cnt[c])}</span></button></li>${gone ? '' : members(c)}`;
-    const lives = `<div class="lives"><p class="sep" style="margin-top:0">Follow a life</p><ul>${PEOPLE.map(p => `<li><button data-follow="${p.id}" title="${esc(p.en)}, ${p.born}–${p.died}">${portrait(p, 'face')}<span>${esc(p.call || p.en.split(' ').slice(-1)[0])}</span></button></li>`).join('')}</ul></div>`;
-    side.innerHTML = `${lives}<h2>The great houses<span class="count">${year}</span></h2>
+    const lives = `<div class="lives"><p class="sep">Follow a life</p><ul>${PEOPLE.map(p => `<li><button data-follow="${p.id}" title="${esc(p.en)}, ${p.born}–${p.died}">${portrait(p, 'face')}<span>${esc(p.call || p.en.split(' ').slice(-1)[0])}</span></button></li>`).join('')}</ul></div>`;
+    side.innerHTML = `<h2>${year >= 1871 ? 'One state' : year === 1868 || year === 1600 ? 'The two sides' : 'The great houses'}<span class="count">${year}</span></h2>
       <ol class="roster" aria-label="Clans ranked by provinces held">${now.map(c => row(c, false)).join('')}</ol>
-      <p class="local"><span class="swatch none" aria-hidden="true"></span>${local} of 68 provinces split among local lords</p>
+      ${local ? `<p class="local"><span class="swatch none" aria-hidden="true"></span>${local} of 68 provinces split among local lords</p>` : ''}
       ${year === 1600 ? '<p class="local">In 1600 the provinces are dyed by the side their lords took at Sekigahara.</p>' : ''}
       ${year === 1868 ? '<p class="local">In 1868 the provinces are dyed by the side their domains took in the Boshin War.</p>' : ''}
       ${year >= 1871 ? '<p class="local">From 1871 the domains are gone: Japan is one state, governed through prefectures. The old provinces stay on the map as names.</p>' : ''}
+      ${lives}
       ${fallen.length ? `<p class="sep">Fallen, with the last year they held land</p><ol class="roster">${fallen.map(c => row(c, true)).join('')}</ol>` : ''}
       <p class="note">Each province is dyed for the power that dominated it; many were shared among small lords, so this is an approximation. Click a province, a clan or a red cross for its story.<br><br>Province map: “Provinces of Japan with names” by Ash_Crow, Wikimedia Commons, CC BY 2.5. Typefaces: Shippori Mincho B1 and Zen Kaku Gothic New, SIL Open Font License.</p>`;
   }
@@ -489,15 +516,15 @@
   }
 
   // a picture from the article, mounted like a print stitched onto the lining, with its author and licence
-  const plate = key => {
+  const plate = (key, note) => {
     const im = typeof IMAGES !== 'undefined' && IMAGES[key];
     if (!im) return '';
     const tall = im.h > im.w * 1.1;
     return `<figure class="plate${tall ? ' tall' : ''}"><img src="${im.src}" alt="${esc(im.desc || im.file.replace(/\.\w+$/, '').replace(/_/g, ' '))}" width="${im.w}" height="${im.h}" loading="lazy" decoding="async">` +
-      `<figcaption>${esc(im.artist || 'Unknown')} · ${esc(im.licence)} · Wikimedia Commons</figcaption></figure>`;
+      `<figcaption>${note ? `<span class="photo-note">${esc(note)}</span>` : ''}${esc(im.artist || 'Unknown')} · ${esc(im.licence)} · Wikimedia Commons</figcaption></figure>`;
   };
 
-  const portrait = (p, cls) => { const im = IMAGES[p.portrait]; return im ? `<img class="${cls}" src="${im.src}" alt="" width="${im.w}" height="${im.h}" loading="lazy">` : ''; };
+  const portrait = (p, cls) => { const im = IMAGES[p.portrait]; return im ? `<img class="${cls}" src="${im.src}" alt="" width="${im.w}" height="${im.h}" loading="lazy">` : `<span class="${cls} blank" lang="ja" aria-hidden="true">${p.ja[0]}</span>`; };
   const followFor = name => PEOPLE.find(p => p.en === name.split(' (')[0]);
 
   function renderPerson() {
@@ -518,7 +545,7 @@
     const k = CASTLES.find(c => c.id === id), st = stateAt(year)[k.at];
     side.innerHTML = `${back()}
       <div class="head"><svg class="swatch castle-mark" viewBox="-10 -10 20 20" aria-hidden="true"><rect class="keep" x="-6" y="-6" width="12" height="12"/><circle class="knot" r="2"/></svg><h3>${esc(k.en)}<span lang="ja">${k.ja}</span></h3></div>
-      ${plate('castle:' + k.id)}
+      ${plate('castle:' + k.id, k.photo)}
       <p class="sub">${esc(P[k.at].en)} <span lang="ja">${P[k.at].ja}</span> · stands ${k.from <= START ? 'from before ' + START : 'from ' + k.from}${k.to >= END ? '' : ' to ' + k.to}</p>
       <p class="lede">${esc(k.short)}</p>
       <p class="local" style="margin-top:1rem">${swatch(holders(st)[0] || null)}<span>In ${year}: ${holderText(st)}</span></p>`;
@@ -554,6 +581,7 @@
       <div class="block"><h4>Who held ${esc(P[p].en)}, ${START}–${END}</h4><canvas class="strip" data-p="${p}"></canvas>
       <ul class="links"><li><button data-year="${START}" class="${year >= START ? 'now' : ''}"><span class="y">${START}</span><span>${holderText(BASE[p])}${BASE_NOTES[p] ? '. ' + esc(BASE_NOTES[p]) : ''}</span></button></li>
       ${hist.map(x => `<li><button data-year="${x[0]}" class="${x[0] <= year ? 'now' : ''}"><span class="y">${x[0]}</span><span>${holderText(x[2])}${x[3] ? '. ' + esc(x[3]) : ''}</span></button></li>`).join('')}</ul></div>
+      ${CASTLES.some(k => k.at === p) ? `<div class="block"><h4>Castles</h4><ul class="links">${CASTLES.filter(k => k.at === p).map(k => `<li><button data-castle="${k.id}" class="${k.from <= year && year <= k.to ? 'now' : ''}"><span class="y">${k.from <= START ? 'older' : k.from}</span><span>${esc(k.en)} <span lang="ja" style="color:var(--muted)">${k.ja}</span></span></button></li>`).join('')}</ul></div>` : ''}
       ${EVENTS.some(e => e.at === p) ? `<div class="block"><h4>Fought here</h4><ul class="links">${EVENTS.filter(e => e.at === p).map(e => `<li><button data-event="${e.id}" class="war"><span class="y">${e.year}</span><span>${esc(e.en)}</span></button></li>`).join('')}</ul></div>` : ''}`;
     drawStrip(side.querySelector('canvas.strip'), p);
   }
@@ -632,7 +660,7 @@
   }
   {
     let ticks = '';
-    for (const y of [1470, 1500, 1530, 1560, 1600, 1700, 1800, 1853, 1868, 1900, 1945]) ticks += `<span class="${[1500, 1600, 1868, 1945].includes(y) ? '' : 'minor'}" style="left:${xOf(y) * 100}%">${y}</span>`;
+    for (const y of [1470, 1500, 1530, 1560, 1600, 1700, 1853, 1868, 1900]) ticks += `<span class="${[1500, 1600, 1868, 1945].includes(y) ? '' : 'minor'}" style="left:${xOf(y) * 100}%">${y}</span>`;
     $('#ticks').innerHTML = ticks;
     let marks = '';
     const named = { kamigoryo: 'Ōnin', okehazama: 'Okehazama', honnoji: 'Honnō-ji', odawara: 'Odawara', sekigahara: 'Sekigahara', perry: 'Black ships', toba: 'Meiji', surrender: '1945' };
@@ -651,7 +679,7 @@
       for (const t of items) {
         if (getComputedStyle(t).display === 'none') continue;
         const r = t.getBoundingClientRect();
-        if (r.left < right + 6) t.style.visibility = 'hidden';
+        if (r.left < right + 6 || r.right > t.parentElement.getBoundingClientRect().right + 2) t.style.visibility = 'hidden';
         else right = r.right;
       }
     }
@@ -665,7 +693,7 @@
     const step = y - year;
     year = y;
     paintMap(animate && step > 0 && step <= 3);
-    paintStitches(); paintBattles(); paintCastles(); paintFollow(); paintLabels(); paintWhen();
+    paintStitches(); paintBattles(); paintCastles(); paintFollow(); paintLabels(); paintWhen(); // paintLabels also lays the crests
     $('#head').style.left = xOf(year) * 100 + '%';
     loom.setAttribute('aria-valuenow', year);
     loom.setAttribute('aria-valuetext', `${year}, ${phaseOf(year, PHASES).en}`);
@@ -775,6 +803,7 @@
       return;
     }
     if (b.dataset.clan) { sel = { type: 'clan', id: b.dataset.clan }; renderSide(); side.scrollTop = 0; return; }
+    if (b.dataset.castle) { const k = CASTLES.find(c => c.id === b.dataset.castle); sel = { type: 'castle', id: k.id }; if (year < k.from || year > k.to) setYear(k.from <= START ? START : k.from); refresh(); side.scrollTop = 0; return; }
     if (b.dataset.event) { stop(); const ev = EVENTS.find(x => x.id === b.dataset.event); sel = { type: 'event', id: ev.id }; setYear(ev.year); side.scrollTop = 0; return; }
     if (b.dataset.year) { stop(); setYear(+b.dataset.year); }
   });

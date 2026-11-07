@@ -48,7 +48,10 @@ with sync_playwright() as p:
         pg.keyboard.press("ArrowRight")
     pg.wait_for_timeout(1500)
     pg.screenshot(path=f"{out}/1600.png")
-    box = pg.eval_on_selector('.prov[data-p="owari"]', "g => { const r = g.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; }")
+    # a point inside Owari whose hit target is the province itself, not a castle or battle mark on it
+    box = pg.evaluate("""() => { const r = document.querySelector('.prov[data-p="owari"]').getBoundingClientRect();
+      for (let i = 1; i < 12; i++) for (let j = 1; j < 12; j++) { const x = r.x + r.width * i / 12, y = r.y + r.height * j / 12, el = document.elementFromPoint(x, y);
+        if (el && el.closest('.prov[data-p="owari"]') && !el.closest('.castle, .battle')) return [x, y]; } return null; }""")
     pg.mouse.move(*box); pg.wait_for_timeout(200)
     pg.mouse.click(*box); pg.wait_for_timeout(400)
     pg.screenshot(path=f"{out}/province.png")

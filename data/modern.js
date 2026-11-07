@@ -46,7 +46,7 @@ Object.assign(CLANS, {
              ['Enomoto Takeaki', '榎本武揚', '1836–1908', 'Admiral of the shogunate fleet and president of the Republic of Ezo.']],
   },
   empire: {
-    en: 'Empire of Japan', ja: '大日本帝国', dye: 'rikyu', motif: 'plain', title: 'The modern state, 1871–1945',
+    en: 'Empire of Japan', ja: '大日本帝国', dye: 'rikyu', motif: 'dots', title: 'The modern state, 1871–1945',
     short: 'The modern Japanese state: in 1871 the domains were abolished and replaced by prefectures governed from Tokyo, and the old provinces lived on only as names.',
     long: 'In 1871 the Meiji government abolished the 261 domains and replaced them with prefectures run by appointed governors; the lords were pensioned off. Within a generation Japan had a conscript army, railways, a national school system and, from 1889, a constitution with an elected Diet under a sovereign emperor. It fought and beat China (1894–95) and Russia (1904–05), took Taiwan and annexed Korea (1910). From 1931 the army drove the country into war in Manchuria, then China (1937), then against the United States and Britain (1941), which ended with Japan\'s defeat and surrender in 1945. On this map the home islands are dyed as one state from 1871; the empire overseas is not shown.',
     people: [['Emperor Meiji', '明治天皇', '1852–1912', 'Reigned 1867–1912, over the whole transformation.'],

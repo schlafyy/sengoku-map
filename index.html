@@ -198,37 +198,43 @@ body.playing #play .go { display: none; }
 #zoom svg { width: 14px; height: 14px; fill: var(--cream); }
 #zoom-home { opacity: .45; }
 body.zoomed #zoom-home { opacity: 1; }
-.prov-label { font-family: var(--mincho); fill: #2b2620; paint-order: stroke; stroke: rgba(239, 230, 211, .7); stroke-linejoin: round; pointer-events: none; }
+.prov-label { font-family: var(--mincho); fill: var(--cream); paint-order: stroke; stroke: rgba(19, 21, 47, .85); stroke-linejoin: round; pointer-events: none; }
+#approx, #start { transition: opacity .4s var(--ease); }
+body.zoomed #approx, body.zoomed #start { opacity: 0; }
 
 /* castles: a square of running stitch around a knot */
 .castle { cursor: pointer; }
 .castle .hit { fill: transparent; }
-.castle .keep, .castle-mark .keep { fill: rgba(19, 21, 47, .72); stroke: var(--cream); stroke-width: 1.3; stroke-dasharray: 2.2 1.4; vector-effect: non-scaling-stroke; }
+.castle .keep, .castle-mark .keep { fill: rgba(19, 21, 47, .78); stroke: var(--cream); stroke-width: 1.4; vector-effect: non-scaling-stroke; }
 .castle .knot, .castle-mark .knot { fill: var(--cream); }
 .castle:hover .keep, .castle.sel .keep { fill: var(--kachi); stroke-width: 2; }
 .castle-mark { box-shadow: none; }
-.crest { opacity: .92; pointer-events: none; }
+.crest { opacity: .78; pointer-events: none; mix-blend-mode: screen; }
+.crest.dim { opacity: .2; }
 
 /* following a life: what wasn't theirs sinks back into the cloth */
 .prov { transition: opacity .6s var(--ease); }
 .prov.dim { opacity: .3; }
 .clan-mark.dim { opacity: .35; }
-.lives { margin-bottom: 1.6rem; }
-.lives ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px 6px; }
-.lives button { display: grid; justify-items: center; gap: 4px; width: 100%; padding: 4px 0; border-radius: 3px; font: 500 .74rem/1.2 var(--gothic); color: var(--muted); }
+.lives { margin-top: .4rem; }
+.lives ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px 4px; }
+.lives button { display: grid; justify-items: center; gap: 4px; width: 100%; padding: 4px 0; border-radius: 3px; font: 500 .7rem/1.2 var(--gothic); color: var(--muted); }
 .lives button:hover { background: rgba(239, 230, 211, .06); color: var(--cream); }
-.face { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; object-position: 50% 18%; background: #d8cfba; box-shadow: 0 0 0 2px var(--lining), 0 0 0 3.5px rgba(239, 230, 211, .4); }
-.face.big { width: 64px; height: 64px; margin-top: 2px; }
+.face { width: 34px; height: 40px; object-fit: cover; object-position: 50% 15%; background: #e9e0cc; border: 3px solid #e9e0cc; display: block; }
+.face.blank { display: grid; place-items: center; font: 400 1rem/1 var(--mincho); color: #5d5a66; }
+.face.big { width: 54px; height: 64px; border-width: 4px; margin-top: 2px; }
+.photo-note { display: block; color: #3d3a44; margin-bottom: 2px; }
 .person-head { align-items: center; }
 .play-life { display: inline-flex; align-items: center; gap: 8px; margin-top: 1.1rem; padding: 8px 14px 8px 12px; border: 1.5px dashed rgba(239, 230, 211, .55); border-radius: 22px; font: 500 .85rem/1 var(--gothic); }
 .play-life:hover { border-color: var(--cream); background: rgba(239, 230, 211, .06); }
 .play-life svg { width: 12px; height: 12px; fill: var(--cream); }
 .follow { margin-top: .35rem; font: 500 .78rem/1 var(--gothic); color: var(--cream); padding: 4px 0; text-decoration: underline dashed rgba(239, 230, 211, .5); text-underline-offset: 4px; }
-#life { position: absolute; top: 18px; height: 3px; background: rgba(239, 230, 211, .75); border-radius: 2px; pointer-events: none; }
-#life i { position: absolute; top: -2px; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%; background: var(--cream); box-shadow: 0 0 0 1.5px var(--kachi); }
+#life { position: absolute; top: 72px; height: 2px; background: repeating-linear-gradient(90deg, rgba(239, 230, 211, .85) 0 6px, transparent 6px 10px); pointer-events: none; }
+#life i { position: absolute; top: -2px; width: 4px; height: 6px; margin-left: -2px; background: var(--cream); }
 
 @media (max-width: 860px) {
-  body { grid-template-columns: 1fr; grid-template-rows: 62vh auto auto; overflow: auto; }
+  html, body { height: auto; }
+  body { grid-template-columns: 1fr; grid-template-rows: 62vh auto auto; overflow: visible; } /* the page itself scrolls on a phone */
   #side { grid-column: 1; grid-row: 3; }
   #band { grid-row: 2; }
   #seam { display: none; }
