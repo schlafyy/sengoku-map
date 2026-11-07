@@ -4,3 +4,4 @@ __pycache__/
 *.spec
 .impeccable/review/
 .impeccable/questions/
+build.log
