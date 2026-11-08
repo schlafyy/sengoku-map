@@ -1,4 +1,4 @@
-"""Colours the land by height for the landmarks view, the way a physical atlas does, in Japanese dye colours, shaded
+"""Colours the land by height for the landmarks view, the way a physical atlas does, in bands of Japanese dye colours, shaded
 with images/relief.jpg. Heights come from the open Terrain Tiles on AWS (Mapzen's Terrarium tiles: SRTM, GMTED2010,
 ETOPO1 and other public data), downloaded once into a cache folder.
 Writes images/terrain.jpg on the same grid as the relief (data/relief.js gives its placement).
@@ -11,9 +11,10 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 Z = 7  # about 100 px per degree, a little finer than the map needs
 TILE = "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"
 LON0, LON1, LAT0, LAT1 = 126.0, 148.0, 29.0, 47.0
-# height (m) -> colour: moegi lowlands, hiwa and kariyasu hills, ōdo uplands, kurumi and nibi mountains, snow at the top
-RAMP = [(0, "#9db26c"), (150, "#b3bd74"), (400, "#cbc17e"), (800, "#d2b77c"), (1300, "#bf9a66"),
-        (1900, "#9a7a58"), (2500, "#8a7d72"), (3000, "#d9d2c4"), (3800, "#f3eee4")]
+# height bands, each one flat dye as in a stencil-dyed map: moegi plains, hiwa and kariyasu hills, kaki-shibu uplands,
+# kurumi mountains, bare cotton on the high peaks. (lower edge in metres, colour)
+BANDS = [(-1e9, "#9fb26e"), (100, "#b6bb73"), (400, "#d0bf7c"), (900, "#c49a68"), (1600, "#9d7c5a"), (2150, "#e8e0cf")]
+SHADE = .6  # how much of the relief's light and shadow to keep
 
 
 def tile_xy(lon, lat):
@@ -38,10 +39,10 @@ def mosaic(cache):
     return out, xs[0], ys[0]
 
 
-def ramp(h):
-    hs = np.array([r[0] for r in RAMP], np.float32)
-    cs = np.array([[int(c[i:i + 2], 16) for i in (1, 3, 5)] for _, c in RAMP], np.float32)
-    return np.stack([np.interp(h, hs, cs[:, k]) for k in range(3)], -1)
+def bands(h):
+    edges = np.array([b[0] for b in BANDS[1:]], np.float32)
+    cs = np.array([[int(c[i:i + 2], 16) for i in (1, 3, 5)] for _, c in BANDS], np.float32)
+    return cs[np.digitize(h, edges)]
 
 
 def main(cache):
@@ -58,9 +59,12 @@ def main(cache):
     u = np.clip(((lon + 180) / 360 * n - tx0) * 256, 0, elev.shape[1] - 1).astype(int)
     v = np.clip(((1 - np.arcsinh(np.tan(np.radians(lat))) / np.pi) / 2 * n - ty0) * 256, 0, elev.shape[0] - 1).astype(int)
     h = np.maximum(elev[v, u], 0)
+    for _ in range(2):  # soften the heights a little so the band edges run smooth instead of in stair-steps
+        p = np.pad(h, 2, mode="edge")
+        h = sum(p[i:i + h.shape[0], j:j + h.shape[1]] for i in range(5) for j in range(5)) / 25
     # the relief's level ground is 185: darker than that is shadow, lighter is a lit slope
-    k = np.clip(shade / 185, .45, 1.3)[..., None]
-    c = ramp(h)
+    k = (1 + (np.clip(shade / 185, .45, 1.3) - 1) * SHADE)[..., None]
+    c = bands(h)
     out = np.where(k < 1, c * k, c + (255 - c) * (k - 1) * 1.2)
     path = os.path.join(ROOT, "images", "terrain.jpg")
     Image.fromarray(np.clip(out, 0, 255).astype(np.uint8)).save(path, "JPEG", quality=84, optimize=True, progressive=True)

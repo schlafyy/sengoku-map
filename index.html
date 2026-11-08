@@ -157,6 +157,12 @@ body.started #start { opacity: 0; }
 .links .y { font: 500 .84rem/1.45 var(--gothic); color: var(--muted); font-variant-numeric: tabular-nums; }
 .links .now .y, .links .now { color: var(--cream); }
 .links .war .y::before { content: ''; display: inline-block; width: 6px; height: 6px; margin-right: 6px; background: var(--war); transform: rotate(45deg); vertical-align: 1px; }
+.links .turn .y::before { content: ''; display: inline-block; width: 5px; height: 5px; margin-right: 7px; border: 1.5px solid var(--cream); transform: rotate(45deg); vertical-align: 1px; }
+.battle .k, .mark .k { stroke: var(--cream); fill: none; stroke-linejoin: round; }
+.battle .k-under, .mark .k-under { stroke: var(--kachi); stroke-opacity: .85; fill: none; stroke-linejoin: round; }
+.battle:hover .k-under, .battle.sel .k-under { stroke: var(--cream); stroke-opacity: .45; }
+.battle.turn .ring { stroke: var(--cream); }
+@media (hover: none) { #tip { display: none; } } /* on touch the panel tells the story; a tooltip would only cover names */
 .sides { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 1rem; }
 .chip { display: inline-flex; align-items: center; gap: 8px; font: 400 .95rem/1.2 var(--mincho); padding: 3px 8px 3px 3px; border-radius: 3px; }
 .chip:hover { background: rgba(239, 230, 211, .06); }
@@ -257,6 +263,10 @@ body.land .prov use { stroke: var(--kon); stroke-opacity: .16; }
 body.land .prov:hover use { stroke-opacity: .4; stroke-width: 1.2; }
 body.land .prov.dim { opacity: 1; }
 body.land #mottle { opacity: .35; }
+/* the cloth's weave over the land too, so the atlas reads as dyed cotton */
+body.land #cloth::after { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1; mix-blend-mode: multiply;
+  background: repeating-linear-gradient(0deg, rgba(19, 21, 47, .07) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, rgba(19, 21, 47, .06) 0 1px, transparent 1px 3px); }
+#when, #zoom, #mode, #tip, #flash { z-index: 2; }
 body.land #year [lang=ja] { letter-spacing: .06em; }
 .landmark { cursor: pointer; }
 .landmark .hit { fill: transparent; }

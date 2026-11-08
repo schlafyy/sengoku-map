@@ -27,8 +27,8 @@ const PHASES = [
 
 // dye: natural dye name; motif: the stencil pattern printed over it. Each pair is used once.
 const DYES = {
-  fuji: '#9a86c0', matsuba: '#3d7a58', bengara: '#a8452f', kaki: '#c06a2c', uguisu: '#8c8a3a', suo: '#8e3a5c',
-  beni: '#cf6f80', asagi: '#4f9cab', yamabuki: '#dc9a2a', kihada: '#d8c75e', akane: '#9a2638', tobi: '#7d5038',
+  fuji: '#9a86c0', matsuba: '#3d7a58', bengara: '#93412f', kaki: '#c06a2c', uguisu: '#8c8a3a', suo: '#8e3a5c',
+  beni: '#cf6f80', asagi: '#4f9cab', yamabuki: '#dc9a2a', kihada: '#d8c75e', akane: '#82263a', tobi: '#7d5038',
   murasaki: '#6a4a92', yomogi: '#6f8f4a', kariyasu: '#c8a43a',
   kuchiba: '#b5874a', shikon: '#5a3f7a', hiwa: '#a5b04f', ume: '#b0607a',
 };

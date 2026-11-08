@@ -58,29 +58,30 @@
     const key = h.map(x => x || 'none').join('-');
     if (!splitIds.has(key)) {
       const id = 'split-' + key;
-      const W = 22, pat = el('pattern', { id, patternUnits: 'userSpaceOnUse', width: W, height: W, patternTransform: 'rotate(38)' }, defs);
+      const W = 14, pat = el('pattern', { id, patternUnits: 'userSpaceOnUse', width: W, height: W, patternTransform: 'rotate(38)' }, defs);
       el('rect', { width: W, height: W, fill: `url(#dye-${h[0] || 'none'})` }, pat);
-      // each band of threads was dyed out of register: the edge jumps sideways every few threads, and a half-dyed
-      // feather runs past it, the blur that gives kasuri its name
-      const L = [0, 2.6, .8, 3.2, 1.4, 2.9, .3, 2], R = [1.8, 0, 3, 1, 2.4, .5, 3.2, 1.2], step = W / 8;
+      // each band of threads was dyed out of register: short broken dashes whose ends jump sideways from thread to
+      // thread, with a half-dyed feather past them, the blur that gives kasuri its name
+      const L = [0, 1.6, .5, 2.1, .9, 1.8, .2, 1.3], R = [1.1, 0, 1.9, .6, 1.5, .3, 2, .8], GAP = [-1, 3, -1, -1, 2, -1, 4, -1], step = W / 8;
       let d = '', f = '';
       for (let i = 0; i < 8; i++) {
-        const y0 = i * step, y1 = y0 + step + .03, l = 9.5 + L[i], r = 19.5 + R[i];
-        d += `M${l} ${y0}H${r}V${y1}H${l}Z`;
-        f += `M${l - 1.6} ${y0 + step * .3}H${l}V${y0 + step * .7}H${l - 1.6}ZM${r} ${y0 + step * .2}H${r + 1.8}V${y0 + step * .6}H${r}Z`;
+        const y0 = i * step, y1 = y0 + step + .03, l = 5.5 + L[i], r = 12 + R[i], g = GAP[i];
+        d += g < 0 ? `M${l} ${y0}H${r}V${y1}H${l}Z` : `M${l} ${y0}H${l + g}V${y1}H${l}ZM${l + g + 1.2} ${y0}H${r}V${y1}H${l + g + 1.2}Z`;
+        f += `M${l - 1.1} ${y0 + step * .3}H${l}V${y0 + step * .7}H${l - 1.1}ZM${r} ${y0 + step * .2}H${r + 1.2}V${y0 + step * .6}H${r}Z`;
       }
       el('path', { d: f, fill: `url(#dye-${h[1] || 'none'})`, opacity: .55 }, pat);
       el('path', { d, fill: `url(#dye-${h[1] || 'none'})` }, pat);
+      el('rect', { width: W, height: W, fill: '#e2d9c5', opacity: .16 }, pat); // the two dyes taken partway back toward cotton
       splitIds.set(key, `url(#${id})`);
     }
     return splitIds.get(key);
   }
   // crests come as black drawings; this keeps their dark parts as cream cotton the dye never reached
   {
-    const f = el('filter', { id: 'resist', 'color-interpolation-filters': 'sRGB' }, defs);
+    const f = el('filter', { id: 'resist', x: 0, y: 0, width: 1, height: 1, 'color-interpolation-filters': 'sRGB' }, defs);
     el('feColorMatrix', { type: 'matrix', values: '0 0 0 0 .937  0 0 0 0 .902  0 0 0 0 .827  -.33 -.33 -.33 1 0' }, f);
     // for crests drawn white on a dark ground: only the light parts resist; green alone keeps grey figures and drops coloured grounds like Mori's red
-    const g = el('filter', { id: 'resist-inv', 'color-interpolation-filters': 'sRGB' }, defs);
+    const g = el('filter', { id: 'resist-inv', x: 0, y: 0, width: 1, height: 1, 'color-interpolation-filters': 'sRGB' }, defs);
     el('feColorMatrix', { type: 'matrix', values: '0 0 0 0 .937  0 0 0 0 .902  0 0 0 0 .827  0 2.2 0 0 -.45' }, g);
     // for crests cut as holes in a dark square: the holes resist; the region stops at the image's own box
     const h = el('filter', { id: 'resist-holes', x: 0, y: 0, width: 1, height: 1, 'color-interpolation-filters': 'sRGB' }, defs);
@@ -177,6 +178,11 @@
 
   // ---------- zoom and pan ----------
   const HOME = (v => ({ x: v.x, y: v.y, width: v.width, height: v.height }))(svg.viewBox.baseVal);
+  const HIST_HOME = { ...HOME }, LAND_HOME = (() => { // the realm plus all of Ezo, so Sapporo and Shiretoko are in view
+    const a = land.getBBox(), b = ezo.getBBox(), y = Math.min(a.y, b.y) - 24, y1 = a.y + a.height + 30;
+    const h = y1 - y, w = Math.max(HOME.width, h * HOME.width / HOME.height);
+    return { x: HOME.x + HOME.width - w, y, width: w, height: h };
+  })();
   const vb = { x: HOME.x, y: HOME.y, w: HOME.width, h: HOME.height };
   let zoom = 1, repaintQueued = false;
   const MAX_ZOOM = 6;
@@ -188,6 +194,7 @@
     svg.setAttribute('viewBox', `${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
     zoom = HOME.width / vb.w;
     document.body.classList.toggle('zoomed', zoom > 1.05);
+    $('#seigaiha').setAttribute('patternTransform', `scale(${1 / zoom})`); // the waves keep their size on screen
     if (!repaintQueued) { repaintQueued = true; requestAnimationFrame(() => { repaintQueued = false; paintStitches(); paintBattles(); paintCastles(); paintLandmarks(); paintLabels(); }); }
   }
   function zoomAt(f, cx, cy) {
@@ -365,18 +372,21 @@
     if (landMode) { // landmark names beside their marks once there is room, then the provinces
       const mk = 6.5 * markScale();
       const pts = LANDMARKS.map(l => [l, lmAt(l)]), isCity = ([l]) => l.kind === 'city';
-      const box = ([, [x, y]]) => ({ x: x - mk, y: y - mk, width: mk * 2, height: mk * 2 });
+      const box = ([l, [x, y]]) => { const m = mk * (sel?.type === 'landmark' && sel.id === l.id ? 1.5 : 1); return { x: x - m, y: y - m, width: m * 2, height: m * 2 }; };
+      const r = svg.getBoundingClientRect(), v0 = toMap(r.left, r.top), v1 = toMap(r.right, r.bottom); // what is on screen
+      const inView = b => b.x >= v0.x && b.y >= v0.y && b.x + b.width <= v1.x && b.y + b.height <= v1.y;
+      const narrow = r.width < 600;
       // the cities are always named, in English and kanji, and may cover a smaller mark's corner; the rest once there is room
       const others = pts.filter(q => !isCity(q)).map(box);
       for (const q of pts.filter(isCity)) placed.push(box(q));
       const label = ([l, [x, y]], strictness) => {
-        const city = l.kind === 'city', fs = (city ? 13.5 : 12) / scale, gap = mk + 2 / scale;
+        const city = l.kind === 'city', fs = (city ? (narrow ? 11 : 13.5) : narrow ? 10.5 : 12) / scale, gap = mk + 2 / scale;
         for (const strict of strictness) for (const [dx, dy, anchor] of [[gap, 0, 'start'], [-gap, 0, 'end'], [0, -gap - fs * .4, 'middle'], [0, gap + fs * .9, 'middle']]) {
           const t = el('text', { class: 'prov-label lm-label' + (city ? ' city-label' : ''), x: x + dx, y: y + dy + fs * .35, 'text-anchor': anchor, 'font-size': fs, 'stroke-width': fs * (city ? .24 : .3) }, labels);
           t.textContent = l.en;
           if (city) { const j = el('tspan', { 'font-size': fs * .82, dx: fs * .3, 'font-weight': 400 }, t); j.textContent = l.ja; }
           const b = t.getBBox();
-          if (!placed.some(p => hits(b, p)) && !(strict && others.some(p => hits(b, p)))) { placed.push(b); if (!strict) over.push(b); return; }
+          if (inView(b) && !placed.some(p => hits(b, p)) && !(strict && others.some(p => hits(b, p)))) { placed.push(b); if (!strict) over.push(b); return; }
           t.remove();
         }
       };
@@ -393,6 +403,7 @@
       return;
     }
     paintCrests(st, realm0());
+    for (const c of crestsG.children) placed.push(c.getBBox());
     const mk = 7 * markScale();
     for (const b of [...battles.children, ...castlesG.children]) { const [, x, y] = b.getAttribute('transform').match(/([-\d.]+) ([-\d.]+)/).map(Number); placed.push({ x: x - mk, y: y - mk, width: mk * 2, height: mk * 2 }); }
     for (const s of stitches.querySelectorAll('.stitch:not(.under)')) {
@@ -466,11 +477,11 @@
     for (const e of EVENTS) {
       if (e.year > year || year - e.year > 3) continue;
       const age = year - e.year, [X, Y] = markAt(e);
-      const g = el('g', { class: 'battle' + (age === 0 ? ' now' : '') + (sel?.type === 'event' && sel.id === e.id ? ' sel' : ''), transform: `translate(${X} ${Y}) scale(${markScale()})`, opacity: [1, .75, .55, .4][age], tabindex: 0, role: 'button', 'aria-label': `${e.en}, ${e.year}` }, battles);
+      const g = el('g', { class: 'battle' + (e.kind === 'battle' ? '' : ' turn') + (age === 0 ? ' now' : '') + (sel?.type === 'event' && sel.id === e.id ? ' sel' : ''), transform: `translate(${X} ${Y}) scale(${markScale()})`, opacity: [1, .75, .55, .4][age], tabindex: 0, role: 'button', 'aria-label': `${e.en}, ${e.year}` }, battles);
       g.dataset.e = e.id;
       el('circle', { class: 'ring', r: 2 }, g);
       el('circle', { class: 'hit', r: 10 }, g);
-      g.insertAdjacentHTML('beforeend', stitchMark(e.kind === 'battle' ? 6 : 4.4));
+      g.insertAdjacentHTML('beforeend', eventMark(e, 6));
     }
   }
 
@@ -514,6 +525,10 @@
     }
   }
 
+  // red thread is only for war; other turning points are a knot of cotton thread
+  const warCls = e => (e.kind === 'battle' ? 'war' : 'turn');
+  const knotMark = s => `<path class="k-under" d="M0 ${-s}L${s} 0L0 ${s}L${-s} 0Z" stroke-width="${s * .55}"/><path class="k" d="M0 ${-s}L${s} 0L0 ${s}L${-s} 0Z" stroke-width="${s * .3}"/><circle r="${s * .28}" fill="#efe6d3"/>`;
+  const eventMark = (e, s) => (e.kind === 'battle' ? stitchMark(s) : knotMark(s * .8));
   // a cross-stitch in red thread: the top stitch whole, the under stitch broken where it passes beneath, a sheen on each
   function stitchMark(s) {
     const top = `M${-s} ${-s * .82}L${s} ${s * .9}`;
@@ -521,7 +536,8 @@
     const sheen = d => `<path d="${d}" stroke="#ffb29e" stroke-width="${s * .12}" stroke-linecap="round" opacity=".75" transform="translate(${-s * .08} ${-s * .08})"/>`;
     // where the thread goes down into the cloth: a small hole at each end of each stitch
     const holes = [[-s, -s * .82], [s, s * .9], [s * .92, -s], [-s * .88, s * .95]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="${s * .2}" fill="#13152f"/>`).join('');
-    return `<path class="x-under" d="${top}${under}" stroke-width="${s * .78}"/>` +
+    return `<path d="${top}${under}" stroke="#efe6d3" stroke-opacity=".5" stroke-linecap="round" fill="none" stroke-width="${s * 1.05}"/>` + // a pale halo so it never sinks into a red dye
+      `<path class="x-under" d="${top}${under}" stroke-width="${s * .78}"/>` +
       `<path class="x" d="${under}" stroke-width="${s * .42}" style="stroke:#b8402b"/>` +
       `<path class="x" d="${top}" stroke-width="${s * .42}"/>${sheen(top)}${holes}`;
   }
@@ -569,7 +585,7 @@
       ${year === 1868 ? '<p class="local">In 1868 the provinces are dyed by the side their domains took in the Boshin War.</p>' : ''}
       ${year >= 1871 ? '<p class="local">From 1871 the domains are gone: Japan is one state, governed through prefectures. The old provinces stay on the map as names.</p>' : ''}
       ${lives}
-      ${fallen.length ? `<p class="sep">Fallen, with the last year they held land <span lang="ja">滅亡</span></p><ol class="roster">${fallen.map(c => row(c, true)).join('')}</ol>` : ''}
+      ${fallen.length ? `<p class="sep">Fallen <span lang="ja">滅亡</span> · the last year they held land</p><ol class="roster">${fallen.map(c => row(c, true)).join('')}</ol>` : ''}
       <p class="note">Each province is dyed for the power that dominated it; many were shared among small lords, so this is an approximation. Click a province, a clan or a red cross for its story.<br><br>Province map: “Provinces of Japan with names” by Ash_Crow, Wikimedia Commons, CC BY 2.5. Typefaces: Shippori Mincho B1 and Zen Kaku Gothic New, SIL Open Font License.</p>`;
   }
   const lastHeldCache = {};
@@ -603,7 +619,7 @@
       <p class="sub">${p.born}–${p.died} · ${status}</p>
       <p class="lede">${esc(p.short)}</p>
       <button class="play-life" data-act="playlife"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M4 2.2v13.6L15.5 9z"/></svg>Play this life, ${Math.max(START, p.born)}–${Math.min(END, p.died)}</button>
-      <div class="block"><h4>His life <span lang="ja">生涯</span></h4><ul class="links">${p.life.map(([y, text, ev]) => `<li><button ${ev ? `data-event="${ev}"` : `data-year="${y}"`} class="${ev ? 'war ' : ''}${y <= year ? 'now' : ''}"><span class="y">${y}</span><span>${esc(text)}</span></button></li>`).join('')}</ul></div>
+      <div class="block"><h4>His life <span lang="ja">生涯</span></h4><ul class="links">${p.life.map(([y, text, ev]) => `<li><button ${ev ? `data-event="${ev}"` : `data-year="${y}"`} class="${ev ? warCls(EVENTS.find(x => x.id === ev)) + ' ' : ''}${y <= year ? 'now' : ''}"><span class="y">${y}</span><span>${esc(text)}</span></button></li>`).join('')}</ul></div>
       ${im ? `<p class="note">Portrait: ${esc(im.artist)} · ${esc(im.licence)} · Wikimedia Commons</p>` : ''}`;
   }
 
@@ -632,7 +648,7 @@
       <div class="long" hidden>${esc(k.long)}</div>
       <div class="block"><h4>Key people <span lang="ja">人物</span></h4><ul class="people">${k.people.map(([en, ja, life, note]) => `<li><b>${esc(en)}</b><span lang="ja">${ja}</span><span class="life">${life}</span><p>${esc(note)}</p>${followFor(en) ? `<button class="follow" data-follow="${followFor(en).id}">Follow this life</button>` : ''}</li>`).join('')}</ul></div>
       ${als.length ? `<div class="block"><h4>Alliances <span lang="ja">同盟</span></h4><ul class="links">${als.map(a => `<li><button data-year="${a[1]}" class="${a[1] <= year && year <= a[2] ? 'now' : ''}"><span class="y">${a[1]}</span><span>${esc(a[4])} <span lang="ja" style="color:var(--muted)">${a[5]}</span>, ${a[1]}–${a[2]}: ${esc(a[6])}</span></button></li>`).join('')}</ul></div>` : ''}
-      ${evs.length ? `<div class="block"><h4>Battles and turning points <span lang="ja">合戦</span></h4><ul class="links">${evs.map(e => `<li><button data-event="${e.id}" class="war"><span class="y">${e.year}</span><span>${esc(e.en)}</span></button></li>`).join('')}</ul></div>` : ''}
+      ${evs.length ? `<div class="block"><h4>Battles and turning points <span lang="ja">合戦</span></h4><ul class="links">${evs.map(e => `<li><button data-event="${e.id}" class="${warCls(e)}"><span class="y">${e.year}</span><span>${esc(e.en)}</span></button></li>`).join('')}</ul></div>` : ''}
       ${crestOf(c) ? `<p class="note">Crest: ${esc(crestOf(c).file.replace(/_/g, ' '))}${crestOf(c).artist ? ' by ' + esc(crestOf(c).artist) : ''} · ${esc(crestOf(c).licence)} · Wikimedia Commons</p>` : ''}`;
   }
 
@@ -648,7 +664,7 @@
       <ul class="links"><li><button data-year="${START}" class="${year >= START ? 'now' : ''}"><span class="y">${START}</span><span>${holderText(BASE[p])}${BASE_NOTES[p] ? '. ' + esc(BASE_NOTES[p]) : ''}</span></button></li>
       ${hist.map(x => `<li><button data-year="${x[0]}" class="${x[0] <= year ? 'now' : ''}"><span class="y">${x[0]}</span><span>${holderText(x[2])}${x[3] ? '. ' + esc(x[3]) : ''}</span></button></li>`).join('')}</ul></div>
       ${CASTLES.some(k => k.at === p) ? `<div class="block"><h4>Castles <span lang="ja">城</span></h4><ul class="links">${CASTLES.filter(k => k.at === p).map(k => `<li><button data-castle="${k.id}" class="${k.from <= year && year <= k.to ? 'now' : ''}"><span class="y">${k.from <= START ? 'older' : k.from}</span><span>${esc(k.en)} <span lang="ja" style="color:var(--muted)">${k.ja}</span></span></button></li>`).join('')}</ul></div>` : ''}
-      ${EVENTS.some(e => e.at === p) ? `<div class="block"><h4>Fought here <span lang="ja">合戦</span></h4><ul class="links">${EVENTS.filter(e => e.at === p).map(e => `<li><button data-event="${e.id}" class="war"><span class="y">${e.year}</span><span>${esc(e.en)}</span></button></li>`).join('')}</ul></div>` : ''}`;
+      ${EVENTS.some(e => e.at === p) ? `<div class="block"><h4>Fought here <span lang="ja">合戦</span></h4><ul class="links">${EVENTS.filter(e => e.at === p).map(e => `<li><button data-event="${e.id}" class="${warCls(e)}"><span class="y">${e.year}</span><span>${esc(e.en)}</span></button></li>`).join('')}</ul></div>` : ''}`;
     drawStrip(side.querySelector('canvas.strip'), p);
   }
 
@@ -656,7 +672,7 @@
     const e = EVENTS.find(x => x.id === id), era = eraOf(e.year, ERAS);
     const sides = [...new Set((e.sides || []).filter(Boolean))];
     side.innerHTML = `${back()}
-      <div class="head"><svg class="swatch mark" viewBox="-20 -20 40 40" aria-hidden="true" style="box-shadow:none">${stitchMark(13)}</svg><h3>${esc(e.en)}<span lang="ja">${e.ja}</span></h3></div>
+      <div class="head"><svg class="swatch mark" viewBox="-20 -20 40 40" aria-hidden="true" style="box-shadow:none">${eventMark(e, 13)}</svg><h3>${esc(e.en)}<span lang="ja">${e.ja}</span></h3></div>
       ${plate('event:' + e.id)}
       <p class="sub">${e.year} · ${era.en} ${era.n} · ${esc(P[e.at].en)} <span lang="ja">${P[e.at].ja}</span></p>
       ${sides.length ? `<div class="sides">${sides.map(c => `<button class="chip" data-clan="${c}">${swatch(c)}${clanName(c)}${e.winner === c ? '<span class="won">Won</span>' : ''}</button>`).join('')}</div>` : ''}
@@ -742,7 +758,7 @@
       ${plate('landmark:' + l.id)}
       <p class="sub">${KINDS[l.kind].one}${lmProvince(l) ? ' · ' + lmProvince(l) : ''}${l.pop ? ` · population ${esc(l.pop)}, 2020` : ''}</p>
       <p class="lede">${esc(l.short)}</p>
-      ${here.length ? `<div class="block"><h4>History in ${esc(P[p].en)}</h4><ul class="links">${here.map(e => `<li><button data-event="${e.id}" class="war"><span class="y">${e.year}</span><span>${esc(e.en)}</span></button></li>`).join('')}</ul></div>` : ''}`;
+      ${here.length ? `<div class="block"><h4>History in ${esc(P[p].en)}</h4><ul class="links">${here.map(e => `<li><button data-event="${e.id}" class="${warCls(e)}"><span class="y">${e.year}</span><span>${esc(e.en)}</span></button></li>`).join('')}</ul></div>` : ''}`;
   }
 
   // the switch between the two maps
@@ -754,6 +770,7 @@
     $('#mode-history').setAttribute('aria-pressed', !landMode);
     $('#mode-land').setAttribute('aria-pressed', landMode);
     svg.setAttribute('aria-label', landMode ? 'Japan\'s landmarks over the shape of the land' : 'The provinces of Japan, dyed by who held them');
+    Object.assign(HOME, landMode ? LAND_HOME : HIST_HOME); zoomHome();
     paintWhen(); refresh(); side.scrollTop = 0;
     requestAnimationFrame(() => { // the band comes and goes, so the map has resized
       if (!landMode) { drawWeave(); tidyBand(); }
