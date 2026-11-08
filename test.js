@@ -50,6 +50,7 @@ for (const e of EVENTS) {
   for (const s of e.sides || []) assert(s === null || s in CLANS, `event ${e.id}: side ${s}`);
   assert(!e.winner || e.winner in CLANS, `event ${e.id}: winner`);
   assert(e.short && e.long && e.en && e.ja, `event ${e.id}: text`);
+  assert(e.at !== 'ezo' || !e.lon || (e.lat > 41.4 && e.lon > 139.8 && e.lon < 145.9), `event ${e.id}: not on Ezo`);
 }
 assert.deepStrictEqual(EVENTS.filter(e => e.threshold).map(e => e.year), [1467, 1560, 1582, 1590, 1600, 1853, 1868, 1945]);
 for (const [id, from, to, clans, en, ja, short] of ALLIANCES) {
@@ -63,7 +64,8 @@ for (const [k, im] of Object.entries(IMAGES)) {
   const [type, id] = k.split(':');
   const castleIds = JSON.parse(vm.runInContext('JSON.stringify(CASTLES.map(c => c.id))', ctx));
   const known = { clan: () => id in CLANS, castle: () => castleIds.includes(id), event: () => EVENTS.some(e => e.id === id),
-                  landmark: () => vm.runInContext(`LANDMARKS.some(l => l.id === ${JSON.stringify(id)})`, ctx) }[type];
+                  landmark: () => vm.runInContext(`LANDMARKS.some(l => l.id === ${JSON.stringify(id)})`, ctx),
+                  person: () => vm.runInContext(`PEOPLE.some(p => p.portrait === ${JSON.stringify(k)})`, ctx) }[type];
   assert(known && known(), `image for unknown ${k}`);
   assert(fs.existsSync(__dirname + '/' + im.src) && im.licence && im.artist, `image ${k}: file, licence and author`);
 }
@@ -72,7 +74,7 @@ const { CASTLES, PEOPLE } = JSON.parse(vm.runInContext('JSON.stringify({CASTLES,
 for (const c of CASTLES) assert(provs.includes(c.at) && c.from <= c.to && c.short && c.en && c.ja, `castle ${c.id}`);
 for (const p of PEOPLE) {
   assert(p.born < p.died && p.portrait && p.short, `person ${p.id}`); // the portrait may still be downloading: the app shows the name alone
-  for (const [from, to, clan, how] of p.roles) assert(from <= to && clan in CLANS && ['leads', 'serves'].includes(how), `${p.id} role ${clan}`);
+  for (const [from, to, clan, how] of p.roles) assert(from <= to && clan in CLANS && ['leads', 'serves', 'married'].includes(how), `${p.id} role ${clan}`);
   for (const [y, text, ev] of p.life) assert(y >= p.born && y <= p.died && text && (!ev || EVENTS.some(e => e.id === ev)), `${p.id} life ${y}`);
 }
 

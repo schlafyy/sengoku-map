@@ -6,6 +6,7 @@ An interactive map of Japan from the Ōnin War (1467) to the end of the Second W
 
 - **Windows app:** `dist\Sengoku.exe` (one file; uses the Edge WebView2 runtime that ships with Windows 11).
 - **In a browser:** serve the folder (`python -m http.server`) and open `index.html`.
+- **On the iPhone:** the same files on GitHub Pages (once published: open it in Safari, Share, Add to Home Screen). `manifest.webmanifest`, `icon-180.png`/`icon-512.png` (from `tools/icon.py`) and `sw.js` make it an app that opens offline; the service worker registers only over https, so the exe never caches.
 
 ## Using it
 
@@ -92,7 +93,14 @@ Then, in the afternoon:
 
 Open, in order:
 1. The finish reviewer looked at Okinawa and the search (round 7); its eight fixes are in (`fixed-*` captures in `.impeccable/review/round7/`).
-2. **Ideas not started:** a phone version (Home Screen, like the reading app).
+2. Done 2026-11-08 (evening):
+   - click any picture, or the big portrait of a followed life, to see it larger (a `<dialog>`)
+   - pictures re-fetched at up to 1280px (`python tools/fetch_images.py --sharper`, then `tools/shrink_images.py`)
+   - 13 new events, each checked against Wikipedia: 1500–1549 was nearly empty (Hosokawa Masamoto's murder 1507, Iwami silver 1526, the Lotus temples burned 1536, Shingen exiles his father 1541, guns at Tanegashima 1543, Uedahara 1548, Eguchi and Xavier 1549), and the Edo years got Shakushain's war 1669, Kaitai Shinsho 1774, Laxman at Nemuro 1792, Inō's survey 1800, the Siebold incident 1828. An Ezo event may carry `lon`/`lat`, otherwise it sits at Hakodate.
+   - six new lives: Hōjō Sōun, Oichi, Akechi Mitsuhide, Sanada Yukimura, Sakamoto Ryōma, Katsu Kaishū. A person may have `she: true`, a `landless` line for the years without a role, and the role `married`.
+   - Shingen's father: English Wikipedia says 1540; the app keeps 1541, the Japanese date, as Shingen's role already did.
+   - the phone version (see "Run it"); not published yet.
+3. **Next:** publish the phone version (the user runs it: Claude may not create public sites).
 
 ## Credits
 

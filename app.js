@@ -255,8 +255,10 @@
     const big = [...ezo.children].map(u => u.getBBox()).sort((a, b) => b.width * b.height - a.width * a.height)[0];
     return big ? [big.x + big.width * .2, big.y + big.height * .93] : [0, 0];
   })();
+  // longitude/latitude to the map, through the fitted quadratic (data/georef.js)
+  const geoAt = (lon, lat) => GEOREF.toMap.map(r => r.reduce((s, k, i) => s + k * [1, lon, lat, lon * lat, lon * lon, lat * lat][i], 0));
   function markAt(e) {
-    if (e.at === 'ezo') return ezoTip;
+    if (e.at === 'ezo') return e.lon ? geoAt(e.lon, e.lat) : ezoTip;
     if (e.at === 'ryukyu') return ryuAt(e.lon, e.lat);
     const [x, y] = center(e.at);
     if (e.abroad === 'west') return [x - 46, y + (e.dy || 0)];
@@ -651,7 +653,7 @@
     const im = typeof IMAGES !== 'undefined' && IMAGES[key];
     if (!im) return '';
     const tall = im.h > im.w * 1.1;
-    return `<figure class="plate${tall ? ' tall' : ''}"><img src="${im.src}" alt="${esc(im.desc || im.file.replace(/\.\w+$/, '').replace(/_/g, ' '))}" width="${im.w}" height="${im.h}" loading="lazy" decoding="async">` +
+    return `<figure class="plate${tall ? ' tall' : ''}"><button class="zoom" data-act="zoom" data-img="${key}" title="Show larger"><img src="${im.src}" alt="${esc(im.desc || im.file.replace(/\.\w+$/, '').replace(/_/g, ' '))}" width="${im.w}" height="${im.h}" loading="lazy" decoding="async"></button>` +
       `<figcaption>${note ? `<span class="photo-note">${esc(note)}</span>` : ''}${esc(im.artist || 'Unknown')} · ${esc(im.licence)} · Wikimedia Commons</figcaption></figure>`;
   };
 
@@ -661,14 +663,14 @@
   function renderPerson() {
     const p = person(), age = year - p.born, r = roleAt(p, year), n = r ? counts(stateAt(year))[r[2]] || 0 : 0;
     const status = year < p.born ? `Not yet born: born in ${p.born}` : year > p.died ? `Died in ${p.died}` :
-      `${year} · aged about ${age} · ` + (!r ? 'no land of his own yet' : r[3] === 'leads' ? `leads the ${CLANS[r[2]].en}${n ? `: ${fmt(n)} province${n === 1 ? '' : 's'}` : ''}` : r[2] === 'imagawa' ? 'a hostage of the Imagawa' : `serves the ${CLANS[r[2]].en}`);
+      `${year} · aged about ${age} · ` + (!r ? p.landless || `no land of ${p.she ? 'her' : 'his'} own yet` : r[3] === 'married' ? `married into the ${CLANS[r[2]].en}` : r[3] === 'leads' ? `leads the ${CLANS[r[2]].en}${n ? `: ${fmt(n)} province${n === 1 ? '' : 's'}` : ''}` : r[2] === 'imagawa' ? 'a hostage of the Imagawa' : `serves the ${CLANS[r[2]].en}`);
     const im = IMAGES[p.portrait];
     side.innerHTML = `<button class="back" data-act="unfollow"><svg viewBox="0 0 8 10" aria-hidden="true"><path d="M8 0v10L0 5z"/></svg>Stop following</button>
-      <div class="head person-head">${portrait(p, 'face big')}<h3>${esc(p.en)}<span lang="ja">${p.ja}</span></h3></div>
+      <div class="head person-head">${im ? `<button class="zoom" data-act="zoom" data-img="${p.portrait}" title="Show larger">${portrait(p, 'face big')}</button>` : portrait(p, 'face big')}<h3>${esc(p.en)}<span lang="ja">${p.ja}</span></h3></div>
       <p class="sub">${p.born}–${p.died} · ${status}</p>
       <p class="lede">${esc(p.short)}</p>
       <button class="play-life" data-act="playlife"><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M4 2.2v13.6L15.5 9z"/></svg>Play this life, ${Math.max(START, p.born)}–${Math.min(END, p.died)}</button>
-      <div class="block"><h4>His life <span lang="ja">生涯</span></h4><ul class="links">${p.life.map(([y, text, ev]) => `<li><button ${ev ? `data-event="${ev}"` : `data-year="${y}"`} class="${ev ? warCls(EVENTS.find(x => x.id === ev)) + ' ' : ''}${y <= year ? 'now' : ''}"><span class="y">${y}</span><span>${esc(text)}</span></button></li>`).join('')}</ul></div>
+      <div class="block"><h4>${p.she ? 'Her' : 'His'} life <span lang="ja">生涯</span></h4><ul class="links">${p.life.map(([y, text, ev]) => `<li><button ${ev ? `data-event="${ev}"` : `data-year="${y}"`} class="${ev ? warCls(EVENTS.find(x => x.id === ev)) + ' ' : ''}${y <= year ? 'now' : ''}"><span class="y">${y}</span><span>${esc(text)}</span></button></li>`).join('')}</ul></div>
       ${im ? `<p class="note">Portrait: ${esc(im.artist)} · ${esc(im.licence)} · Wikimedia Commons</p>` : ''}`;
   }
 
@@ -744,9 +746,9 @@
   // ---------- the landmarks view ----------
 
   const landmarksG = el('g', { id: 'landmarks' }, svg);
-  const lmAt = (() => { // longitude/latitude to the map, through the fitted quadratic (data/georef.js)
+  const lmAt = (() => {
     const memo = {};
-    return l => memo[l.id] ||= inRyukyu(l) ? ryuAt(l.lon, l.lat) : GEOREF.toMap.map(r => r.reduce((s, k, i) => s + k * [1, l.lon, l.lat, l.lon * l.lat, l.lon * l.lon, l.lat * l.lat][i], 0));
+    return l => memo[l.id] ||= inRyukyu(l) ? ryuAt(l.lon, l.lat) : geoAt(l.lon, l.lat);
   })();
   // each kind a small stencil, printed in indigo with a halo of bare cotton; drawn, never a font glyph (no 卍 for temples)
   const KINDS = {
@@ -982,7 +984,7 @@
     if ((e.key === '+' || e.key === '=') && !e.ctrlKey) zoomBy(1.4);
     if (e.key === '-' && !e.ctrlKey) zoomBy(1 / 1.4);
     if (e.key === '0' && !e.ctrlKey) zoomHome();
-    if (e.key === 'Escape' && (sel || (follow && !landMode))) { if (sel) sel = null; else follow = null; refresh(); }
+    if (e.key === 'Escape' && !viewer.open && (sel || (follow && !landMode))) { if (sel) sel = null; else follow = null; refresh(); }
   });
 
   // ---------- pointing at things ----------
@@ -1017,12 +1019,19 @@
   });
   for (const layer of [battles, castlesG, landmarksG]) layer.addEventListener('keydown', e => { if (e.key === 'Enter') e.target.dispatchEvent(new MouseEvent('click', { bubbles: true })); });
   side.addEventListener('click', e => { const b = e.target.closest('button'); if (b) act(b); });
+  const viewer = $('#viewer');
+  viewer.addEventListener('click', () => viewer.close());
   // what a button in the panel (or a search result, passing {dataset}) asks for; anything not a landmark is on the history map
   function act(b) {
     const d = b.dataset;
     if (d.clan || d.castle || d.follow || d.province) setMode(false);
     if (d.landmark) setMode(true);
     if (b.dataset.act === 'back') { sel = null; refresh(); return; }
+    if (d.act === 'zoom') { // the same print, off the lining, at its full size
+      const im = IMAGES[d.img], cap = b.closest('figure')?.querySelector('figcaption'); // portraits have no caption of their own
+      viewer.innerHTML = `<figure class="plate"><img src="${im.src}" alt="${esc(b.querySelector('img').alt || im.desc || '')}">${cap ? cap.outerHTML : `<figcaption>${esc(im.artist || 'Unknown')} · ${esc(im.licence)} · Wikimedia Commons</figcaption>`}</figure>`;
+      viewer.showModal(); return;
+    }
     if (b.dataset.act === 'unfollow') { follow = null; refresh(); return; }
     if (b.dataset.act === 'playlife') {
       const p = person(); stop(); setYear(Math.max(START, p.born)); lifeEnd = Math.min(END, p.died);
@@ -1111,4 +1120,6 @@
   document.fonts.ready.then(() => { drawWeave(); tidyBand(); setYear(START); });
   drawWeave();
   year = START; setYear(START);
+  // offline on the phone; only on the web (the exe serves from localhost and needs no cache)
+  if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
 })();

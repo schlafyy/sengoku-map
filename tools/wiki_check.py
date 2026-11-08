@@ -31,6 +31,10 @@ EVENT_TITLES = {
     "manchuria": "Mukden incident", "china1937": "Second Sino-Japanese War", "pearl": "Attack on Pearl Harbor",
     "midway": "Battle of Midway", "tokyo1945": "Bombing of Tokyo (10 March 1945)", "okinawa": "Battle of Okinawa",
     "atomic": "Atomic bombings of Hiroshima and Nagasaki", "surrender": "Surrender of Japan",
+    "eisho": "Hosokawa Masamoto", "iwami": "Iwami Ginzan Silver Mine", "hokke": "Hokke-ikki", "nobutora": "Takeda Nobutora",
+    "tanegashima": "Tanegashima (gun)", "uedahara": "Battle of Uedahara", "eguchi": "Miyoshi Nagayoshi", "xavier": "Francis Xavier",
+    "shakushain": "Shakushain's revolt", "kaitai": "Kaitai Shinsho", "laxman": "Adam Laxman", "ino": "Inō Tadataka",
+    "siebold": "Philipp Franz von Siebold",
 }
 CLAN_TITLES = {"wtakeda": "Wakasa-Takeda clan", "ikko": "Ikkō-ikki", "hojo": "Late Hōjō clan", "east": None, "west": None,
                "tozama": "Tozama daimyō", "ashikaga": "Ashikaga shogunate", "takeda": "Takeda clan", "uesugi": "Uesugi clan"}
@@ -77,7 +81,7 @@ def search(term):
 
 def load_history():
     js = "const fs=require('fs'),vm=require('vm'),c={};vm.createContext(c);for(const f of ['data/history.js','data/places.js','data/modern.js','data/landmarks.js'])vm.runInContext(fs.readFileSync(f,'utf8'),c);" \
-         "console.log(vm.runInContext('JSON.stringify({CLANS,EVENTS,LANDMARKS})',c))"
+         "console.log(vm.runInContext('JSON.stringify({CLANS,EVENTS,LANDMARKS,PEOPLE})',c))"
     return json.loads(subprocess.run(["node", "-e", js], cwd=ROOT, capture_output=True, text=True, encoding="utf8").stdout)
 
 
