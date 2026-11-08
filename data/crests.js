@@ -12,7 +12,8 @@ const CRESTS = {
   "file": "Japanese_Crest_Hosokawa_Kuyou.svg",
   "page": "https://commons.wikimedia.org/wiki/File:Japanese_Crest_Hosokawa_Kuyou.svg",
   "licence": "CC BY-SA 3.0",
-  "artist": "Mukai"
+  "artist": "Mukai",
+  "invert": true
  },
  "hatakeyama": {
   "src": "crests/hatakeyama.svg",
@@ -33,21 +34,16 @@ const CRESTS = {
   "file": "Japanese_Crest_Oouchi_Hisi.svg",
   "page": "https://commons.wikimedia.org/wiki/File:Japanese_Crest_Oouchi_Hisi.svg",
   "licence": "CC BY-SA 3.0",
-  "artist": "Mukai"
+  "artist": "Mukai",
+  "invert": true
  },
  "kyogoku": {
   "src": "crests/kyogoku.svg",
   "file": "Japanese_crest_Yotumeyui.svg",
   "page": "https://commons.wikimedia.org/wiki/File:Japanese_crest_Yotumeyui.svg",
   "licence": "Public domain",
-  "artist": "Original: Jjok Vector: Los688 and Sarang"
- },
- "rokkaku": {
-  "src": "crests/rokkaku.svg",
-  "file": "Japanese_crest_Yotumeyui.svg",
-  "page": "https://commons.wikimedia.org/wiki/File:Japanese_crest_Yotumeyui.svg",
-  "licence": "Public domain",
-  "artist": null
+  "artist": "Original: Jjok Vector: Los688 and Sarang",
+  "invert": true
  },
  "toki": {
   "src": "crests/toki.svg",
@@ -68,42 +64,48 @@ const CRESTS = {
   "file": "Japanese_Crest_Takeda_Hisi.svg",
   "page": "https://commons.wikimedia.org/wiki/File:Japanese_Crest_Takeda_Hisi.svg",
   "licence": "CC BY-SA 3.0",
-  "artist": "Mukai"
+  "artist": "Mukai",
+  "invert": true
  },
  "urakami": {
   "src": "crests/urakami.svg",
   "file": "Japanese_Crest_Hioogi.svg",
   "page": "https://commons.wikimedia.org/wiki/File:Japanese_Crest_Hioogi.svg",
   "licence": "CC BY-SA 3.0",
-  "artist": "Mukai"
+  "artist": "Mukai",
+  "invert": true
  },
  "imagawa": {
   "src": "crests/imagawa.svg",
   "file": "Japanese_crest_Imagawa_Akadori.svg",
   "page": "https://commons.wikimedia.org/wiki/File:Japanese_crest_Imagawa_Akadori.svg",
   "licence": "CC BY-SA 3.0",
-  "artist": "Mukai"
+  "artist": "Mukai",
+  "invert": true
  },
  "takeda": {
   "src": "crests/takeda.svg",
   "file": "Japanese_Crest_Takeda_Hisi.svg",
   "page": "https://commons.wikimedia.org/wiki/File:Japanese_Crest_Takeda_Hisi.svg",
   "licence": "CC BY-SA 3.0",
-  "artist": "Mukai"
+  "artist": "Mukai",
+  "invert": true
  },
  "uesugi": {
   "src": "crests/uesugi.svg",
   "file": "Japanese_Crest_Uesugi_Sasa.svg",
   "page": "https://commons.wikimedia.org/wiki/File:Japanese_Crest_Uesugi_Sasa.svg",
   "licence": "CC BY-SA 3.0",
-  "artist": "Mukai"
+  "artist": "Mukai",
+  "invert": true
  },
  "hojo": {
   "src": "crests/hojo.svg",
   "file": "Japanese_Crest_Houjou_Uroko.svg",
   "page": "https://commons.wikimedia.org/wiki/File:Japanese_Crest_Houjou_Uroko.svg",
   "licence": "CC BY-SA 3.0",
-  "artist": "Mukai"
+  "artist": "Mukai",
+  "invert": true
  },
  "oda": {
   "src": "crests/oda.svg",
@@ -124,48 +126,137 @@ const CRESTS = {
   "file": "Japanese_crest_Yotumeyui.svg",
   "page": "https://commons.wikimedia.org/wiki/File:Japanese_crest_Yotumeyui.svg",
   "licence": "Public domain",
-  "artist": "Original: Jjok Vector: Los688 and Sarang"
+  "artist": "Original: Jjok Vector: Los688 and Sarang",
+  "invert": true
+ },
+ "rokkaku": {
+  "src": "crests/rokkaku.svg",
+  "file": "Japanese_crest_Yotumeyui.svg",
+  "page": "https://commons.wikimedia.org/wiki/File:Japanese_crest_Yotumeyui.svg",
+  "licence": "Public domain",
+  "artist": "Original: Jjok Vector: Los688 and Sarang",
+  "invert": true
  },
  "satake": {
   "src": "crests/satake.svg",
   "file": "Japanese_Crest_Hinomaru_Oogi.svg",
   "page": "https://commons.wikimedia.org/wiki/File:Japanese_Crest_Hinomaru_Oogi.svg",
   "licence": "CC BY-SA 3.0",
-  "artist": null
+  "artist": "Mukai",
+  "invert": true
  },
  "satomi": {
   "src": "crests/satomi.svg",
   "file": "Futatsuhikiryo.svg",
   "page": "https://commons.wikimedia.org/wiki/File:Futatsuhikiryo.svg",
   "licence": "Public domain",
-  "artist": null
+  "artist": "Extrahitz"
  },
  "asakura": {
   "src": "crests/asakura.svg",
   "file": "Japanese_Crest_mitumori_mokkou.svg",
   "page": "https://commons.wikimedia.org/wiki/File:Japanese_Crest_mitumori_mokkou.svg",
   "licence": "CC BY-SA 3.0",
-  "artist": null
+  "artist": "Mukai",
+  "invert": true
  },
  "azai": {
   "src": "crests/azai.svg",
   "file": "Japanese_Crest_mitumori_Kikkou_ni_Hanabishi.svg",
   "page": "https://commons.wikimedia.org/wiki/File:Japanese_Crest_mitumori_Kikkou_ni_Hanabishi.svg",
   "licence": "CC BY-SA 3.0",
-  "artist": null
+  "artist": "Wikiwikiyarou (assumed)",
+  "invert": true
  },
  "miyoshi": {
   "src": "crests/miyoshi.svg",
   "file": "Japanese_crest_Sanngai_Hisi_ni_itutu_Kuginuki.svg",
   "page": "https://commons.wikimedia.org/wiki/File:Japanese_crest_Sanngai_Hisi_ni_itutu_Kuginuki.svg",
   "licence": "CC BY-SA 3.0",
-  "artist": null
+  "artist": "Mukai",
+  "invert": true
+ },
+ "mori": {
+  "src": "crests/mori.svg",
+  "file": "Alex_K_Hiroshima_Mori_(color).svg",
+  "page": "https://commons.wikimedia.org/wiki/File:Alex_K_Hiroshima_Mori_(color).svg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Alex Tora",
+  "invert": true
+ },
+ "ukita": {
+  "src": "crests/ukita.svg",
+  "file": "Jimonji.svg",
+  "page": "https://commons.wikimedia.org/wiki/File:Jimonji.svg",
+  "licence": "Public domain",
+  "artist": "Horlicks",
+  "invert": "holes"
  },
  "chosokabe": {
   "src": "crests/chosokabe.svg",
   "file": "Nanatsukatabami.svg",
   "page": "https://commons.wikimedia.org/wiki/File:Nanatsukatabami.svg",
   "licence": "CC BY-SA 3.0",
-  "artist": null
+  "artist": "百楽兎"
+ },
+ "otomo": {
+  "src": "crests/otomo.svg",
+  "file": "Japanese_Crest_Daki_hana_Gyouyou.svg",
+  "page": "https://commons.wikimedia.org/wiki/File:Japanese_Crest_Daki_hana_Gyouyou.svg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Mukai",
+  "invert": true
+ },
+ "ryuzoji": {
+  "src": "crests/ryuzoji.svg",
+  "file": "Japanese_Crest_Kawarijuunihiashi.svg",
+  "page": "https://commons.wikimedia.org/wiki/File:Japanese_Crest_Kawarijuunihiashi.svg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Gameposo",
+  "invert": "holes"
+ },
+ "shimazu": {
+  "src": "crests/shimazu.svg",
+  "file": "Maru_ni_Jū-monji_(Kutsuwa)_inverted.svg",
+  "page": "https://commons.wikimedia.org/wiki/File:Maru_ni_J%C5%AB-monji_(Kutsuwa)_inverted.svg",
+  "licence": "Public domain",
+  "artist": "Sarang",
+  "invert": true
+ },
+ "so": {
+  "src": "crests/so.svg",
+  "file": "So_clan_mon.svg",
+  "page": "https://commons.wikimedia.org/wiki/File:So_clan_mon.svg",
+  "licence": "Public domain",
+  "artist": "LordAmeth (talk · contribs), vectorized by Fvasconcellos (talk · contribs)"
+ },
+ "date": {
+  "src": "crests/date.svg",
+  "file": "Take_ni_Suzume.svg",
+  "page": "https://commons.wikimedia.org/wiki/File:Take_ni_Suzume.svg",
+  "licence": "Public domain",
+  "artist": "Ash_Crow"
+ },
+ "toyotomi": {
+  "src": "crests/toyotomi.svg",
+  "file": "Goshichi_no_kiri.svg",
+  "page": "https://commons.wikimedia.org/wiki/File:Goshichi_no_kiri.svg",
+  "licence": "Public domain",
+  "artist": "file created on Adobe Illustrator and Photoshop by: Zagyoso"
+ },
+ "maeda": {
+  "src": "crests/maeda.svg",
+  "file": "Japanese_crest_Kaga_Umebachi.svg",
+  "page": "https://commons.wikimedia.org/wiki/File:Japanese_crest_Kaga_Umebachi.svg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Mukai",
+  "invert": true
+ },
+ "kobayakawa": {
+  "src": "crests/kobayakawa.svg",
+  "file": "Hidari_mitsudomoe.svg",
+  "page": "https://commons.wikimedia.org/wiki/File:Hidari_mitsudomoe.svg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "BraneJ"
  }
 };

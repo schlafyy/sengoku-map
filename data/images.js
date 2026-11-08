@@ -799,5 +799,345 @@ const IMAGES = {
   "w": 640,
   "h": 427,
   "desc": "Kumamoto Castle Keep Tower"
+ },
+ "event:osaka": {
+  "src": "images/event_osaka.jpg",
+  "file": "Osakarakuzyou_(cropped).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Osakarakuzyou_(cropped).jpg",
+  "licence": "Public domain",
+  "artist": "Utagawa Yoshitora",
+  "w": 640,
+  "h": 480,
+  "desc": "The Fall of Osaka Castle"
+ },
+ "event:sankin": {
+  "src": "images/event_sankin.jpg",
+  "file": "Tokugawa_Seiseiroku_001.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Tokugawa_Seiseiroku_001.jpg",
+  "licence": "Public domain",
+  "artist": "a former retainer",
+  "w": 640,
+  "h": 315,
+  "desc": "\"En masse Attendance of Daimyo at Edo Castle on a Festive Day\" from the \"Tokugawa Seiseiroku\". National Museum of Japanese History."
+ },
+ "event:shimabara": {
+  "src": "images/event_shimabara.jpg",
+  "file": "Shimabara-Battle-Map-c17th-century.png",
+  "page": "https://commons.wikimedia.org/wiki/File:Shimabara-Battle-Map-c17th-century.png",
+  "licence": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "w": 640,
+  "h": 625,
+  "desc": "This is an Important Cultural Property. A map depicting the Amakusa / Shimabara Rebellion centered on Hara Castle. From the beginning of February in the 15th year of Kanei (1638), when the Kyushu daim"
+ },
+ "event:meireki": {
+  "src": "images/event_meireki.jpg",
+  "file": "Meireki_fire.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Meireki_fire.JPG",
+  "licence": "Public domain",
+  "artist": "田代幸春",
+  "w": 640,
+  "h": 254,
+  "desc": "Contemporary handscroll of the Great Fire of Meireki. Owned by Edo-Tokyo Museum."
+ },
+ "event:ako": {
+  "src": "images/event_ako.jpg",
+  "file": "Reward_for_47_Ronin_by_Yasuda_Raishu_(Homma_Museum_of_Art).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Reward_for_47_Ronin_by_Yasuda_Raishu_(Homma_Museum_of_Art).jpg",
+  "licence": "Public domain",
+  "artist": "Yasuda Raishū 安田雷洲 (?-1858)",
+  "w": 531,
+  "h": 966,
+  "desc": "Revenge of the Loyal Samurai of Akō, by Yasuda Raishū, Homma Museum of Art, Sakata, Yamagata, Japan (iconography based on the Adoration of the Shepherds per [1])"
+ },
+ "event:hoei": {
+  "src": "images/event_hoei.jpg",
+  "file": "宝永大噴火を描いた絵図「夜ルの景気」(静岡県沼津市土屋博氏所蔵).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:%E5%AE%9D%E6%B0%B8%E5%A4%A7%E5%99%B4%E7%81%AB%E3%82%92%E6%8F%8F%E3%81%84%E3%81%9F%E7%B5%B5%E5%9B%B3%E3%80%8C%E5%A4%9C%E3%83%AB%E3%81%AE%E6%99%AF%E6%B0%97%E3%80%8D(%E9%9D%99%E5%B2%A1%E7%9C%8C%E6%B2%BC%E6%B4%A5%E5%B8%82%E5%9C%9F%E5%B1%8B%E5%8D%9A%E6%B0%8F%E6%89%80%E8%94%B5).jpg",
+  "licence": "Public domain",
+  "artist": "内閣府 防災担当",
+  "w": 640,
+  "h": 447,
+  "desc": "宝永噴火を描いた絵図「夜ルの景気」(静岡県沼津市土屋博氏所蔵)[1]"
+ },
+ "event:tenmei": {
+  "src": "images/event_tenmei.jpg",
+  "file": "Great_Tenmei_Famine_Map_Artwork.png",
+  "page": "https://commons.wikimedia.org/wiki/File:Great_Tenmei_Famine_Map_Artwork.png",
+  "licence": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "w": 640,
+  "h": 894,
+  "desc": "The Great Tenmei Famine Map artwork (circa 1786). The famine was from 1782 until 1788 caused by the 1783 eruption of Mount Asama as well as the Icelandic Laki eruption of 1783 and largely by mismanage"
+ },
+ "event:oshio": {
+  "src": "images/event_oshio.jpg",
+  "file": "Oshio_Heihachiro.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Oshio_Heihachiro.jpg",
+  "licence": "Public domain",
+  "artist": "Kikuchi Yōsai",
+  "w": 640,
+  "h": 573,
+  "desc": "大塩平八郎像"
+ },
+ "event:perry": {
+  "src": "images/event_perry.jpg",
+  "file": "Japanese_1854_print_Commodore_Perry.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Japanese_1854_print_Commodore_Perry.jpg",
+  "licence": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "w": 640,
+  "h": 412,
+  "desc": "Japanese 1854 print relating Perry's visit. The paddlewheel steamer depicted would be either the USS Mississippi (Commodore Perry's flagship), or the USS Susquehanna- the only two paddlewheels on Perr"
+ },
+ "event:ansei": {
+  "src": "images/event_ansei.jpg",
+  "file": "Treaties_of_Amity_and_Commerce_between_Japan_and_Holland_England_France_Russia_and_the_United_States_1858.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Treaties_of_Amity_and_Commerce_between_Japan_and_Holland_England_France_Russia_and_the_United_States_1858.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "World Imaging (talk)",
+  "w": 640,
+  "h": 324,
+  "desc": "Ansei Treaties (Ansei Five-Power Treaties) of Japan; The Treaty of Amity and Commerce (with the United States) on July 29, 1858. The 1858 Treaty of Amity and Commerce between the Netherlands and Japan"
+ },
+ "event:sakuradamon": {
+  "src": "images/event_sakuradamon.jpg",
+  "file": "Sakuradamon_incident_1860_crop.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Sakuradamon_incident_1860_crop.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Soerfm",
+  "w": 640,
+  "h": 315,
+  "desc": "Detail from File:Sakuradamon incident 1860.jpg"
+ },
+ "event:kagoshima": {
+  "src": "images/event_kagoshima.jpg",
+  "file": "Bombardment_of_Kagoshima_1863_by_E._Roevens.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Bombardment_of_Kagoshima_1863_by_E._Roevens.jpg",
+  "licence": "Public domain",
+  "artist": "E. Roevens after special artist and correspondent in Japan",
+  "w": 640,
+  "h": 493,
+  "desc": "Bombardment of Kagoshima. Source: \"Le Monde Illustre\", december 5th 1863. https://gallica.bnf.fr/ark:/12148/bpt6k6221111p.item The shelling of Kagoshima by the British Navy. Ships L-R: 1. HMS Racehors"
+ },
+ "event:shimonoseki": {
+  "src": "images/event_shimonoseki.jpg",
+  "file": "Choshu-Battery-Capture-Shimonoseki-1864.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Choshu-Battery-Capture-Shimonoseki-1864.jpg",
+  "licence": "Public domain",
+  "artist": "Felice Beato",
+  "w": 640,
+  "h": 483,
+  "desc": "Capture of a Choshu battery at Shimonoseki. Albumen silver print by Felice Beato, 1864. en:Category:Bombardment of Shimonoseki"
+ },
+ "event:toba": {
+  "src": "images/event_toba.jpg",
+  "file": "Monument_of_Meijiishin_Fushimi_no_senseki.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Monument_of_Meijiishin_Fushimi_no_senseki.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Photo memories 1868",
+  "w": 640,
+  "h": 800,
+  "desc": "Monument of The Battle of Fushimi (The Battle of Toba - Fushimi). This stone monument was erected in 1968 to commemorate the 100th anniversary of the outbreak of war. The inscription was written by Pr"
+ },
+ "event:edo1868": {
+  "src": "images/event_edo1868.jpg",
+  "file": "Surrender_of_Edo_Castle_(Meiji_Memorial_Picture_Gallery).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Surrender_of_Edo_Castle_(Meiji_Memorial_Picture_Gallery).jpg",
+  "licence": "Public domain",
+  "artist": "Yūki Somei 結城素明 (1875–1957)",
+  "w": 640,
+  "h": 729,
+  "desc": "Surrender of Edo Castle, painted by Yūki Somei, 1935, Meiji Memorial Picture Gallery, Tokyo, Japan. Negotiations between Saigō Takamori and Katsu Kaishū regarding the surrender of the capital."
+ },
+ "event:aizu": {
+  "src": "images/event_aizu.jpg",
+  "file": "Battle_of_Aizu_at_Wakamatsu_castle_by_Tsukioka_Yoshitoshi.png",
+  "page": "https://commons.wikimedia.org/wiki/File:Battle_of_Aizu_at_Wakamatsu_castle_by_Tsukioka_Yoshitoshi.png",
+  "licence": "Public domain",
+  "artist": "Yoshitoshi",
+  "w": 640,
+  "h": 313,
+  "desc": "Yoshitoshi Tsukioka's \"Aizu Wakamatsu War\". The main battle ukiyo-e depicts the Wakamatsu Castle Siege, which was the end of the Battle of Aizu, one of the battles in the Boshin War. The castle is als"
+ },
+ "event:hakodate": {
+  "src": "images/event_hakodate.jpg",
+  "file": "Naval_Battle_of_Hakodate.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Naval_Battle_of_Hakodate.jpg",
+  "licence": "Public domain",
+  "artist": "Unknown artistUnknown artist, ILN Staff, after a sketch by William Henry Webster",
+  "w": 640,
+  "h": 448,
+  "desc": "The naval battle of Hakodate, May 1869; in the foreground, Kasuga and Kōtetsu of the Imperial Japanese Navy."
+ },
+ "event:constitution": {
+  "src": "images/event_constitution.jpg",
+  "file": "Meiji-Constitution-Empire-of-Japan.png",
+  "page": "https://commons.wikimedia.org/wiki/File:Meiji-Constitution-Empire-of-Japan.png",
+  "licence": "CC BY 4.0",
+  "artist": "Kantei",
+  "w": 640,
+  "h": 422,
+  "desc": "Constitution of the Empire of Japan. It is informally called the Meiji Constitution."
+ },
+ "event:sinojapanese": {
+  "src": "images/event_sinojapanese.jpg",
+  "file": "旅顺海军公所.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:%E6%97%85%E9%A1%BA%E6%B5%B7%E5%86%9B%E5%85%AC%E6%89%80.jpg",
+  "licence": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "w": 640,
+  "h": 483,
+  "desc": "​旅顺海军公所"
+ },
+ "event:tsushima1905": {
+  "src": "images/event_tsushima1905.jpg",
+  "file": "Battle_of_Tsushima,_1905_by_Tōjō_Shōtarō.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Battle_of_Tsushima,_1905_by_T%C5%8Dj%C5%8D_Sh%C5%8Dtar%C5%8D.jpg",
+  "licence": "Public domain",
+  "artist": "Tōjō Shōtarō",
+  "w": 640,
+  "h": 464,
+  "desc": "Battle of Tsushima, 1905, a painting by Tōjō Shōtarō"
+ },
+ "event:korea1910": {
+  "src": "images/event_korea1910.jpg",
+  "file": "General_power_of_attorney_to_Lee_Wan-Yong_signed_and_sealed_by_Sunjong.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:General_power_of_attorney_to_Lee_Wan-Yong_signed_and_sealed_by_Sunjong.jpg",
+  "licence": "Public domain",
+  "artist": "Sunjong of Korean Empire",
+  "w": 640,
+  "h": 384,
+  "desc": "General power of attorney to Lee Wan-Yong signed and sealed by the last emperor, Sunjong of the Korean Empire (Yi Cheok, 이척 李坧) on August 22, 1910. The last emperor's first name '坧' used as signature."
+ },
+ "event:kanto1923": {
+  "src": "images/event_kanto1923.jpg",
+  "file": "The_Great_Kanto_Earthquake_(3767766524)_(cropped).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:The_Great_Kanto_Earthquake_(3767766524)_(cropped).jpg",
+  "licence": "CC BY 2.0",
+  "artist": "urbzoo",
+  "w": 640,
+  "h": 412,
+  "desc": "The current bridge was built in 1911. It withstood the Kanto Earthquake in 1923."
+ },
+ "event:manchuria": {
+  "src": "images/event_manchuria.jpg",
+  "file": "Mukden_1931_japan_shenyang.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Mukden_1931_japan_shenyang.jpg",
+  "licence": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "w": 417,
+  "h": 333,
+  "desc": "Japanese cavalry entering Mukden (Shenyang)"
+ },
+ "event:china1937": {
+  "src": "images/event_china1937.jpg",
+  "file": "Japanese_Special_Naval_Landing_Forces_in_Battle_of_Shanghai_1937.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Japanese_Special_Naval_Landing_Forces_in_Battle_of_Shanghai_1937.jpg",
+  "licence": "Public domain",
+  "artist": "Unknown photographer, Ministry of the Navy",
+  "w": 640,
+  "h": 509,
+  "desc": "The Imperial Japanese Navy (IJN) Special Naval Landing Forces troops in gas masks prepare for an advance in the rubble of Shanghai, China."
+ },
+ "event:pearl": {
+  "src": "images/event_pearl.jpg",
+  "file": "Attack_on_Pearl_Harbor_Japanese_planes_view.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Attack_on_Pearl_Harbor_Japanese_planes_view.jpg",
+  "licence": "Public domain",
+  "artist": "Imperial Japanese Navy",
+  "w": 640,
+  "h": 454,
+  "desc": "Photograph taken from a Japanese plane during the torpedo attack on ships moored on both sides of Ford Island shortly after the beginning of the Pearl Harbor attack. View looks about east, with the su"
+ },
+ "event:midway": {
+  "src": "images/event_midway.jpg",
+  "file": "USS_Yorktown_(CV-5)_is_hit_by_a_torpedo_on_4_June_1942.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:USS_Yorktown_(CV-5)_is_hit_by_a_torpedo_on_4_June_1942.jpg",
+  "licence": "Public domain",
+  "artist": "USN, photographed from USS Pensacola (CA-24)",
+  "w": 640,
+  "h": 505,
+  "desc": "USS Yorktown (CV-5) is hit on the port side, amidships, by a Japanese Type 91 aerial torpedo during the mid-afternoon attack by planes from the carrier Hiryu, in the Battle of Midway, on 4 June, 1942."
+ },
+ "event:tokyo1945": {
+  "src": "images/event_tokyo1945.jpg",
+  "file": "Tokyo_kushu_1945-4.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Tokyo_kushu_1945-4.jpg",
+  "licence": "Public domain",
+  "artist": "Ishikawa Kōyō",
+  "w": 640,
+  "h": 448,
+  "desc": "Photo taken by Ishikawa Kōyō(1904-1989) around 10 March, 1945."
+ },
+ "event:okinawa": {
+  "src": "images/event_okinawa.jpg",
+  "file": "Ww2_158.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Ww2_158.jpg",
+  "licence": "Public domain",
+  "artist": "Staff Sergent Walter F. Kleine",
+  "w": 640,
+  "h": 509,
+  "desc": "Two Marines from the 2nd Battalion, 1st Marine Regiment during fighting at Wana Ridge during the Battle of Okinawa, May 1945. On the left, Davis Hargraves (1926–2011) provides covering fire with his M"
+ },
+ "event:atomic": {
+  "src": "images/event_atomic.jpg",
+  "file": "Atomic_bombing_of_Japan.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Atomic_bombing_of_Japan.jpg",
+  "licence": "Public domain",
+  "artist": "George R. Caron / Charles Levy",
+  "w": 640,
+  "h": 380,
+  "desc": "Left picture : At the time this photo was made, smoke billowed 20,000 feet above Hiroshima while smoke from the burst of the first atomic bomb had spread over 10,000 feet on the target at the base of "
+ },
+ "event:surrender": {
+  "src": "images/event_surrender.jpg",
+  "file": "Mamoru_Shigemitsu_signs_the_Instrument_of_Surrender,_officially_ending_the_Second_World_War.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Mamoru_Shigemitsu_signs_the_Instrument_of_Surrender,_officially_ending_the_Second_World_War.jpg",
+  "licence": "Public domain",
+  "artist": "Army Signal Corps photographer LT. Stephen E. Korpanty; restored by Adam Cuerden",
+  "w": 640,
+  "h": 513,
+  "desc": "Japanese Foreign Minister Mamoru Shigemitsu signs the Instrument of Surrender on behalf of the Japanese Government, on board USS Missouri (BB-63), 2 September 1945. Lieutenant General Richard K. Suthe"
+ },
+ "clan:imperial": {
+  "src": "images/clan_imperial.jpg",
+  "file": "Saigo_Takamori_(b).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Saigo_Takamori_(b).jpg",
+  "licence": "Public domain",
+  "artist": "C. Nakagawa (from signature)",
+  "w": 640,
+  "h": 860,
+  "desc": "Portrait of Saigo Takamori by C. Nakagawa (西郷隆盛, 1828 – 1877)"
+ },
+ "clan:shogunate": {
+  "src": "images/clan_shogunate.jpg",
+  "file": "1867_Osaka_Yoshinobu_Tokugawa.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:1867_Osaka_Yoshinobu_Tokugawa.jpg",
+  "licence": "Public domain",
+  "artist": "Frederick Sutton",
+  "w": 640,
+  "h": 1037,
+  "desc": "Yoshinobu in Osaka."
+ },
+ "clan:empire": {
+  "src": "images/clan_empire.jpg",
+  "file": "Meiji_Emperor_(cropped)(b).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Meiji_Emperor_(cropped)(b).jpg",
+  "licence": "Public domain",
+  "artist": "Uchida Kuichi",
+  "w": 640,
+  "h": 957,
+  "desc": "Photograph of the Emperor Meiji. Albumen silver print. Uchida Kuichi was the only photographer granted a sitting by the Emperor Meiji and in 1872 Uchida photographed the Emperor and Empress Haruko in "
+ },
+ "clan:rebels": {
+  "src": "images/clan_rebels.jpg",
+  "file": "Saigo_Takamori_(b).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Saigo_Takamori_(b).jpg",
+  "licence": "Public domain",
+  "artist": "C. Nakagawa (from signature)",
+  "w": 640,
+  "h": 860,
+  "desc": "Portrait of Saigo Takamori by C. Nakagawa (西郷隆盛, 1828 – 1877)"
  }
 };

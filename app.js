@@ -78,8 +78,15 @@
   {
     const f = el('filter', { id: 'resist', 'color-interpolation-filters': 'sRGB' }, defs);
     el('feColorMatrix', { type: 'matrix', values: '0 0 0 0 .937  0 0 0 0 .902  0 0 0 0 .827  -.33 -.33 -.33 1 0' }, f);
+    // for crests drawn white on a dark ground: only the light parts resist; green alone keeps grey figures and drops coloured grounds like Mori's red
+    const g = el('filter', { id: 'resist-inv', 'color-interpolation-filters': 'sRGB' }, defs);
+    el('feColorMatrix', { type: 'matrix', values: '0 0 0 0 .937  0 0 0 0 .902  0 0 0 0 .827  0 2.2 0 0 -.45' }, g);
+    // for crests cut as holes in a dark square: the holes resist; the region stops at the image's own box
+    const h = el('filter', { id: 'resist-holes', x: 0, y: 0, width: 1, height: 1, 'color-interpolation-filters': 'sRGB' }, defs);
+    el('feColorMatrix', { type: 'matrix', values: '0 0 0 0 .937  0 0 0 0 .902  0 0 0 0 .827  0 0 0 -1 1' }, h);
   }
   const crestOf = c => (typeof CRESTS !== 'undefined' && CRESTS[c]) || null;
+  const resist = cr => `url(#resist${cr.invert === 'holes' ? '-holes' : cr.invert ? '-inv' : ''})`;
   // the swatch for a clan in the panel, as a tiny svg using the same pattern idea at a bigger scale; the crest on it
   function swatch(c, cls = 'swatch') {
     if (!c) return `<svg class="${cls}" viewBox="0 0 22 22" aria-hidden="true"><rect width="22" height="22" fill="#e2d9c5"/></svg>`;
@@ -87,7 +94,7 @@
     const motif = m ? `<pattern id="sw-${c}" patternUnits="userSpaceOnUse" width="${m.w * 1.4}" height="${m.h * 1.4}"><path d="${m.d}" transform="scale(1.4)" fill="${m.fill ? shade(col, -.22) : 'none'}" stroke="${m.fill ? 'none' : shade(col, -.25)}" stroke-width=".6" opacity=".8"/></pattern>` : '';
     const cr = crestOf(c);
     return `<svg class="${cls}" viewBox="0 0 22 22" aria-hidden="true"><defs>${motif}</defs><rect width="22" height="22" fill="${col}"/>${m ? `<rect width="22" height="22" fill="url(#sw-${c})"/>` : ''}` +
-      `${cr ? `<image href="${cr.src}" x="3" y="3" width="16" height="16" filter="url(#resist)"/>` : ''}</svg>`;
+      `${cr ? `<image href="${cr.src}" x="3" y="3" width="16" height="16" filter="${resist(cr)}"/>` : ''}</svg>`;
   }
 
   // ---------- the map ----------
@@ -301,7 +308,7 @@
     for (const [c, { p, b }] of Object.entries(best)) {
       if ((cnt[c] || 0) < 2) continue;
       const size = Math.min(26, Math.max(9, Math.min(b.width, b.height) * .5));
-      el('image', { href: crestOf(c).src, x: P[p].cx - size / 2, y: P[p].cy - size / 2, width: size, height: size, filter: 'url(#resist)',
+      el('image', { href: crestOf(c).src, x: P[p].cx - size / 2, y: P[p].cy - size / 2, width: size, height: size, filter: resist(crestOf(c)),
                     class: 'crest' + (realm && !realm.clans.includes(c) ? ' dim' : '') }, crestsG);
     }
   }
