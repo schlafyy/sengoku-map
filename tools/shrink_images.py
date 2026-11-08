@@ -11,7 +11,7 @@ js = open("data/images.js", encoding="utf8").read()
 data = json.loads(js[js.index("{"):js.rindex("}") + 1])
 for k in DROP:
     data.pop(k, None)
-keep = {"relief.jpg"}  # made by tools/relief.py, not listed in images.js
+keep = {"relief.jpg", "terrain.jpg"}  # made by tools/relief.py and tools/terrain.py, not listed in images.js
 for v in data.values():
     im = Image.open(v["src"])
     if v["src"].endswith(".jpg") and im.width <= 640:

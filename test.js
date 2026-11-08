@@ -2,7 +2,7 @@
 const fs = require('fs'), assert = require('assert'), vm = require('vm');
 const ctx = {};
 vm.createContext(ctx);
-for (const f of ['data/provinces.js', 'data/history.js', 'data/images.js', 'data/places.js', 'data/modern.js']) vm.runInContext(fs.readFileSync(__dirname + '/' + f, 'utf8'), ctx);
+for (const f of ['data/provinces.js', 'data/history.js', 'data/images.js', 'data/places.js', 'data/modern.js', 'data/georef.js', 'data/relief.js', 'data/landmarks.js']) vm.runInContext(fs.readFileSync(__dirname + '/' + f, 'utf8'), ctx);
 // through JSON: arrays made inside the vm context fail deepStrictEqual against this realm's arrays
 const { GEO, START, END, ERAS, PHASES, DYES, CLANS, BASE, BASE_NOTES, CHANGES, EVENTS, ALLIANCES, CAMPS_1600, BAND_WEIGHTS, EZO_HOLDERS } = JSON.parse(
   vm.runInContext('JSON.stringify({GEO, START, END, ERAS, PHASES, DYES, CLANS, BASE, BASE_NOTES, CHANGES, EVENTS, ALLIANCES, CAMPS_1600, BAND_WEIGHTS, EZO_HOLDERS})', ctx));
@@ -58,7 +58,9 @@ const IMAGES = JSON.parse(vm.runInContext('JSON.stringify(IMAGES)', ctx));
 for (const [k, im] of Object.entries(IMAGES)) {
   const [type, id] = k.split(':');
   const castleIds = JSON.parse(vm.runInContext('JSON.stringify(CASTLES.map(c => c.id))', ctx));
-  assert(type === 'clan' ? id in CLANS : type === 'castle' ? castleIds.includes(id) : EVENTS.some(e => e.id === id), `image for unknown ${k}`);
+  const known = { clan: () => id in CLANS, castle: () => castleIds.includes(id), event: () => EVENTS.some(e => e.id === id),
+                  landmark: () => vm.runInContext(`LANDMARKS.some(l => l.id === ${JSON.stringify(id)})`, ctx) }[type];
+  assert(known && known(), `image for unknown ${k}`);
   assert(fs.existsSync(__dirname + '/' + im.src) && im.licence && im.artist, `image ${k}: file, licence and author`);
 }
 
@@ -106,4 +108,22 @@ states.forEach((s, i) => {
     for (const x of M.holders(s[a])) for (const y of M.holders(s[b]))
       assert(x === y || CLANS[x].dye !== CLANS[y].dye, `${x} and ${y} share ${CLANS[x].dye} side by side in ${START + i}`);
 });
-console.log('ok:', CHANGES.length, 'changes,', EVENTS.length, 'events,', Object.keys(CLANS).length, 'clans');
+// landmarks: unique, a known kind, inside the relief, and placed on the map where the fit holds
+const { LANDMARKS, GEOREF, RELIEF } = JSON.parse(vm.runInContext('JSON.stringify({LANDMARKS, GEOREF, RELIEF})', ctx));
+const toMap = (lon, lat) => GEOREF.toMap.map(r => r.reduce((s, k, i) => s + k * [1, lon, lat, lon * lat, lon * lon, lat * lat][i], 0));
+const lmIds = new Set();
+for (const l of LANDMARKS) {
+  assert(!lmIds.has(l.id), `landmark ${l.id} twice`); lmIds.add(l.id);
+  assert(['city', 'temple', 'shrine', 'castle', 'mountain', 'nature', 'garden', 'town', 'memorial'].includes(l.kind) && (l.kind !== 'city' || l.pop), `landmark ${l.id}: kind`);
+  assert(l.en && l.ja && l.short && l.wiki, `landmark ${l.id}: text`);
+  assert(!l.at || provs.includes(l.at), `landmark ${l.id}: province ${l.at}`);
+  const [x, y] = toMap(l.lon, l.lat);
+  assert(x >= RELIEF.x && y >= RELIEF.y && x <= RELIEF.x + RELIEF.width && y <= RELIEF.y + RELIEF.height, `landmark ${l.id} off the map`);
+}
+// the fit itself: Kyoto's and Edo's provinces should come back where their centres are
+for (const [p, lon, lat] of [['yamashiro', 135.76, 35.01], ['musashi', 139.5, 35.85]]) {
+  const [x, y] = toMap(lon, lat), c = GEO.provinces[p];
+  assert(Math.hypot(x - c.cx, y - c.cy) < 25, `georef: ${p} lands ${Math.round(Math.hypot(x - c.cx, y - c.cy))} units off`);
+}
+
+console.log('ok:', CHANGES.length, 'changes,', EVENTS.length, 'events,', Object.keys(CLANS).length, 'clans,', LANDMARKS.length, 'landmarks');

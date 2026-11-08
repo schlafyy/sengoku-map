@@ -1139,5 +1139,655 @@ const IMAGES = {
   "w": 640,
   "h": 860,
   "desc": "Portrait of Saigo Takamori by C. Nakagawa (西郷隆盛, 1828 – 1877)"
+ },
+ "landmark:fuji": {
+  "src": "images/landmark_fuji.jpg",
+  "file": "View_of_Mount_Fuji_from_Ōwakudani_20211202.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:View_of_Mount_Fuji_from_%C5%8Cwakudani_20211202.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Suicasmo",
+  "w": 640,
+  "h": 313,
+  "desc": "Views of Mount Fuji from Ōwakudani"
+ },
+ "landmark:aso": {
+  "src": "images/landmark_aso.jpg",
+  "file": "20140516阿蘇山広域.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:20140516%E9%98%BF%E8%98%87%E5%B1%B1%E5%BA%83%E5%9F%9F.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Sonata / Sonata at ja.wikipedia",
+  "w": 640,
+  "h": 467,
+  "desc": "阿蘇山広域空撮画像 阿蘇山広域空撮画像。"
+ },
+ "landmark:sakurajima": {
+  "src": "images/landmark_sakurajima.jpg",
+  "file": "Sakurajima55.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Sakurajima55.jpg",
+  "licence": "CC BY 3.0",
+  "artist": "TANAKA Juuyoh (talk)",
+  "w": 640,
+  "h": 241,
+  "desc": "Sakurajima Kagoshima-ken, Japan."
+ },
+ "landmark:haguro": {
+  "src": "images/landmark_haguro.jpg",
+  "file": "Five_tier_pagoda_at_Mt._Haguro_2006-10-29.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Five_tier_pagoda_at_Mt._Haguro_2006-10-29.jpg",
+  "licence": "CC BY-SA 2.5",
+  "artist": "Unknown",
+  "w": 640,
+  "h": 853,
+  "desc": ""
+ },
+ "landmark:yakushima": {
+  "src": "images/landmark_yakushima.jpg",
+  "file": "Yakushima.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Yakushima.jpg",
+  "licence": "Public domain",
+  "artist": "NASA",
+  "w": 640,
+  "h": 670,
+  "desc": "Landsat image of Yakushima in Japan."
+ },
+ "landmark:itsukushima": {
+  "src": "images/landmark_itsukushima.jpg",
+  "file": "Itsukushima_Shrine_Torii_Gate_(13890465459).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Itsukushima_Shrine_Torii_Gate_(13890465459).jpg",
+  "licence": "CC BY-SA 2.0",
+  "artist": "redlegsfan21",
+  "w": 640,
+  "h": 480,
+  "desc": "Itsukushima Shrine Torii Gate"
+ },
+ "landmark:ise": {
+  "src": "images/landmark_ise.jpg",
+  "file": "Naiku_04.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Naiku_04.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "N yotarou",
+  "w": 640,
+  "h": 427,
+  "desc": "Kōtai-jingū (Naikū) in Ise city, Mie prefecture, Japan."
+ },
+ "landmark:izumo": {
+  "src": "images/landmark_izumo.jpg",
+  "file": "Izumo-taisha14bs4592.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Izumo-taisha14bs4592.jpg",
+  "licence": "CC BY 2.5",
+  "artist": "663highland",
+  "w": 640,
+  "h": 426,
+  "desc": "Izumo Taisha, Izumo Province, Shimane prefecture, Japan."
+ },
+ "landmark:fushimi_inari": {
+  "src": "images/landmark_fushimi_inari.jpg",
+  "file": "Torii_path_with_lantern_at_Fushimi_Inari_Taisha_Shrine,_Kyoto,_Japan.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Torii_path_with_lantern_at_Fushimi_Inari_Taisha_Shrine,_Kyoto,_Japan.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Basile Morin",
+  "w": 640,
+  "h": 427,
+  "desc": "Torii path with a hanging lantern at Fushimi Inari Taisha Shrine Senbontorii, Kyoto, Japan."
+ },
+ "landmark:nikko": {
+  "src": "images/landmark_nikko.jpg",
+  "file": "200801_Nikko_Tosho-gu_Nikko_Japan03s3.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:200801_Nikko_Tosho-gu_Nikko_Japan03s3.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "663highland",
+  "w": 640,
+  "h": 427,
+  "desc": "At Nikkō Tōshō-gū in Nikkō, Tochigi prefecture, Japan."
+ },
+ "landmark:dazaifu": {
+  "src": "images/landmark_dazaifu.jpg",
+  "file": "20100719_Dazaifu_Tenmangu_Shrine_3328.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:20100719_Dazaifu_Tenmangu_Shrine_3328.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Jakub Hałun",
+  "w": 640,
+  "h": 426,
+  "desc": "Dazaifu Tenmangu Shrine"
+ },
+ "landmark:kotohira": {
+  "src": "images/landmark_kotohira.jpg",
+  "file": "Kotohira-gu01s.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Kotohira-gu01s.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Toto-tarou",
+  "w": 640,
+  "h": 427,
+  "desc": "金刀比羅宮（本宮） - 日本国香川県琴平町"
+ },
+ "landmark:todaiji": {
+  "src": "images/landmark_todaiji.jpg",
+  "file": "Tōdai-ji_Kon-dō.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:T%C5%8Ddai-ji_Kon-d%C5%8D.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Wiiii",
+  "w": 640,
+  "h": 512,
+  "desc": "Tōdai-ji Kon-dō, at Nara Japan."
+ },
+ "landmark:horyuji": {
+  "src": "images/landmark_horyuji.jpg",
+  "file": "Horyu-ji11s3200.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Horyu-ji11s3200.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "663highland",
+  "w": 640,
+  "h": 427,
+  "desc": "Golden Hall and Five-storied Pagoda of Hōryū-ji are Japan's National Treasures. Hōryū-ji is a Buddhist temple in Ikaruga, Nara prefecture, Japan. It was registered as part of the UNESCO World Heritage"
+ },
+ "landmark:kinkakuji": {
+  "src": "images/landmark_kinkakuji.jpg",
+  "file": "Golden_Pavilion_Kinkaku-ji_water_mirror_2024.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Golden_Pavilion_Kinkaku-ji_water_mirror_2024.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Nacaru",
+  "w": 640,
+  "h": 960,
+  "desc": "A picture of the golden pavilion at the Kinkaku-ji in 2024, with its structure mirrored on the water"
+ },
+ "landmark:ginkakuji": {
+  "src": "images/landmark_ginkakuji.jpg",
+  "file": "Ginkakuji_Kyoto03-r.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Ginkakuji_Kyoto03-r.jpg",
+  "licence": "CC BY 2.5",
+  "artist": "Oilstreet",
+  "w": 640,
+  "h": 427,
+  "desc": "en:Ginkaku-ji (銀閣寺), Kyoto, Kyoto prefecture, Japan"
+ },
+ "landmark:ryoanji": {
+  "src": "images/landmark_ryoanji.jpg",
+  "file": "Kare-sansui_zen_garden,_Ryōan-ji,_Kyoto_20190416_1.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Kare-sansui_zen_garden,_Ry%C5%8Dan-ji,_Kyoto_20190416_1.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "DXR",
+  "w": 640,
+  "h": 430,
+  "desc": "A view of the Kare-sansui (dry landscape) zen garden, Ryōan-ji, Kyoto"
+ },
+ "landmark:kiyomizu": {
+  "src": "images/landmark_kiyomizu.jpg",
+  "file": "Kiyomizu.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Kiyomizu.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Jordy Meow",
+  "w": 640,
+  "h": 427,
+  "desc": "Kiyomizu-dera."
+ },
+ "landmark:byodoin": {
+  "src": "images/landmark_byodoin.jpg",
+  "file": "Phoenix_Hall,_Byodo-in,_November_2016_-01.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Phoenix_Hall,_Byodo-in,_November_2016_-01.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Martin Falbisoner",
+  "w": 640,
+  "h": 335,
+  "desc": "Byōdō-in's Phoenix Hall in Uji, Kyoto prefecture, Japan. It was built in 1153. Byōdō-in is registered as part of UNESCO World Heritage Site Ref. Number 688."
+ },
+ "landmark:enryakuji": {
+  "src": "images/landmark_enryakuji.jpg",
+  "file": "Enryakuji_Konponchudo02s5s3200.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Enryakuji_Konponchudo02s5s3200.jpg",
+  "licence": "CC BY 2.5",
+  "artist": "663highland",
+  "w": 640,
+  "h": 427,
+  "desc": "Konponchudo of Enryakuji Buddhist temple (Japan's National Treasure), Otsu, Shiga prefecture, Japan. It was rebuilt in 1642."
+ },
+ "landmark:koyasan": {
+  "src": "images/landmark_koyasan.jpg",
+  "file": "Danjogaran_Koyasan12n3200.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Danjogaran_Koyasan12n3200.jpg",
+  "licence": "CC BY 2.5",
+  "artist": "663highland",
+  "w": 640,
+  "h": 427,
+  "desc": "Danjōgaran in Mount Kōya, Wakayama prefecture, Japan."
+ },
+ "landmark:kamakura": {
+  "src": "images/landmark_kamakura.jpg",
+  "file": "Templo_Kōtoku-in,_Kamakura_-_2026_-_05.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Templo_K%C5%8Dtoku-in,_Kamakura_-_2026_-_05.jpg",
+  "licence": "CC BY 4.0",
+  "artist": "ProtoplasmaKid",
+  "w": 640,
+  "h": 427,
+  "desc": "Kōtoku-in Temple, Kamakura, Japan."
+ },
+ "landmark:chusonji": {
+  "src": "images/landmark_chusonji.jpg",
+  "file": "230728_Chusonji_Hiraizumi_Iwate_pref_Japan01s3.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:230728_Chusonji_Hiraizumi_Iwate_pref_Japan01s3.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "663highland",
+  "w": 640,
+  "h": 427,
+  "desc": "Chūson-ji Konjiki-dō in Hiraizumi, Iwate prefecture, Japan"
+ },
+ "landmark:zenkoji": {
+  "src": "images/landmark_zenkoji.jpg",
+  "file": "160501_Zenkoji_Nagano_Japan06s3.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:160501_Zenkoji_Nagano_Japan06s3.jpg",
+  "licence": "CC BY 2.5",
+  "artist": "663highland",
+  "w": 640,
+  "h": 427,
+  "desc": "Zenkō-ji in Nagano, Nagano prefecture, Japan."
+ },
+ "landmark:himeji": {
+  "src": "images/landmark_himeji.jpg",
+  "file": "Himeji_castle_in_may_2015.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Himeji_castle_in_may_2015.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Nikos Kitsakis",
+  "w": 640,
+  "h": 427,
+  "desc": "Himeji castle in may 2015 after the five year renovation of the roof and walls."
+ },
+ "landmark:matsumoto": {
+  "src": "images/landmark_matsumoto.jpg",
+  "file": "Matsumoto_Castle_Keep_Tower.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Matsumoto_Castle_Keep_Tower.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Lightning toothed whale (稲妻ノ歯鯨) This photo was taken with Canon EOS 500D",
+  "w": 640,
+  "h": 427,
+  "desc": "Matsumoto Castle in Matsumoto, in Nagano prefecture, in Japan."
+ },
+ "landmark:hikone": {
+  "src": "images/landmark_hikone.jpg",
+  "file": "Hikone_Castle_November_2016_-02.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Hikone_Castle_November_2016_-02.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Martin Falbisoner",
+  "w": 640,
+  "h": 427,
+  "desc": "Hikone Castle is a Japanese Edo-period castle in the city of Hikone, Shiga Prefecture."
+ },
+ "landmark:matsue": {
+  "src": "images/landmark_matsue.jpg",
+  "file": "080720_Matsue_Castle_Matsue_Shimane_pref_Japan01s.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:080720_Matsue_Castle_Matsue_Shimane_pref_Japan01s.jpg",
+  "licence": "CC BY 2.5",
+  "artist": "663highland",
+  "w": 640,
+  "h": 427,
+  "desc": "Matsue Castle in Matsue, Shimane prefecture, Japan."
+ },
+ "landmark:inuyama": {
+  "src": "images/landmark_inuyama.jpg",
+  "file": "Castle_in_Inuyama.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Castle_in_Inuyama.JPG",
+  "licence": "CC BY-SA 3.0",
+  "artist": "ThorstenS",
+  "w": 640,
+  "h": 480,
+  "desc": "Castle of the Japanese City of Inuyama in Aichi Prefecture."
+ },
+ "landmark:osaka": {
+  "src": "images/landmark_osaka.jpg",
+  "file": "Osaka_Castle_03bs3200.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Osaka_Castle_03bs3200.jpg",
+  "licence": "CC BY 2.5",
+  "artist": "663highland",
+  "w": 640,
+  "h": 427,
+  "desc": "Osaka Castle in Chuo-ku, Osaka, Osaka prefecture, Japan"
+ },
+ "landmark:nagoya": {
+  "src": "images/landmark_nagoya.jpg",
+  "file": "Nagoya_Castle2026.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Nagoya_Castle2026.jpg",
+  "licence": "CC0",
+  "artist": "加茂川の民",
+  "w": 640,
+  "h": 853,
+  "desc": "Nagoya Castle"
+ },
+ "landmark:kumamoto": {
+  "src": "images/landmark_kumamoto.jpg",
+  "file": "Kumamoto_Castle_Keep_Tower_20221022-3.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Kumamoto_Castle_Keep_Tower_20221022-3.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Suicasmo",
+  "w": 640,
+  "h": 427,
+  "desc": "Kumamoto Castle Keep Tower"
+ },
+ "landmark:goryokaku": {
+  "src": "images/landmark_goryokaku.jpg",
+  "file": "Hakodate_Goryokaku_Panorama_1.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Hakodate_Goryokaku_Panorama_1.JPG",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Keihin nike",
+  "w": 640,
+  "h": 427,
+  "desc": "Panoramic view of the Goryokaku fortification in Hakodate"
+ },
+ "landmark:kenrokuen": {
+  "src": "images/landmark_kenrokuen.jpg",
+  "file": "Stone_lantern_Kenrokuen.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Stone_lantern_Kenrokuen.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Japanexperterna.se",
+  "w": 640,
+  "h": 419,
+  "desc": "The famous stone lantern (toro) of Kenrokuen, Kanazawa."
+ },
+ "landmark:korakuen": {
+  "src": "images/landmark_korakuen.jpg",
+  "file": "250505_Korakuen_Okayama_Japan06s3.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:250505_Korakuen_Okayama_Japan06s3.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "663highland",
+  "w": 640,
+  "h": 427,
+  "desc": "Kōraku-en in Okayama, Okayama prefecture, Japan"
+ },
+ "landmark:kairakuen": {
+  "src": "images/landmark_kairakuen.jpg",
+  "file": "Kairaku-en,_Ibaraki_24.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Kairaku-en,_Ibaraki_24.jpg",
+  "licence": "CC BY 4.0",
+  "artist": "Σ64",
+  "w": 640,
+  "h": 427,
+  "desc": "Mito-no-ume Matsuri Festival in Kairaku-en, Mito City, Ibaraki Pref., Japan"
+ },
+ "landmark:matsushima": {
+  "src": "images/landmark_matsushima.jpg",
+  "file": "211030_Kameshima_Matsushima_Miyagi_pref_Japan01n.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:211030_Kameshima_Matsushima_Miyagi_pref_Japan01n.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "663highland",
+  "w": 640,
+  "h": 427,
+  "desc": "Kameshima of Matsushima in Matsushima, Miyagi prefecture, Japan"
+ },
+ "landmark:amanohashidate": {
+  "src": "images/landmark_amanohashidate.jpg",
+  "file": "Amanohashidate_aerial_view_2026.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Amanohashidate_aerial_view_2026.jpg",
+  "licence": "CC0",
+  "artist": "808PhatBeats",
+  "w": 640,
+  "h": 481,
+  "desc": "Amanohashidate_aerial_view_2026"
+ },
+ "landmark:nachi": {
+  "src": "images/landmark_nachi.jpg",
+  "file": "Kumano_Kodo_World_heritage_Nachi-no-taki_熊野古道_那智大滝10.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Kumano_Kodo_World_heritage_Nachi-no-taki_%E7%86%8A%E9%87%8E%E5%8F%A4%E9%81%93_%E9%82%A3%E6%99%BA%E5%A4%A7%E6%BB%9D10.JPG",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Nekosuki",
+  "w": 640,
+  "h": 853,
+  "desc": "Kumano Kodo World heritage Nachi-no-taki 熊野古道 那智大滝"
+ },
+ "landmark:kegon": {
+  "src": "images/landmark_kegon.jpg",
+  "file": "Lake_chuzenji_and_kegon_waterfall.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Lake_chuzenji_and_kegon_waterfall.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Uraomote yamaneko",
+  "w": 640,
+  "h": 478,
+  "desc": "Lake Chūzenji and Kegon Falls, in Nikkō, Tochigi, Japan"
+ },
+ "landmark:biwa": {
+  "src": "images/landmark_biwa.jpg",
+  "file": "Lake_biwa.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Lake_biwa.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Global Land Cover Facility (GLCF)",
+  "w": 640,
+  "h": 875,
+  "desc": "Landsat image of Lake Biwa. The narrow part at the bottom of the image is called \"South Lake\", and the large area above is called \"North Lake\"."
+ },
+ "landmark:tottori": {
+  "src": "images/landmark_tottori.jpg",
+  "file": "Tottori-Sakyu_Tottori_Japan.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Tottori-Sakyu_Tottori_Japan.JPG",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Hashi photo",
+  "w": 640,
+  "h": 429,
+  "desc": "Tottori Sakyu ( Tottori Sand Dune ) in Tottori Prefecture, Japan"
+ },
+ "landmark:akiyoshidai": {
+  "src": "images/landmark_akiyoshidai.jpg",
+  "file": "Akiyoshi-do-entrance.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Akiyoshi-do-entrance.jpg",
+  "licence": "Public domain",
+  "artist": "Thomas Stepleton",
+  "w": 640,
+  "h": 853,
+  "desc": "Entrance to the Akyoshi-do cavern, Yamaguchi Prefecture, Japan"
+ },
+ "landmark:hakone": {
+  "src": "images/landmark_hakone.jpg",
+  "file": "View_of_Mount_Fuji_from_Lake_Ashi.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:View_of_Mount_Fuji_from_Lake_Ashi.jpg",
+  "licence": "CC0",
+  "artist": "Quercus acuta",
+  "w": 640,
+  "h": 427,
+  "desc": "芦ノ湖畔から望む富士山（神奈川県箱根町）"
+ },
+ "landmark:shiretoko": {
+  "src": "images/landmark_shiretoko.jpg",
+  "file": "Shiretoko_Peninsula_Hokkaido_Japan_SRTM.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Shiretoko_Peninsula_Hokkaido_Japan_SRTM.jpg",
+  "licence": "Public domain",
+  "artist": "っ",
+  "w": 640,
+  "h": 645,
+  "desc": "Shiretoko Peninsula, Hokkaido, Japan."
+ },
+ "landmark:shirakawago": {
+  "src": "images/landmark_shirakawago.jpg",
+  "file": "Ogi_Shirakawa-gō,_Gifu,_Japan.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Ogi_Shirakawa-g%C5%8D,_Gifu,_Japan.jpg",
+  "licence": "CC BY 2.5",
+  "artist": "663highland",
+  "w": 640,
+  "h": 427,
+  "desc": "Shirakawa-go (Ogi) in Shirakawa, Gifu prefecture, Japan"
+ },
+ "landmark:iwami_ginzan": {
+  "src": "images/landmark_iwami_ginzan.jpg",
+  "file": "Shimizudani_Refinery_Ruins_at_Iwami_Ginzan_Silver_Mine_001.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Shimizudani_Refinery_Ruins_at_Iwami_Ginzan_Silver_Mine_001.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Naokijp",
+  "w": 640,
+  "h": 480,
+  "desc": "島根県大田市にある清水谷精錬所跡。世界文化遺産「石見銀山遺跡とその文化的景観」を構成する資産の一部。"
+ },
+ "landmark:kurashiki": {
+  "src": "images/landmark_kurashiki.jpg",
+  "file": "251101_Mount_Tsurugata_Kurashiki_Okayama_pref_Japan02s3.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:251101_Mount_Tsurugata_Kurashiki_Okayama_pref_Japan02s3.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "663highland",
+  "w": 640,
+  "h": 427,
+  "desc": "A view from Mount Tsurugata in Kurashiki, Okayama prefecture, Japan."
+ },
+ "landmark:dejima": {
+  "src": "images/landmark_dejima.jpg",
+  "file": "Plattegrond_van_Deshima.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Plattegrond_van_Deshima.jpg",
+  "licence": "Public domain",
+  "artist": "Isaac Titsingh",
+  "w": 640,
+  "h": 527,
+  "desc": "Ground-plan of the Dutch trade-post on the island Dejima at Nagasaki"
+ },
+ "landmark:dogo": {
+  "src": "images/landmark_dogo.jpg",
+  "file": "Dogo_onsen_honkan_long_exposure.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Dogo_onsen_honkan_long_exposure.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Japanexperterna.se",
+  "w": 640,
+  "h": 427,
+  "desc": "Dogo Onsen Honkan in Matsuyama, Ehime Prefecture, Japan."
+ },
+ "landmark:hiroshima_dome": {
+  "src": "images/landmark_hiroshima_dome.jpg",
+  "file": "Genbaku_Dome04-r.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Genbaku_Dome04-r.JPG",
+  "licence": "CC BY 2.5",
+  "artist": "Oilstreet",
+  "w": 640,
+  "h": 427,
+  "desc": "Genbaku Dome (原爆ドーム), Hiroshima, Hiroshima prefecture, Japan"
+ },
+ "landmark:tokyo": {
+  "src": "images/landmark_tokyo.jpg",
+  "file": "Skyscrapers_of_Shinjuku_2009_January.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Skyscrapers_of_Shinjuku_2009_January.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Morio",
+  "w": 640,
+  "h": 341,
+  "desc": "View of Shinjuku skyscrapers and Mount Fuji as seen from the Bunkyo Civic Center in Tokyo"
+ },
+ "landmark:yokohama": {
+  "src": "images/landmark_yokohama.jpg",
+  "file": "Minato_Mirai.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Minato_Mirai.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Akonnchiroll",
+  "w": 640,
+  "h": 360,
+  "desc": "みなとみらい"
+ },
+ "landmark:nagoya_city": {
+  "src": "images/landmark_nagoya_city.jpg",
+  "file": "名古屋駅の夜景.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:%E5%90%8D%E5%8F%A4%E5%B1%8B%E9%A7%85%E3%81%AE%E5%A4%9C%E6%99%AF.jpg",
+  "licence": "CC0",
+  "artist": "加茂川の民",
+  "w": 640,
+  "h": 853,
+  "desc": "Nagoya at night"
+ },
+ "landmark:sapporo": {
+  "src": "images/landmark_sapporo.jpg",
+  "file": "SapporoCity_Skylines2020.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:SapporoCity_Skylines2020.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Nryate",
+  "w": 640,
+  "h": 426,
+  "desc": "SapporoCity Skylines2020"
+ },
+ "landmark:fukuoka": {
+  "src": "images/landmark_fukuoka.jpg",
+  "file": "Fukuoka_Skyline_of_Seaside_Momochi.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Fukuoka_Skyline_of_Seaside_Momochi.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Nryate",
+  "w": 640,
+  "h": 480,
+  "desc": "Fukuoka Skyline of Seaside Momochi"
+ },
+ "landmark:kobe": {
+  "src": "images/landmark_kobe.jpg",
+  "file": "20190901_Kobe_harbor-1.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:20190901_Kobe_harbor-1.jpg",
+  "licence": "CC0",
+  "artist": "Balon Greyjoy",
+  "w": 640,
+  "h": 427,
+  "desc": "A view of Kobe harbor."
+ },
+ "landmark:kyoto": {
+  "src": "images/landmark_kyoto.jpg",
+  "file": "Kiyomizu-dera,_Kyoto,_November_2016_-02.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Kiyomizu-dera,_Kyoto,_November_2016_-02.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Martin Falbisoner",
+  "w": 640,
+  "h": 423,
+  "desc": "Kiyomizu-dera, Kyoto, Japan, part of UNESCO World Heritage Site Ref. Number 688."
+ },
+ "landmark:hiroshima": {
+  "src": "images/landmark_hiroshima.jpg",
+  "file": "Atomic_Bomb_Dome_and_Motoyaso_River,_Hiroshima,_Northwest_view_20190417_1.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Atomic_Bomb_Dome_and_Motoyaso_River,_Hiroshima,_Northwest_view_20190417_1.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "DXR",
+  "w": 640,
+  "h": 411,
+  "desc": "A northwest view of the Atomic Bomb Dome and Motoyasu River, Hiroshima"
+ },
+ "landmark:sendai": {
+  "src": "images/landmark_sendai.jpg",
+  "file": "SendaiCity_Skylines_from_Mukaiyama2018.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:SendaiCity_Skylines_from_Mukaiyama2018.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Nryate",
+  "w": 640,
+  "h": 480,
+  "desc": "SendaiCity Skylines"
+ },
+ "landmark:kanazawa": {
+  "src": "images/landmark_kanazawa.jpg",
+  "file": "望湖台２.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:%E6%9C%9B%E6%B9%96%E5%8F%B0%EF%BC%92.jpg",
+  "licence": "CC BY 2.1 jp",
+  "artist": "金沢市",
+  "w": 640,
+  "h": 427,
+  "desc": "望湖台"
+ },
+ "landmark:nagasaki": {
+  "src": "images/landmark_nagasaki.jpg",
+  "file": "Nagasaki_City_View_from_Glover_Garden,_Nagasaki_2014.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Nagasaki_City_View_from_Glover_Garden,_Nagasaki_2014.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Tomio344456",
+  "w": 640,
+  "h": 427,
+  "desc": "グラバー園から望む長崎市街地（長崎市、2014年（平成26年）7月）"
+ },
+ "landmark:kagoshima": {
+  "src": "images/landmark_kagoshima.jpg",
+  "file": "Kagoshima_Montage.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Kagoshima_Montage.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "A pool full of water",
+  "w": 640,
+  "h": 1055,
+  "desc": "Image of montage in Kagoshima City, Kagoshima Prefecture"
+ },
+ "landmark:takachiho": {
+  "src": "images/landmark_takachiho.jpg",
+  "file": "Manai_Falls_at_Takachiho_Gorge.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Manai_Falls_at_Takachiho_Gorge.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "The Modern Polymath",
+  "w": 640,
+  "h": 360,
+  "desc": "Manai Falls cascades into the Gokase River at Takachiho Gorge. The sheer cliffs of the gorge are made of columnar basalt."
+ },
+ "landmark:osaka_city": {
+  "src": "images/landmark_osaka_city.jpg",
+  "file": "Osaka_Dotonbori_Ebisu_Bridge.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Osaka_Dotonbori_Ebisu_Bridge.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Type specimen",
+  "w": 640,
+  "h": 425,
+  "desc": "Wall of signboards at Ebisu Bridge on the Dōtonbori Canal"
  }
 };

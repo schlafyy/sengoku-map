@@ -15,7 +15,7 @@ FONTS = {  # output name -> source file
 
 def used_chars():
     chars = set(string.printable) | set("ōūāēīŌŪĀ–—‘’“”…·×½年元一二三四五六七八九十")
-    for f in ("index.html", "app.js", "data/history.js", "data/provinces.js", "data/images.js", "data/places.js", "data/modern.js", "data/crests.js"):
+    for f in ("index.html", "app.js", "data/history.js", "data/provinces.js", "data/images.js", "data/places.js", "data/modern.js", "data/crests.js", "data/landmarks.js"):
         chars |= set(open(os.path.join(ROOT, f), encoding="utf8").read())
     return "".join(sorted(c for c in chars if c.isprintable()))
 

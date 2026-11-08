@@ -106,7 +106,7 @@ body.started #start { opacity: 0; }
 #tip .who { display: block; color: var(--muted); }
 
 /* ---------- the side panel: the cloth's lining ---------- */
-#side { grid-column: 2; grid-row: 1; position: relative; background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .018) 0 1px, transparent 1px 3px), var(--lining); overflow-y: auto; overflow-x: hidden; padding: 26px 26px 22px 30px; scrollbar-width: thin; scrollbar-color: var(--hanada) transparent; }
+#side { grid-column: 2; grid-row: 1; position: relative; background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .018) 0 1px, transparent 1px 3px), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='41.57'%3E%3Cpath d='M0 0L24 0L12 20.78ZM12 6.93L0 0M12 6.93L24 0M12 6.93L12 20.78M-12 20.78L0 0L12 20.78ZM0 13.86L-12 20.78M0 13.86L0 0M0 13.86L12 20.78M12 20.78L24 0L36 20.78ZM24 13.86L12 20.78M24 13.86L24 0M24 13.86L36 20.78M12 20.78L0 41.57L24 41.57ZM12 34.64L12 20.78M12 34.64L0 41.57M12 34.64L24 41.57M-12 20.78L12 20.78L0 41.57ZM0 27.71L-12 20.78M0 27.71L12 20.78M0 27.71L0 41.57M12 20.78L36 20.78L24 41.57ZM24 27.71L12 20.78M24 27.71L36 20.78M24 27.71L24 41.57' fill='none' stroke='%23efe6d3' stroke-opacity='.05' stroke-width='.7'/%3E%3C/svg%3E") 0 0 / 36px 62.35px, var(--lining); overflow-y: auto; overflow-x: hidden; padding: 26px 26px 22px 30px; scrollbar-width: thin; scrollbar-color: var(--hanada) transparent; }
 #seam { /* a sashiko running stitch down the seam between cloth and lining */
   grid-column: 2; grid-row: 1; justify-self: start; width: 2px; margin-left: 12px; pointer-events: none; z-index: 1;
   background: repeating-linear-gradient(180deg, rgba(239, 230, 211, .32) 0 7px, transparent 7px 13px);
@@ -232,6 +232,59 @@ body.zoomed #approx, body.zoomed #start { opacity: 0; }
 #life { position: absolute; top: 72px; height: 2px; background: repeating-linear-gradient(90deg, rgba(239, 230, 211, .85) 0 6px, transparent 6px 10px); pointer-events: none; }
 #life i { position: absolute; top: -2px; width: 4px; height: 6px; margin-left: -2px; background: var(--cream); }
 
+/* ---------- Japanese touches ---------- */
+/* the period's name in vertical kanji beside the year, set off by a running stitch */
+#when { padding-right: 3.2rem; }
+#tate { position: absolute; right: 0; top: .55rem; writing-mode: vertical-rl; font: 400 1.3rem/1 var(--mincho); letter-spacing: .32em; color: var(--muted); padding-left: .7rem; border-left: 1.5px dashed rgba(239, 230, 211, .3); white-space: nowrap; }
+#sea-waves { opacity: .055; pointer-events: none; }
+body.land #sea-waves { opacity: .075; }
+#side h2 [lang=ja], .sep [lang=ja] { font-family: var(--mincho); color: var(--muted); letter-spacing: .1em; text-transform: none; }
+#side h2 [lang=ja] { font-weight: 400; font-size: .95rem; margin-left: .35em; }
+.sep [lang=ja] { margin-left: .3em; }
+
+/* ---------- the landmarks view: undyed cotton, the land's shape printed in indigo ---------- */
+#mode { position: absolute; right: clamp(16px, 2.4vw, 32px); top: clamp(14px, 2.4vh, 26px); display: flex; padding: 3px; gap: 2px; border: 1.5px dashed rgba(239, 230, 211, .5); border-radius: 22px; background: rgba(19, 21, 47, .72); }
+#mode button { padding: 7px 14px 7px; border-radius: 18px; font: 500 .82rem/1 var(--gothic); color: var(--muted); letter-spacing: .02em; transition: background .2s, color .2s; }
+#mode button [lang=ja] { font-family: var(--mincho); margin-left: .3em; letter-spacing: .08em; }
+#mode button:hover { color: var(--cream); }
+#mode button[aria-pressed=true] { background: var(--cream); color: var(--kachi); }
+#relief, #landmarks { display: none; pointer-events: none; }
+body.land #relief, body.land #landmarks { display: inline; }
+body.land #landmarks { pointer-events: auto; }
+body.land :is(#crests, #soak, #stitches, #castles, #battles, #flash, #approx, #start, #band) { display: none; }
+body.land .prov use, body.land #ezo use { fill: transparent; }
+body.land .prov use { stroke: var(--kon); stroke-opacity: .16; }
+body.land .prov:hover use { stroke-opacity: .4; stroke-width: 1.2; }
+body.land .prov.dim { opacity: 1; }
+body.land #mottle { opacity: .35; }
+body.land #year [lang=ja] { letter-spacing: .06em; }
+.landmark { cursor: pointer; }
+.landmark .hit { fill: transparent; }
+.landmark .ring { fill: none; stroke: var(--kon); stroke-width: 1.3; stroke-dasharray: 3 2.4; opacity: 0; }
+.landmark.sel .ring, .landmark:focus-visible .ring { opacity: 1; }
+.landmark:focus-visible { outline: none; }
+.lm-body { transition: transform .2s var(--ease); }
+.landmark:hover .lm-body, .landmark.sel .lm-body { transform: scale(1.3); }
+.lm-halo { fill: var(--undyed); stroke: var(--undyed); stroke-width: 2.6; stroke-linejoin: round; }
+.lm-ink { fill: var(--kon); }
+body.land .prov-label { fill: var(--kon); stroke: rgba(226, 217, 197, .92); fill-opacity: .62; }
+body.land .lm-label { fill-opacity: 1; font-weight: 700; }
+body.land .city-label { fill: var(--kachi); fill-opacity: 1; stroke: rgba(239, 230, 211, .95); }
+.landmark.city .lm-ink { fill: var(--kachi); }
+.landmark.under { opacity: .28; }
+.landmark.under:hover, .landmark.under.sel { opacity: 1; }
+.lm-icon { width: 14px; height: 14px; vertical-align: -2px; margin-right: 8px; overflow: visible; }
+.lm-icon .lm-halo { fill: none; stroke: none; }
+.lm-icon .lm-ink, .lm-swatch .lm-ink { fill: var(--cream); }
+.lm-swatch { background: var(--kon); box-shadow: inset 0 0 0 1px rgba(239, 230, 211, .22); padding: 7px; overflow: visible; }
+.lm-swatch .lm-halo { fill: none; stroke: none; }
+.intro { font: 400 .98rem/1.6 var(--mincho); color: #e3dac8; margin-top: -.2rem; }
+.block h4 [lang=ja] { letter-spacing: .1em; margin-left: .3em; text-transform: none; }
+.lm-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 1px; }
+.lm-list button { width: 100%; display: flex; align-items: baseline; gap: .5em; text-align: left; padding: 5px 6px 5px 22px; border-radius: 3px; font: 400 .98rem/1.35 var(--mincho); }
+.lm-list button:hover { background: rgba(239, 230, 211, .06); }
+.lm-list [lang=ja] { color: var(--muted); font-size: .84rem; }
+
 @media (max-width: 860px) {
   html, body { height: auto; }
   body { grid-template-columns: 1fr; grid-template-rows: 62vh auto auto; overflow: visible; } /* the page itself scrolls on a phone */
@@ -241,6 +294,8 @@ body.zoomed #approx, body.zoomed #start { opacity: 0; }
   #band { gap: 14px; padding: 10px 16px 12px; }
   #ticks .minor, #marks .t { display: none; }
   #marks .w { width: 4px; height: 4px; margin-left: -2px; box-shadow: none; opacity: .8; }
+  #mode { top: auto; bottom: 16px; right: 16px; }
+  body.playing #mode { visibility: hidden; } /* the battle names take that corner while playing */
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before { animation-duration: .01ms !important; transition-duration: .01ms !important; }
@@ -251,6 +306,7 @@ body.zoomed #approx, body.zoomed #start { opacity: 0; }
 <main id="cloth" aria-label="Map of Japan">
   <svg id="map" role="img" aria-label="The provinces of Japan, dyed by who held them"></svg>
   <div id="when" aria-live="polite">
+    <p id="tate" lang="ja" aria-hidden="true"></p>
     <p id="year">1467</p>
     <p id="era"></p>
     <p id="phase"></p>
@@ -259,6 +315,10 @@ body.zoomed #approx, body.zoomed #start { opacity: 0; }
   </div>
   <div id="flash" aria-hidden="true"><div class="ja"></div><div class="en"></div></div>
   <div id="tip" role="tooltip"></div>
+  <div id="mode" role="group" aria-label="Which map">
+    <button id="mode-history" aria-pressed="true">History <span lang="ja">歴史</span></button>
+    <button id="mode-land" aria-pressed="false">Landmarks <span lang="ja">名所</span></button>
+  </div>
   <div id="zoom" role="group" aria-label="Zoom the map">
     <button id="zoom-in" aria-label="Zoom in"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M7 2.5h2v4.5h4.5v2H9v4.5H7V9H2.5V7H7z"/></svg></button>
     <button id="zoom-out" aria-label="Zoom out"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 7h11v2h-11z"/></svg></button>
@@ -286,6 +346,9 @@ body.zoomed #approx, body.zoomed #start { opacity: 0; }
 <script src="data/crests.js"></script>
 <script src="data/places.js"></script>
 <script src="data/modern.js"></script>
+<script src="data/georef.js"></script>
+<script src="data/relief.js"></script>
+<script src="data/landmarks.js"></script>
 <script src="model.js"></script>
 <script src="app.js"></script>
 </body>
