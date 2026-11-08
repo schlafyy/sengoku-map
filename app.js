@@ -107,8 +107,8 @@
   let n = 0;
   const addShape = s => { const id = 's' + n++; el('path', { id, d: s.d, transform: `matrix(${s.m.join(' ')})`, 'vector-effect': 'non-scaling-stroke' }, defs); return id; };
   for (const p of PIDS) shapeIds[p] = P[p].shapes.map(addShape);
-  const ezoIds = GEO.ezo.map(addShape), lakeIds = GEO.lakes.map(addShape);
-  const allLand = [...PIDS.flatMap(p => shapeIds[p]), ...ezoIds];
+  const ezoIds = GEO.ezo.map(addShape), lakeIds = GEO.lakes.map(addShape), ryuIds = RYUKYU.shapes.map(addShape);
+  const allLand = [...PIDS.flatMap(p => shapeIds[p]), ...ezoIds, ...ryuIds];
 
   // the indigo is lighter near the coasts, where the resist paste kept the dye from biting deep
   const glow = el('filter', { id: 'glow', x: '-10%', y: '-10%', width: '120%', height: '120%' }, defs);
@@ -128,6 +128,15 @@
   for (const id of allLand) el('use', { href: '#' + id, fill: 'none', stroke: '#3a4f95', 'stroke-width': 10 }, coast);
   const ezo = el('g', { id: 'ezo' }, svg);
   for (const id of ezoIds) el('use', { href: '#' + id }, ezo);
+  // the Ryukyu islands, too far south for the province map, in a box of their own as an atlas would (data/ryukyu.js)
+  const ryukyu = el('g', { id: 'ryukyu' }, svg);
+  for (const f of RYUKYU.frames) { // cut in two as Japanese atlases do: Okinawa and Amami, and the Sakishima islands
+    el('rect', { class: 'inset', x: f.x, y: f.y, width: f.width, height: f.height }, ryukyu);
+    const t = el('text', { class: 'inset-label', x: f.x + 6, y: f.y + 13 }, ryukyu);
+    t.textContent = f.name + ' ';
+    el('tspan', { lang: 'ja' }, t).textContent = f.ja;
+  }
+  RYUKYU.shapes.forEach((s, i) => el('use', { href: '#' + ryuIds[i], class: s.amami ? 'amami' : '' }, ryukyu));
 
   const land = el('g', { id: 'land' }, svg), provG = {};
   for (const p of PIDS) {
@@ -176,6 +185,13 @@
     svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
   }
   const center = p => [P[p].cx, P[p].cy];
+  const AREAS = { ezo: { en: 'Ezo', ja: '蝦夷', now: 'Hokkaido' }, ryukyu: { en: 'Ryukyu', ja: '琉球', now: 'Okinawa' } }; // beyond the provinces
+  const place = at => P[at] || AREAS[at];
+  const inRyukyu = l => l.lat < RYUKYU.frames[0].lat1; // south of the province map: drawn in the insets
+  const ryuAt = (lon, lat) => {
+    const f = RYUKYU.frames.find(f => lon > f.lon0 && lon < f.lon1 && lat > f.lat0 && lat < f.lat1) || RYUKYU.frames[0];
+    return [f.x + (lon - f.lon0) * RYUKYU.k * RYUKYU.c, f.y + (f.lat1 - lat) * RYUKYU.k];
+  };
 
   // ---------- zoom and pan ----------
   const HOME = (v => ({ x: v.x, y: v.y, width: v.width, height: v.height }))(svg.viewBox.baseVal);
@@ -240,6 +256,7 @@
   })();
   function markAt(e) {
     if (e.at === 'ezo') return ezoTip;
+    if (e.at === 'ryukyu') return ryuAt(e.lon, e.lat);
     const [x, y] = center(e.at);
     if (e.abroad === 'west') return [x - 46, y + (e.dy || 0)];
     if (e.abroad === 'east') return [x + 80, y + 30 + (e.dy || 0)];
@@ -256,6 +273,12 @@
     let ezoHolder = null;
     for (const [y, h] of EZO_HOLDERS) if (y <= year) ezoHolder = h;
     for (const u of ezo.children) u.style.fill = ezoHolder ? fillOf(ezoHolder) : '';
+    let ryuHolder = null;
+    for (const [y, h] of RYUKYU_HOLDERS) if (y <= year) ryuHolder = h;
+    for (const u of ryukyu.querySelectorAll('use')) { // Amami: Satsuma's from the invasion of 1609
+      const h = u.classList.contains('amami') && year >= 1609 ? st.satsuma : ryuHolder;
+      u.style.fill = h ? fillOf(h) : '';
+    }
     for (const p of PIDS) {
       const f = fillOf(st[p]);
       if (shown[p] === f) continue;
@@ -357,6 +380,14 @@
       placed.push({ x: a.x, y: a.y, width: b.x - a.x, height: b.y - a.y });
     }
     const scale = svg.getScreenCTM()?.a || 1; // map units to screen pixels
+    { // the inset boxes' names keep a readable size; on a phone only the larger box has room for one
+      const fs = Math.min(10 / scale, 25);
+      ryukyu.querySelectorAll('.inset-label').forEach((t, i) => {
+        const f = RYUKYU.frames[i];
+        Object.entries({ 'font-size': fs, x: f.x + fs * .6, y: f.y + fs * 1.3 }).forEach(([k, v]) => t.setAttribute(k, v));
+        t.style.display = i && fs > 14 ? 'none' : '';
+      });
+    }
     // close in, each province shows its own name where there is room
     const provinceNames = () => {
       if (zoom < 2.2) return;
@@ -679,7 +710,7 @@
     side.innerHTML = `${back()}
       <div class="head"><svg class="swatch mark" viewBox="-20 -20 40 40" aria-hidden="true" style="box-shadow:none">${eventMark(e, 13)}</svg><h3>${esc(e.en)}<span lang="ja">${e.ja}</span></h3></div>
       ${plate('event:' + e.id)}
-      <p class="sub">${e.year} · ${era.en} ${era.n} · ${esc(P[e.at].en)} <span lang="ja">${P[e.at].ja}</span></p>
+      <p class="sub">${e.year} · ${era.en} ${era.n} · ${esc(place(e.at).en)} <span lang="ja">${place(e.at).ja}</span></p>
       ${sides.length ? `<div class="sides">${sides.map(c => `<button class="chip" data-clan="${c}">${swatch(c)}${clanName(c)}${e.winner === c ? '<span class="won">Won</span>' : ''}</button>`).join('')}</div>` : ''}
       <p class="lede">${esc(e.short)}</p>
       <div class="long" style="margin-top:1rem">${esc(e.long)}</div>`;
@@ -702,7 +733,7 @@
   const landmarksG = el('g', { id: 'landmarks' }, svg);
   const lmAt = (() => { // longitude/latitude to the map, through the fitted quadratic (data/georef.js)
     const memo = {};
-    return l => memo[l.id] ||= GEOREF.toMap.map(r => r.reduce((s, k, i) => s + k * [1, l.lon, l.lat, l.lon * l.lat, l.lon * l.lon, l.lat * l.lat][i], 0));
+    return l => memo[l.id] ||= inRyukyu(l) ? ryuAt(l.lon, l.lat) : GEOREF.toMap.map(r => r.reduce((s, k, i) => s + k * [1, l.lon, l.lat, l.lon * l.lat, l.lon * l.lon, l.lat * l.lat][i], 0));
   })();
   // each kind a small stencil, printed in indigo with a halo of bare cotton; drawn, never a font glyph (no 卍 for temples)
   const KINDS = {
@@ -736,16 +767,17 @@
     return l => {
       if (l.id in memo) return memo[l.id];
       if (l.at) return (memo[l.id] = l.at);
+      if (inRyukyu(l)) return (memo[l.id] = 'ryukyu');
       const [x, y] = lmAt(l);
       for (const p of PIDS) for (const id of shapeIds[p]) {
         const path = document.getElementById(id), m = path.transform.baseVal.consolidate()?.matrix;
         const q = m ? new DOMPoint(x, y).matrixTransform(m.inverse()) : new DOMPoint(x, y);
         if (path.isPointInFill(q)) return (memo[l.id] = p);
       }
-      return (memo[l.id] = null); // Ezo, or just off the coast
+      return (memo[l.id] = l.lat > 41.4 ? 'ezo' : null); // or just off the coast
     };
   })();
-  const lmProvince = l => { const p = provinceOf(l); return p ? `${esc(P[p].en)} <span lang="ja">${P[p].ja}</span>` : l.lat > 41.4 ? 'Ezo <span lang="ja">蝦夷</span>, now Hokkaido' : ''; };
+  const lmProvince = l => { const a = place(provinceOf(l)); return a ? `${esc(a.en)} <span lang="ja">${a.ja}</span>${a.now ? ', now ' + a.now : ''}` : ''; };
 
   function renderLand() {
     const groups = Object.keys(KINDS).map(k => [k, LANDMARKS.filter(l => l.kind === k)]).filter(([, ls]) => ls.length);
@@ -763,7 +795,7 @@
       ${plate('landmark:' + l.id)}
       <p class="sub">${KINDS[l.kind].one}${lmProvince(l) ? ' · ' + lmProvince(l) : ''}${l.pop ? ` · population ${esc(l.pop)}, 2020` : ''}</p>
       <p class="lede">${esc(l.short)}</p>
-      ${here.length ? `<div class="block"><h4>History in ${esc(P[p].en)}</h4><ul class="links">${here.map(e => `<li><button data-event="${e.id}" class="${warCls(e)}"><span class="y">${e.year}</span><span>${esc(e.en)}</span></button></li>`).join('')}</ul></div>` : ''}`;
+      ${here.length ? `<div class="block"><h4>History in ${esc(place(p).en)}</h4><ul class="links">${here.map(e => `<li><button data-event="${e.id}" class="${warCls(e)}"><span class="y">${e.year}</span><span>${esc(e.en)}</span></button></li>`).join('')}</ul></div>` : ''}`;
   }
 
   // the switch between the two maps

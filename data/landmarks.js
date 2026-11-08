@@ -2,6 +2,7 @@
 // kind: city, temple, shrine, castle, mountain, nature, garden, town, memorial. wiki: the article its photo comes from.
 // file: a Commons photo picked by hand where the article's lead image is wrong.
 // at: the old province, only where the position alone would pick the wrong one (islands, sites on a border).
+// South of 28.65°N a landmark sits in the Ryukyu inset (data/ryukyu.js), not on the main map.
 const LANDMARKS = [
   // mountains and volcanoes
   { id: 'fuji', en: 'Mount Fuji', ja: '富士山', kind: 'mountain', at: 'suruga', lat: 35.3606, lon: 138.7274, wiki: 'Mount Fuji',
@@ -101,6 +102,8 @@ const LANDMARKS = [
     short: 'Hot springs and volcanic valleys around Lake Ashi below Mount Fuji, once a checkpoint on the Tōkaidō road.' },
   { id: 'shiretoko', en: 'Shiretoko', ja: '知床', kind: 'nature', lat: 44.07, lon: 145.1, wiki: 'Shiretoko Peninsula',
     short: 'A wild peninsula at Hokkaido\'s north-eastern tip, with brown bears, salmon and winter sea ice; a World Heritage site.' },
+  { id: 'iriomote', en: 'Iriomote', ja: '西表島', kind: 'nature', lat: 24.33, lon: 123.81, wiki: 'Iriomote Island', file: 'Urauchigawa_Jungle.JPG',
+    short: 'The wildest of the Ryukyu islands, nine-tenths subtropical jungle and mangrove, home of the Iriomote cat, found nowhere else. A natural World Heritage site since 2021, with Amami and the north of Okinawa island.' },
   // towns and memorials
   { id: 'shirakawago', en: 'Shirakawa-gō', ja: '白川郷', kind: 'town', lat: 36.2577, lon: 136.9063, wiki: 'Shirakawa-gō',
     short: 'Mountain villages of steep thatched gasshō houses, roofed like hands joined in prayer to shed the deep snow.' },
@@ -143,4 +146,6 @@ const LANDMARKS = [
     short: 'Opened to Portuguese ships in 1571, it was for two centuries Japan\'s only window on Europe, through the Dutch at Dejima, as well as its port for China. On 9 August 1945 it was destroyed by the second atomic bomb.' },
   { id: 'kagoshima', en: 'Kagoshima', ja: '鹿児島', kind: 'city', at: 'satsuma', lat: 31.5966, lon: 130.5571, wiki: 'Kagoshima', pop: '590,000',
     short: 'Castle town of the Shimazu of Satsuma, who ruled the far south for some seven centuries, and home of Saigō Takamori and Ōkubo Toshimichi. It faces the smoking volcano Sakurajima across the bay.' },
+  { id: 'naha', en: 'Naha', ja: '那覇', kind: 'city', lat: 26.2124, lon: 127.6809, wiki: 'Shuri Castle', pop: '320,000',
+    short: 'The port of the Ryukyu kingdom, whose kings ruled from Shuri castle on the hill above it (in the photo) from the 1400s until Japan annexed the islands in 1879. Nearly destroyed in the war, Naha was under American rule until 1972 and is now the capital of Okinawa Prefecture. Shuri castle, rebuilt in 1992, burned again in 2019, and the rebuilding began once more.' },
 ];

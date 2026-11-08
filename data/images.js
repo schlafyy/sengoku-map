@@ -965,7 +965,7 @@ const IMAGES = {
   "file": "Naval_Battle_of_Hakodate.jpg",
   "page": "https://commons.wikimedia.org/wiki/File:Naval_Battle_of_Hakodate.jpg",
   "licence": "Public domain",
-  "artist": "Unknown artistUnknown artist, ILN Staff, after a sketch by William Henry Webster",
+  "artist": "ILN staff, after a sketch by William Henry Webster",
   "w": 640,
   "h": 448,
   "desc": "The naval battle of Hakodate, May 1869; in the foreground, Kasuga and Kōtetsu of the Imperial Japanese Navy."
@@ -1799,5 +1799,25 @@ const IMAGES = {
   "w": 640,
   "h": 425,
   "desc": "新潟県佐渡市の相川金銀山にある「道遊の割戸」。"
+ },
+ "landmark:naha": {
+  "src": "images/landmark_naha.jpg",
+  "file": "Naha_Okinawa_Japan_Shuri-Castle-01.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Naha_Okinawa_Japan_Shuri-Castle-01.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "CEphoto, Uwe Aranas",
+  "w": 640,
+  "h": 373,
+  "desc": "Naha, Okinawa, Japan: Palace building of Shuri Castle."
+ },
+ "landmark:iriomote": {
+  "src": "images/landmark_iriomote.jpg",
+  "file": "Urauchigawa_Jungle.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Urauchigawa_Jungle.JPG",
+  "licence": "CC BY-SA 3.0",
+  "artist": "(WT-en) Jpatokal at English Wikivoyage",
+  "w": 640,
+  "h": 426,
+  "desc": "Urauchi River, Iriomote, Japan."
  }
 };

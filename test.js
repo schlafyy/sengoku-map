@@ -3,12 +3,12 @@ const fs = require('fs'), assert = require('assert'), vm = require('vm');
 new vm.Script(fs.readFileSync(__dirname + '/app.js', 'utf8'), { filename: 'app.js' }); // app.js at least parses
 const ctx = {};
 vm.createContext(ctx);
-for (const f of ['data/provinces.js', 'data/history.js', 'data/images.js', 'data/places.js', 'data/modern.js', 'data/georef.js', 'data/relief.js', 'data/landmarks.js']) vm.runInContext(fs.readFileSync(__dirname + '/' + f, 'utf8'), ctx);
+for (const f of ['data/provinces.js', 'data/history.js', 'data/images.js', 'data/places.js', 'data/modern.js', 'data/georef.js', 'data/relief.js', 'data/ryukyu.js', 'data/landmarks.js']) vm.runInContext(fs.readFileSync(__dirname + '/' + f, 'utf8'), ctx);
 // through JSON: arrays made inside the vm context fail deepStrictEqual against this realm's arrays
-const { GEO, START, END, ERAS, PHASES, DYES, CLANS, BASE, BASE_NOTES, CHANGES, EVENTS, ALLIANCES, CAMPS_1600, BAND_WEIGHTS, EZO_HOLDERS } = JSON.parse(
-  vm.runInContext('JSON.stringify({GEO, START, END, ERAS, PHASES, DYES, CLANS, BASE, BASE_NOTES, CHANGES, EVENTS, ALLIANCES, CAMPS_1600, BAND_WEIGHTS, EZO_HOLDERS})', ctx));
+const { GEO, START, END, ERAS, PHASES, DYES, CLANS, BASE, BASE_NOTES, CHANGES, EVENTS, ALLIANCES, CAMPS_1600, BAND_WEIGHTS, EZO_HOLDERS, RYUKYU_HOLDERS, RYUKYU } = JSON.parse(
+  vm.runInContext('JSON.stringify({GEO, START, END, ERAS, PHASES, DYES, CLANS, BASE, BASE_NOTES, CHANGES, EVENTS, ALLIANCES, CAMPS_1600, BAND_WEIGHTS, EZO_HOLDERS, RYUKYU_HOLDERS, RYUKYU})', ctx));
 for (const [a, b, w] of BAND_WEIGHTS) assert(a <= b && w > 0 && w <= 1, `band weight ${a}`);
-for (const [y, h] of EZO_HOLDERS) assert(y >= START && (h === null || h in CLANS), `Ezo ${y}`);
+for (const [y, h] of [...EZO_HOLDERS, ...RYUKYU_HOLDERS]) assert(y >= START && (h === null || h in CLANS), `Ezo/Ryukyu ${y}`);
 const M = require('./model.js');
 
 const provs = Object.keys(GEO.provinces);
@@ -41,8 +41,11 @@ for (const [id, c] of Object.entries(CLANS)) {
   for (const p of c.people) assert(p.length === 4, `${id}: person ${p[0]}`);
 }
 
+// the Ryukyu inset: a place drawn there must fall inside its box
+const inInset = ({ lon, lat }) => RYUKYU.frames.some(f => lon > f.lon0 && lon < f.lon1 && lat > f.lat0 && lat < f.lat1);
+assert(RYUKYU.shapes.length > 20 && RYUKYU.shapes.some(s => s.amami), 'Ryukyu islands');
 for (const e of EVENTS) {
-  assert(e.year >= START && e.year <= END && (provs.includes(e.at) || e.at === 'ezo'), `event ${e.id}`);
+  assert(e.year >= START && e.year <= END && (provs.includes(e.at) || e.at === 'ezo' || (e.at === 'ryukyu' && inInset(e))), `event ${e.id}`);
   assert(!e.abroad || ['west', 'east', 'south'].includes(e.abroad), `event ${e.id}: abroad`);
   for (const s of e.sides || []) assert(s === null || s in CLANS, `event ${e.id}: side ${s}`);
   assert(!e.winner || e.winner in CLANS, `event ${e.id}: winner`);
@@ -118,6 +121,7 @@ for (const l of LANDMARKS) {
   assert(['city', 'temple', 'shrine', 'castle', 'mountain', 'nature', 'garden', 'town', 'memorial'].includes(l.kind) && (l.kind !== 'city' || l.pop), `landmark ${l.id}: kind`);
   assert(l.en && l.ja && l.short && l.wiki, `landmark ${l.id}: text`);
   assert(!l.at || provs.includes(l.at), `landmark ${l.id}: province ${l.at}`);
+  if (l.lat < RYUKYU.frames[0].lat1) { assert(inInset(l) && !l.at, `landmark ${l.id} outside the Ryukyu inset`); continue; }
   const [x, y] = toMap(l.lon, l.lat);
   assert(x >= RELIEF.x && y >= RELIEF.y && x <= RELIEF.x + RELIEF.width && y <= RELIEF.y + RELIEF.height, `landmark ${l.id} off the map`);
 }

@@ -53,7 +53,11 @@ p { margin: 0; }
 .prov use { stroke: var(--cream); stroke-opacity: .5; stroke-width: .8; vector-effect: non-scaling-stroke; cursor: pointer; transition: stroke-opacity .2s; }
 .prov:hover use { stroke-opacity: 1; stroke-width: 1.6; }
 .prov.sel use { stroke-opacity: 1; stroke-width: 2.2; stroke-dasharray: 4 3; }
-#ezo use { fill: #252b5e; stroke: none; }
+#ezo use, #ryukyu use { fill: #252b5e; stroke: none; }
+/* the Ryukyu inset: a frame of running stitch around the islands, as an atlas boxes off what lies beyond the sheet */
+#ryukyu .inset { fill: rgba(19, 21, 47, .25); stroke: var(--cream); stroke-opacity: .5; stroke-width: 1; stroke-dasharray: 5 3; vector-effect: non-scaling-stroke; }
+#ryukyu { pointer-events: none; }
+.inset-label { font-family: var(--mincho); fill: var(--cream); fill-opacity: .75; letter-spacing: .04em; }
 #lakes use { fill: #262f68; stroke: var(--cream); stroke-opacity: .35; stroke-width: .6; vector-effect: non-scaling-stroke; pointer-events: none; }
 #mottle { pointer-events: none; mix-blend-mode: multiply; opacity: .5; }
 #soak { pointer-events: none; }
@@ -258,7 +262,10 @@ body.land #sea-waves { opacity: .075; }
 body.land #relief, body.land #landmarks { display: inline; }
 body.land #landmarks { pointer-events: auto; }
 body.land :is(#crests, #soak, #stitches, #castles, #battles, #flash, #approx, #start, #band) { display: none; }
-body.land .prov use, body.land #ezo use { fill: transparent; }
+body.land .prov use { fill: transparent; }
+body.land #ezo use { fill: transparent !important; } /* over the dye set inline for the year */
+body.land #ryukyu use { fill: #a3b16f !important; } /* beyond the terrain sheet: lowland green, as most of the islands are */
+body.land .inset-label { fill: var(--cream); }
 body.land .prov use { stroke: var(--kon); stroke-opacity: .16; }
 body.land .prov:hover use { stroke-opacity: .4; stroke-width: 1.2; }
 body.land .prov.dim { opacity: 1; }
@@ -358,6 +365,7 @@ body.land .city-label { fill: var(--kachi); fill-opacity: 1; stroke: rgba(239, 2
 <script src="data/modern.js"></script>
 <script src="data/georef.js"></script>
 <script src="data/relief.js"></script>
+<script src="data/ryukyu.js"></script>
 <script src="data/landmarks.js"></script>
 <script src="model.js"></script>
 <script src="app.js"></script>

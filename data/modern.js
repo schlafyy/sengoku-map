@@ -63,6 +63,9 @@ Object.assign(CLANS, {
 
 // the Ezo lands (Hokkaido): outside the realm until the Boshin War, then part of Japan
 const EZO_HOLDERS = [[1467, null], [1868, 'shogunate'], [1869, 'imperial'], [1871, 'empire']];
+// the Ryukyu islands (Okinawa), in the inset box: a kingdom of their own, outside the realm, until Japan annexed them in
+// 1879. The Amami islands in the north were taken by Satsuma in 1609 and follow Satsuma's holder from then on (app.js).
+const RYUKYU_HOLDERS = [[1467, null], [1879, 'empire']];
 const EZO_NOTE = 'Ezo 蝦夷: the land of the Ainu, outside the realm, with the Matsumae clan trading from its southern tip. Renamed Hokkaido in 1869.';
 
 // the Tokugawa settle in, then two wars of sides: 1868 (dyed by side) and 1877
@@ -96,8 +99,13 @@ ALLIANCES.push(
    'Old enemies Satsuma and Chōshū, brought together by Sakamoto Ryōma in Kyoto in 1866, agreed to bring down the shogunate.'],
 );
 
-// at: a province; abroad: 'west' places the mark out in the sea toward the continent, 'east' out in the Pacific
+// at: a province, or 'ezo' or 'ryukyu' (placed by lon/lat in the inset); abroad: 'west' places the mark out in the sea
+// toward the continent, 'east' out in the Pacific
 EVENTS.push(
+  { id: 'ryukyu1609', year: 1609, en: 'Satsuma invades Ryukyu', ja: '琉球侵攻', at: 'ryukyu', lon: 127.72, lat: 26.22, kind: 'battle',
+    sides: ['shimazu', null], winner: 'shimazu',
+    short: 'With the shogun\'s leave, the Shimazu of Satsuma send some 3,000 men in a hundred ships against the kingdom of Ryukyu and take its royal castle at Shuri. Ryukyu keeps its king but answers to Satsuma from now on.',
+    long: 'Ryukyu had grown rich as a trading kingdom between China, Japan, Korea and South-east Asia. In the spring of 1609 the Shimazu, with Tokugawa Ieyasu\'s permission, took the Amami islands and landed on Okinawa; Shuri surrendered in April. King Shō Nei was taken to Kagoshima and on to meet Ieyasu and the shogun, and allowed home in 1611 after swearing loyalty to the Shimazu. Satsuma kept the Amami islands for itself. For two and a half centuries Ryukyu lived a double life: still sending tribute to China, but ruled from Satsuma, whose wealth grew on the China trade that passed through it.' },
   { id: 'osaka', year: 1615, en: 'The fall of Osaka', ja: '大坂の陣', at: 'settsu', dx: 6, dy: 3, kind: 'battle',
     sides: ['tokugawa', 'toyotomi'], winner: 'tokugawa',
     short: 'Tokugawa Ieyasu besieges Toyotomi Hideyori in Osaka castle in the winter of 1614 and storms it in the summer of 1615. Hideyori and his mother die as the castle burns; the Toyotomi line ends.',
@@ -170,6 +178,9 @@ EVENTS.push(
     sides: ['empire', 'rebels'], winner: 'empire',
     short: 'Saigō Takamori leads the former samurai of Satsuma against the government. The conscript army holds Kumamoto castle and wears the rebels down; Saigō dies at Shiroyama in September.',
     long: 'About 30,000 Satsuma men marched north in February 1877 and besieged Kumamoto castle, whose garrison of conscripts held out for some fifty days. Relieved, the government armies pushed the rebels back through Kyushu. With a few hundred men left, Saigō made a last stand at Shiroyama above Kagoshima and died there on 24 September. The war proved that a conscript army could beat samurai, and it was the last civil war in Japan.' },
+  { id: 'ryukyu1879', year: 1879, en: 'Ryukyu becomes Okinawa', ja: '琉球処分', at: 'ryukyu', lon: 127.72, lat: 26.22, kind: 'event',
+    short: 'Japan abolishes the kingdom of Ryukyu. Police and troops are sent to Shuri, the last king, Shō Tai, is moved to Tokyo, and the islands become Okinawa Prefecture.',
+    long: 'Japan had already made Ryukyu a domain under Tokyo in 1872, and kept it from sending tribute to China. In 1879 it ended the kingdom outright, in what Japanese history calls the Ryukyu Disposition: Shō Tai gave up Shuri castle and was settled in Tokyo as a noble. China protested but could do nothing. Okinawans were pressed to give up their language and customs for those of the main islands, and the new prefecture stayed one of the poorest in Japan.' },
   { id: 'constitution', year: 1889, en: 'The Meiji Constitution', ja: '大日本帝国憲法', at: 'musashi', dx: 2, dy: -10, kind: 'event',
     short: 'The emperor grants Japan a written constitution, modelled largely on Prussia\'s, with an elected lower house but sovereignty resting with the emperor.',
     long: 'Drafted by a team under Itō Hirobumi after study in Europe, the constitution was proclaimed on 11 February 1889. It created a Diet with an elected lower house, chosen at first by a small fraction of men who paid enough tax, and courts and a cabinet, but placed the army and navy directly under the emperor, a weakness that the military would later exploit.' },
@@ -207,10 +218,10 @@ EVENTS.push(
     sides: ['empire', null], winner: null,
     short: 'On the night of 9–10 March 1945 American bombers drop incendiaries on Tokyo. Some 90,000 to 100,000 people die in one night; most Japanese cities are burned in the months that follow.',
     long: 'Low-level night raids by B-29s with incendiary bombs set firestorms through Tokyo\'s wooden districts east of the castle; the raid of 9–10 March was the deadliest air attack of the war. In the following months nearly every large Japanese city was firebombed, including Nagoya, Osaka and Kobe; Nagoya castle burned in May.' },
-  { id: 'okinawa', year: 1945, en: 'The Battle of Okinawa', ja: '沖縄戦', at: 'satsuma', abroad: 'south', kind: 'battle',
+  { id: 'okinawa', year: 1945, en: 'The Battle of Okinawa', ja: '沖縄戦', at: 'ryukyu', lon: 127.76, lat: 26.14, kind: 'battle',
     sides: ['empire', null], winner: null,
     short: 'From April to June 1945 the Americans fight to take Okinawa, south of Kyushu. Over 100,000 Okinawan civilians die, between a quarter and a third of the island\'s people.',
-    long: 'Okinawa, once the kingdom of Ryukyu and annexed by Japan in 1879, became the last great battlefield before the home islands. Japanese troops fought from caves and tunnels; kamikaze aircraft attacked the American fleet offshore. Civilians were caught between the armies, and many were driven to mass suicide by the Japanese military. The island lies south of this map, below Kyushu.' },
+    long: 'Okinawa, once the kingdom of Ryukyu and annexed by Japan in 1879, became the last great battlefield before the home islands. Japanese troops fought from caves and tunnels; kamikaze aircraft attacked the American fleet offshore. Civilians were caught between the armies, and many were driven to mass suicide by the Japanese military. The islands are drawn in the box south of Shikoku.' },
   { id: 'atomic', year: 1945, en: 'Hiroshima and Nagasaki', ja: '原爆投下', at: 'aki', dx: 4, dy: 4, kind: 'battle',
     sides: ['empire', null], winner: null,
     short: 'On 6 August 1945 an American atomic bomb destroys Hiroshima; on 9 August a second destroys Nagasaki. By the end of the year about 140,000 people have died in Hiroshima and 74,000 in Nagasaki.',
