@@ -71,20 +71,20 @@ Smaller notes were also added: the Mount Hiei excavations and the Portuguese gun
 
 **Fetching from Wikimedia:** it throttles automated downloads (HTTP 429). The fetch scripts resume where they stopped and wait 5 seconds between requests. If they get blocked, let them rest for half an hour before trying again.
 
-## Where we left off (2026-11-08, about 04:00)
+## Where we left off (2026-11-08, midday)
 
 Done tonight:
 - the late downloads processed (34 pictures, 10 crests, all with their origin embedded); crests drawn white-on-black now come out right
 - the Wikipedia check of 1604–1945 (see above)
-- the Landmarks view with atlas-coloured terrain, 13 cities and 53 landmarks with photos (one missing: Sado has no lead image)
+- the Landmarks view with atlas-coloured terrain, 13 cities and 53 landmarks, every one with a photo
 - the Japanese touches; the exe rebuilt with all of it
 - a finish review of everything since the first build, and two rounds of its fixes: red thread only for battles (other turning points are a cream knot), finer kasuri, waves that keep their size when zooming, all of Hokkaido framed in Landmarks, the terrain in flat bands of dye colour with the weave over it, crest and label collisions, every city named on phones (captures in `.impeccable/review/round6/`)
 - DESIGN.md brought up to date with all of the above
+- the landmark and city texts checked against Wikipedia (`tools/wiki_check.py` now covers `data/landmarks.js`): populations all match the 2020 census; five small fixes (Hikone, Ginkaku-ji, Tottori, Dejima, Nagoya), and Sado now points at the right article and has its photo
 
 Open, in order:
-1. **Check the city texts and populations against Wikipedia** (`tools/wiki_check.py` doesn't cover `data/landmarks.js` yet).
-2. **A formal last verdict** from the finish reviewer on `.impeccable/review/round6/` (its last pass listed three items, all fixed since).
-3. **Ideas not started:** a search box; a phone version (Home Screen, like the reading app); Okinawa is off the map's southern edge.
+1. **A formal last verdict** from the finish reviewer on `.impeccable/review/round6/` (its last pass listed three items, all fixed since).
+2. **Ideas not started:** a search box; a phone version (Home Screen, like the reading app); Okinawa is off the map's southern edge.
 
 ## Credits
 

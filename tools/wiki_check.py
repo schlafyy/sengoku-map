@@ -1,6 +1,7 @@
-"""Fetches Wikipedia's summaries for every event, clan and person in data/history.js, for fact-checking.
+"""Fetches Wikipedia's summaries for every event, clan and person in data/history.js and every landmark in
+data/landmarks.js, for fact-checking.
 Writes tools/wiki_check.json and prints a digest. Run: python tools/wiki_check.py"""
-import json, os, re, subprocess, time, urllib.parse, urllib.request
+import json, os, re, subprocess, sys, time, urllib.parse, urllib.request
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 UA = {"User-Agent": "SengokuMap/0.1 (personal history map; fact-checking)"}
@@ -75,17 +76,19 @@ def search(term):
 
 
 def load_history():
-    js = "const fs=require('fs'),vm=require('vm'),c={};vm.createContext(c);for(const f of ['data/history.js','data/places.js','data/modern.js'])vm.runInContext(fs.readFileSync(f,'utf8'),c);" \
-         "console.log(vm.runInContext('JSON.stringify({CLANS,EVENTS})',c))"
+    js = "const fs=require('fs'),vm=require('vm'),c={};vm.createContext(c);for(const f of ['data/history.js','data/places.js','data/modern.js','data/landmarks.js'])vm.runInContext(fs.readFileSync(f,'utf8'),c);" \
+         "console.log(vm.runInContext('JSON.stringify({CLANS,EVENTS,LANDMARKS})',c))"
     return json.loads(subprocess.run(["node", "-e", js], cwd=ROOT, capture_output=True, text=True, encoding="utf8").stdout)
 
 
 def main():
+    sys.stdout.reconfigure(encoding="utf8")  # macrons in titles, when the digest is redirected on Windows
     h = load_history()
     ev_titles = [EVENT_TITLES.get(e["id"], e["en"]) for e in h["EVENTS"]]
     clan_titles = [CLAN_TITLES.get(k, f"{c['en']} clan") for k, c in h["CLANS"].items()]
     people = sorted({p[0].split(" (")[0] for c in h["CLANS"].values() for p in c["people"]})
-    res = {"events": extracts(ev_titles), "clans": extracts([t for t in clan_titles if t]), "people": extracts(people, 2)}
+    res = {"events": extracts(ev_titles), "clans": extracts([t for t in clan_titles if t]), "people": extracts(people, 2),
+           "landmarks": extracts(sorted({l["wiki"] for l in h["LANDMARKS"]}))}
     for group, titles in (("events", ev_titles), ("clans", [t for t in clan_titles if t]), ("people", people)):
         for t in titles:  # not found under that name: take the search's best match
             if t not in res[group]:
@@ -93,11 +96,11 @@ def main():
                 if s:
                     res[group].update({t: v for v in extracts([s], 2 if group == "people" else None).values()})
     json.dump(res, open(os.path.join(ROOT, "tools", "wiki_check.json"), "w", encoding="utf8"), ensure_ascii=False, indent=1)
-    for group, limit in (("events", 1100), ("clans", 700), ("people", 260)):
+    for group, limit in (("events", 1100), ("clans", 700), ("people", 260), ("landmarks", 1100)):
         print(f"\n===== {group} =====")
         for asked, (title, text) in res[group].items():
             print(f"\n## {asked} -> {title}\n" + re.sub(r"\s+", " ", text)[:limit])
-    missing = [t for g, ts in (("events", ev_titles), ("people", people)) for t in ts if t not in res[g]]
+    missing = [t for g, ts in (("events", ev_titles), ("people", people), ("landmarks", sorted({l["wiki"] for l in h["LANDMARKS"]}))) for t in ts if t not in res[g]]
     print("\nNOT FOUND:", missing)
 
 

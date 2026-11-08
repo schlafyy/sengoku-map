@@ -1789,5 +1789,15 @@ const IMAGES = {
   "w": 640,
   "h": 425,
   "desc": "Wall of signboards at Ebisu Bridge on the Dōtonbori Canal"
+ },
+ "landmark:sado": {
+  "src": "images/landmark_sado.jpg",
+  "file": "Dohyu_no_Warito_ac_(3).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Dohyu_no_Warito_ac_(3).jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Asturio Cantabrio",
+  "w": 640,
+  "h": 425,
+  "desc": "新潟県佐渡市の相川金銀山にある「道遊の割戸」。"
  }
 };
