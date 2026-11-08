@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-07T21:18:36+00:00",
+  "generatedAt": "2026-11-08T01:39:51+00:00",
   "title": "Design System: Sengoku 戦国",
   "extensions": {
     "colorMeta": {
@@ -8,7 +8,7 @@
         "role": "primary",
         "displayName": "Kachi-iro, the Deepest Vat",
         "canonical": "oklch(21.0% 0.051 278)",
-        "purpose": "The cloth's edge: page ground, band, tooltip, needle holes and under-threads.",
+        "purpose": "The cloth's edge: page ground, band, tooltip, needle holes, under-threads, castle fill; city stencils and names in Landmarks.",
         "tonalRamp": [
           "#070720",
           "#1f223d",
@@ -24,7 +24,7 @@
         "role": "primary",
         "displayName": "Kon, the Sea",
         "canonical": "oklch(25.7% 0.076 276)",
-        "purpose": "The open sea, mid-stop of the cloth's radial grade.",
+        "purpose": "The open sea, mid-stop of the cloth's radial grade; in Landmarks the printing ink of stencils, resist lines and province names.",
         "tonalRamp": [
           "#06042a",
           "#1c2049",
@@ -88,7 +88,7 @@
         "role": "neutral",
         "displayName": "Unbleached Cotton",
         "canonical": "oklch(92.7% 0.027 86)",
-        "purpose": "All primary text, resist lines, alliance stitches, playhead, focus and every dashed stitch.",
+        "purpose": "All primary text, resist lines, alliance stitches, turning-point knots, castle squares, crests, seigaiha, playhead, life line, focus and every dashed stitch; the active mode option.",
         "tonalRamp": [
           "#100a01",
           "#2b2416",
@@ -104,7 +104,7 @@
         "role": "neutral",
         "displayName": "Indigo-tinted Grey",
         "canonical": "oklch(77.0% 0.046 278)",
-        "purpose": "Kanji beside names, secondary text, threshold names.",
+        "purpose": "Kanji beside names, secondary text, threshold names, the vertical phase name, inactive switch options.",
         "tonalRamp": [
           "#08081e",
           "#20223b",
@@ -136,7 +136,7 @@
         "role": "neutral",
         "displayName": "Undyed Cotton",
         "canonical": "oklch(88.7% 0.029 87)",
-        "purpose": "Land held by no single power: many local lords. Nothing else.",
+        "purpose": "Land held by no single power; in Landmarks the bare-cotton halo around stencils and names.",
         "tonalRamp": [
           "#100a01",
           "#2b2415",
@@ -184,7 +184,7 @@
         "role": "tertiary",
         "displayName": "Red Thread",
         "canonical": "oklch(68.6% 0.204 32)",
-        "purpose": "War only: battle cross-stitch, pulse ring, band and link diamonds.",
+        "purpose": "Battles only: battle cross-stitch, pulse ring, band and link diamonds. Never other turning points.",
         "tonalRamp": [
           "#1e0100",
           "#4a0700",
@@ -232,7 +232,7 @@
         "role": "neutral",
         "displayName": "The Mount",
         "canonical": "oklch(90.8% 0.028 87)",
-        "purpose": "The cream card a picture is mounted on.",
+        "purpose": "The cream card a picture or portrait is mounted on.",
         "tonalRamp": [
           "#100a01",
           "#2b2415",
@@ -295,17 +295,17 @@
       "dye-bengara": {
         "role": "secondary",
         "displayName": "Bengara dye",
-        "canonical": "oklch(51.9% 0.136 34)",
+        "canonical": "oklch(48.0% 0.115 34)",
         "purpose": "A clan dye; each clan pairs it with a unique motif. Clans only.",
         "tonalRamp": [
           "#1d0200",
-          "#490a00",
-          "#7a1800",
-          "#9f3d27",
-          "#c66049",
-          "#ed836b",
+          "#470d03",
+          "#732312",
+          "#974533",
+          "#bd6753",
+          "#e48975",
           "#feb4a3",
-          "#ffe9e4"
+          "#fee9e4"
         ]
       },
       "dye-kaki": {
@@ -423,17 +423,17 @@
       "dye-akane": {
         "role": "secondary",
         "displayName": "Akane dye",
-        "canonical": "oklch(45.9% 0.151 17)",
+        "canonical": "oklch(41.7% 0.126 12)",
         "purpose": "A clan dye; each clan pairs it with a unique motif. Clans only.",
         "tonalRamp": [
-          "#1e0003",
-          "#4c0011",
-          "#7f0123",
-          "#a53141",
-          "#cd5661",
-          "#f57982",
-          "#ffb1b4",
-          "#fee8e9"
+          "#1e0005",
+          "#490518",
+          "#761a30",
+          "#9b3d4e",
+          "#c15f6f",
+          "#e88290",
+          "#feb1ba",
+          "#fee8ea"
         ]
       },
       "dye-tobi": {
@@ -563,12 +563,128 @@
           "#feafc6",
           "#fee8ee"
         ]
+      },
+      "dye-rikyu": {
+        "role": "secondary",
+        "displayName": "Rikyu-nezumi dye",
+        "canonical": "oklch(64.3% 0.030 121)",
+        "purpose": "The modern state from 1871 (data/modern.js).",
+        "tonalRamp": [
+          "#090d01",
+          "#232717",
+          "#3f4533",
+          "#5f6451",
+          "#7f8572",
+          "#a2a894",
+          "#c6ccb7",
+          "#ebf2dc"
+        ]
+      },
+      "terrain-moegi": {
+        "role": "secondary",
+        "displayName": "Moegi Plains",
+        "canonical": "oklch(73.3% 0.094 121)",
+        "purpose": "Landmarks only: land below 100m. A flat height band baked into images/terrain.jpg by tools/terrain.py.",
+        "tonalRamp": [
+          "#090d00",
+          "#202901",
+          "#3b4907",
+          "#596926",
+          "#798b48",
+          "#9cae6b",
+          "#bfd38e",
+          "#e4f9b2"
+        ]
+      },
+      "terrain-hiwa": {
+        "role": "secondary",
+        "displayName": "Hiwa Hills",
+        "canonical": "oklch(77.1% 0.094 112)",
+        "purpose": "Landmarks only: land from 100m. A flat height band baked into images/terrain.jpg by tools/terrain.py.",
+        "tonalRamp": [
+          "#0c0c00",
+          "#262701",
+          "#434606",
+          "#63661d",
+          "#848841",
+          "#a6ab64",
+          "#cad087",
+          "#f0f5ab"
+        ]
+      },
+      "terrain-kariyasu": {
+        "role": "secondary",
+        "displayName": "Kariyasu Hills",
+        "canonical": "oklch(80.4% 0.089 96)",
+        "purpose": "Landmarks only: land from 400m. A flat height band baked into images/terrain.jpg by tools/terrain.py.",
+        "tonalRamp": [
+          "#0f0b00",
+          "#2d2401",
+          "#4e4105",
+          "#71601b",
+          "#928240",
+          "#b6a563",
+          "#dac986",
+          "#ffefb0"
+        ]
+      },
+      "terrain-kaki-shibu": {
+        "role": "secondary",
+        "displayName": "Kaki-shibu Uplands",
+        "canonical": "oklch(71.4% 0.083 71)",
+        "purpose": "Landmarks only: land from 900m. A flat height band baked into images/terrain.jpg by tools/terrain.py.",
+        "tonalRamp": [
+          "#140800",
+          "#362002",
+          "#5b3a08",
+          "#7f5826",
+          "#a27a48",
+          "#c69c6a",
+          "#ecc08d",
+          "#ffebd5"
+        ]
+      },
+      "terrain-kurumi": {
+        "role": "secondary",
+        "displayName": "Kurumi Mountains",
+        "canonical": "oklch(61.0% 0.063 67)",
+        "purpose": "Landmarks only: land from 1600m. A flat height band baked into images/terrain.jpg by tools/terrain.py.",
+        "tonalRamp": [
+          "#140800",
+          "#371e00",
+          "#583b1a",
+          "#795a39",
+          "#9c7b59",
+          "#c09e7b",
+          "#e6c29e",
+          "#feebd8"
+        ]
+      },
+      "terrain-peak": {
+        "role": "secondary",
+        "displayName": "Bare Cotton Peaks",
+        "canonical": "oklch(90.8% 0.024 86)",
+        "purpose": "Landmarks only: land from 2150m. A flat height band baked into images/terrain.jpg by tools/terrain.py.",
+        "tonalRamp": [
+          "#100a02",
+          "#2a2417",
+          "#484133",
+          "#676052",
+          "#898272",
+          "#aca494",
+          "#d0c8b8",
+          "#f6eedd"
+        ]
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "Year",
-        "purpose": "The year only, large in the empty Sea of Japan; lining tabular numerals."
+        "purpose": "The year only (名所 in Landmarks), large in the empty Sea of Japan; lining tabular numerals."
+      },
+      "tategaki": {
+        "displayName": "Vertical Phase Name",
+        "purpose": "The phase in vertical kanji beside the year, behind a dashed cream rule at .3; 山河と名所 in Landmarks."
       },
       "headline": {
         "displayName": "Moment Flash",
@@ -608,7 +724,7 @@
       }
     },
     "mapLabel": {
-      "purpose": "Clan names on the map: Mincho 700 at min(17, 7 + sqrt(provinces) x 2.6) map units with a .32 x size dark halo; kanji at max(size x .6, 10.5px on screen), dropped when that exceeds .85 x size; colliding labels are removed."
+      "purpose": "Clan names: Mincho 700 at min(17, 7 + sqrt(provinces) x 2.6) x zoom^-0.8 map units with a .32 x size dark halo; kanji at max(size x .6, 10.5px on screen), dropped when that exceeds .85 x size; one-province clans only past zoom 1.8; province names 12.5px on screen from zoom 2.2; colliding labels are removed (crests, marks, stitches and the overlays are no-go). Landmarks: city names 13.5px (11px under 600px) in kachi on a cream .95 halo, always placed; other names 12px (10.5px) from zoom 1.6; a mark under a city name fades to .28."
     },
     "shadows": [
       {
@@ -623,7 +739,7 @@
       },
       {
         "name": "playhead-halo",
-        "value": "0 0 0 1px rgba(11, 21, 41, .7)",
+        "value": "0 0 0 1px rgba(19, 21, 47, .7)",
         "purpose": "Keeps the cream playhead legible over light threads."
       },
       {
@@ -664,11 +780,6 @@
         "purpose": "A decisive moment's name across the sea."
       },
       {
-        "name": "play-cadence",
-        "value": "760ms per year, 1500ms on battle years, 3200ms on thresholds",
-        "purpose": "Thresholds slow play."
-      },
-      {
         "name": "hover",
         "value": ".15s-.2s",
         "purpose": "Row washes, stroke opacity, play border."
@@ -677,13 +788,43 @@
         "name": "reduced-motion",
         "value": "animation and transition durations .01ms; soak and stitch draw-in disabled",
         "purpose": "prefers-reduced-motion."
+      },
+      {
+        "name": "play-cadence",
+        "value": "760ms x year weight (min 90ms) per year, 1500ms on battle years, 3200ms on thresholds",
+        "purpose": "Thresholds slow play; quiet decades pass in seconds."
+      },
+      {
+        "name": "follow-dim",
+        "value": ".6s var(--ease); provinces to .3, other clan labels .35, other crests .2",
+        "purpose": "Following a life: what was not theirs sinks back."
+      },
+      {
+        "name": "mark-scale",
+        "value": "zoom^-0.7 (marks), zoom^-0.8 (labels), 1/zoom (seigaiha); zoom 1 to 6",
+        "purpose": "Marks and type keep a reading size when zooming."
+      },
+      {
+        "name": "landmark-hover",
+        "value": ".2s var(--ease); stencil scale 1.3 on hover or selection",
+        "purpose": "A landmark lifts its stencil."
+      },
+      {
+        "name": "switch",
+        "value": ".2s background and colour",
+        "purpose": "Mode switch, zoom buttons, play-life border."
       }
     ],
     "breakpoints": [
       {
+        "name": "narrow-labels",
+        "value": "600px (map width)",
+        "purpose": "Landmarks label sizes step down (cities 11px, others 10.5px)."
+      },
+      {
         "name": "stack",
         "value": "860px",
-        "purpose": "Below: map 62vh, band, panel in one scrolling column; seam, minor ticks and threshold names hidden; diamonds 4px."
+        "purpose": "Below: map 62vh, band, panel in one scrolling column; seam, minor ticks and threshold names hidden; diamonds 4px; mode switch to the map's bottom right, hidden while playing."
       }
     ],
     "patterns": [
@@ -700,16 +841,44 @@
         "value": "6px tile, two 0.8px flecks in undyed-fleck at .8"
       },
       {
-        "name": "kasuri-split",
-        "value": "22-unit tile rotated 38deg; eight out-of-register thread-steps of the second holder over the first; feather at .55"
-      },
-      {
         "name": "mottle",
         "value": "256px four-octave value noise, multiply, .5 opacity over all land"
       },
       {
         "name": "sashiko-seam",
         "value": "2px, cream .32, 7px on / 6px off, 12px inside the panel"
+      },
+      {
+        "name": "kasuri-split",
+        "value": "14-unit tile rotated 38deg; eight out-of-register thread-steps of the second holder, some broken by a gap; feather at .55; undyed wash .16"
+      },
+      {
+        "name": "seigaiha",
+        "value": "radius 14, four concentric rings, .7 stroke, used as a mask to print cream over the sea at .055 (.075 in Landmarks); patternTransform scale(1/zoom)"
+      },
+      {
+        "name": "asanoha",
+        "value": "SVG lattice tile 36 x 62.35px, cream stroke .7 at .05, under the lining weave"
+      },
+      {
+        "name": "tategaki-rule",
+        "value": "1.5px dashed cream at .3, left of the vertical phase name, .7rem padding"
+      },
+      {
+        "name": "height-bands",
+        "value": "terrain-* colours, flat bands from 100/400/900/1600/2150m, shaded by Natural Earth relief, clipped to the land"
+      },
+      {
+        "name": "weave-over-land",
+        "value": "Landmarks: kachi .07 horizontal + .06 vertical, 1px on a 3px pitch, multiplied over the whole cloth"
+      },
+      {
+        "name": "resist-filters",
+        "value": "feColorMatrix to rgb #efe6d3; alpha rows: dark-on-light (-.33 -.33 -.33 1 0); white-on-dark, green only (0 2.2 0 0 -.45); holes (0 0 0 -1 1) with the region inset 2.5%; crest screened at .78"
+      },
+      {
+        "name": "life-line",
+        "value": "2px dashed cream .85 (6 on / 4 off) 72px down the loom; 4 x 6px cream year ticks"
       }
     ]
   },
@@ -739,14 +908,6 @@
       "css": ".ds-chip { display:inline-flex; align-items:center; gap:8px; font:400 .95rem/1.2 var(--mincho, 'Shippori', 'Yu Mincho', 'Hiragino Mincho ProN', serif); color:var(--cream, #efe6d3); padding:3px 8px 3px 3px; border:0; border-radius:3px; background:var(--lining, #16193a); cursor:pointer; } .ds-chip:hover { background:rgba(239,230,211,.06); } .ds-chip:focus-visible { outline:1.5px dashed var(--cream, #efe6d3); outline-offset:3px; } .ds-chip [lang=ja] { color:var(--muted, #adb2d2); font-size:.86rem; } .ds-sm { width:18px; height:18px; border-radius:2px; display:block; box-shadow:inset 0 0 0 1px rgba(239,230,211,.22); } .ds-won { font:500 .66rem/1 var(--gothic, 'Zen', 'Yu Gothic UI', 'Hiragino Sans', sans-serif); letter-spacing:.12em; text-transform:uppercase; border:1px dashed rgba(239,230,211,.5); padding:3px 5px 2px; border-radius:2px; }"
     },
     {
-      "name": "Read More",
-      "kind": "button",
-      "refersTo": "reading",
-      "description": "The step from short story to full account: a dashed-underline text action.",
-      "html": "<div class=\"ds-wrap\"><p class=\"ds-lede\">The house of the shoguns since 1338.</p><button class=\"ds-more\">Read the full story</button></div>",
-      "css": ".ds-wrap { background:var(--lining, #16193a); color:var(--cream, #efe6d3); padding:16px; } .ds-lede { margin:0; font:400 1.05rem/1.62 var(--mincho, 'Shippori', 'Yu Mincho', 'Hiragino Mincho ProN', serif); } .ds-more { margin-top:.9rem; font:500 .85rem/1 var(--gothic, 'Zen', 'Yu Gothic UI', 'Hiragino Sans', sans-serif); color:inherit; background:none; border:0; padding:8px 0; cursor:pointer; text-decoration:underline dashed rgba(239,230,211,.5); text-underline-offset:5px; } .ds-more:hover { text-decoration-color:var(--cream, #efe6d3); } .ds-more:focus-visible { outline:1.5px dashed var(--cream, #efe6d3); outline-offset:3px; }"
-    },
-    {
       "name": "Province Tooltip",
       "kind": "custom",
       "refersTo": "tooltip",
@@ -758,7 +919,7 @@
       "name": "Plate",
       "kind": "card",
       "refersTo": "plate",
-      "description": "A picture mounted like a print stitched onto the lining, always credited with author and licence.",
+      "description": "A picture mounted like a print stitched onto the lining (clans, battles, castles, landmarks), always credited with author and licence.",
       "html": "<div class=\"ds-lin\"><figure class=\"ds-plate\"><div class=\"ds-img\"></div><figcaption>Artist name · CC BY-SA 4.0 · Wikimedia Commons</figcaption></figure></div>",
       "css": ".ds-lin { background:var(--lining, #16193a); padding:20px; } .ds-plate { margin:0; padding:7px; background:#e9e0cc; position:relative; } .ds-plate::after { content:\"\"; position:absolute; inset:-6px; border:1.5px dashed rgba(239,230,211,.4); border-radius:2px; pointer-events:none; } .ds-img { height:140px; background:#d8cfba; } .ds-plate figcaption { font:400 .7rem/1.4 var(--gothic, 'Zen', 'Yu Gothic UI', 'Hiragino Sans', sans-serif); color:#5d5a66; margin-top:6px; overflow-wrap:anywhere; }"
     },
@@ -766,33 +927,66 @@
       "name": "Year Block",
       "kind": "custom",
       "refersTo": "display",
-      "description": "The year set large in the empty sea, era in kanji, phase label beneath.",
-      "html": "<div class=\"ds-when\"><p class=\"ds-year\">1560</p><p class=\"ds-era\"><span lang=\"ja\">永禄三年</span><span class=\"ds-roman\">Eiroku 3</span></p><p class=\"ds-phase\">Nobunaga rises</p></div>",
-      "css": ".ds-when { background:radial-gradient(ellipse at 60% 50%, #252c63, #1a1e47 50%, #13152f); color:var(--cream, #efe6d3); padding:24px; } .ds-when p { margin:0; } .ds-year { font:700 clamp(64px, 9.5vw, 128px)/.9 var(--mincho, 'Shippori', 'Yu Mincho', 'Hiragino Mincho ProN', serif); letter-spacing:-.02em; font-variant-numeric:lining-nums tabular-nums; } .ds-era { margin-top:.6rem; font:400 1.1rem/1.3 var(--mincho, 'Shippori', 'Yu Mincho', 'Hiragino Mincho ProN', serif); letter-spacing:.08em; } .ds-roman { color:var(--muted, #adb2d2); font:400 .85rem/1 var(--gothic, 'Zen', 'Yu Gothic UI', 'Hiragino Sans', sans-serif); margin-left:.6em; letter-spacing:.04em; } .ds-phase { margin-top:.45rem; font:500 .8rem/1.3 var(--gothic, 'Zen', 'Yu Gothic UI', 'Hiragino Sans', sans-serif); color:var(--muted, #adb2d2); letter-spacing:.09em; text-transform:uppercase; }"
+      "description": "The year set large in the empty sea, era in kanji, phase label beneath, and the phase name in vertical kanji behind a dashed rule.",
+      "html": "<div class=\"ds-when\"><p class=\"ds-tate\" lang=\"ja\">織田信長</p><p class=\"ds-year\">1560</p><p class=\"ds-era\"><span lang=\"ja\">永禄三年</span><span class=\"ds-roman\">Eiroku 3</span></p><p class=\"ds-phase\">Oda Nobunaga</p></div>",
+      "css": ".ds-when { position:relative; padding-right:calc(24px + 3.2rem); background:radial-gradient(ellipse at 60% 50%, #252c63, #1a1e47 50%, #13152f); color:var(--cream, #efe6d3); padding:24px; } .ds-when p { margin:0; } .ds-year { font:700 clamp(64px, 9.5vw, 128px)/.9 var(--mincho, 'Shippori', 'Yu Mincho', 'Hiragino Mincho ProN', serif); letter-spacing:-.02em; font-variant-numeric:lining-nums tabular-nums; } .ds-era { margin-top:.6rem; font:400 1.1rem/1.3 var(--mincho, 'Shippori', 'Yu Mincho', 'Hiragino Mincho ProN', serif); letter-spacing:.08em; } .ds-roman { color:var(--muted, #adb2d2); font:400 .85rem/1 var(--gothic, 'Zen', 'Yu Gothic UI', 'Hiragino Sans', sans-serif); margin-left:.6em; letter-spacing:.04em; } .ds-phase { margin-top:.45rem; font:500 .8rem/1.3 var(--gothic, 'Zen', 'Yu Gothic UI', 'Hiragino Sans', sans-serif); color:var(--muted, #adb2d2); letter-spacing:.09em; text-transform:uppercase; } .ds-tate { position:absolute; right:24px; top:calc(24px + .55rem); writing-mode:vertical-rl; font:400 1.3rem/1 var(--mincho, 'Shippori', 'Yu Mincho', 'Hiragino Mincho ProN', serif); letter-spacing:.32em; color:var(--muted, #adb2d2); padding-left:.7rem; border-left:1.5px dashed rgba(239,230,211,.3); white-space:nowrap; }"
     },
     {
-      "name": "Battle Cross-stitch",
+      "name": "Cloth Marks",
       "kind": "custom",
       "refersTo": "war",
-      "description": "The battle mark (stitchMark at size 13): red cross-stitch, broken under-stitch in war-under, kachi under-cross, sheen and needle holes.",
-      "html": "<div class=\"ds-cloth\"><svg viewBox=\"-20 -20 40 40\" width=\"64\" height=\"64\" aria-hidden=\"true\"><path d=\"M-13 -10.66L13 11.7M11.96 -13L2.86 -2.34M-2.6 2.86L-11.44 12.35\" stroke=\"#13152f\" stroke-opacity=\".85\" stroke-linecap=\"round\" fill=\"none\" stroke-width=\"10.14\"/><path d=\"M11.96 -13L2.86 -2.34M-2.6 2.86L-11.44 12.35\" stroke=\"#b8402b\" stroke-linecap=\"round\" fill=\"none\" stroke-width=\"5.46\"/><path d=\"M-13 -10.66L13 11.7\" stroke=\"#ff5b3f\" stroke-linecap=\"round\" fill=\"none\" stroke-width=\"5.46\"/><path d=\"M-13 -10.66L13 11.7\" stroke=\"#ffb29e\" stroke-width=\"1.56\" stroke-linecap=\"round\" opacity=\".75\" transform=\"translate(-1.04 -1.04)\"/><circle cx=\"-13\" cy=\"-10.66\" r=\"2.6\" fill=\"#13152f\"/><circle cx=\"13\" cy=\"11.7\" r=\"2.6\" fill=\"#13152f\"/><circle cx=\"11.96\" cy=\"-13\" r=\"2.6\" fill=\"#13152f\"/><circle cx=\"-11.44\" cy=\"12.35\" r=\"2.6\" fill=\"#13152f\"/></svg></div>",
-      "css": ".ds-cloth { display:inline-grid; place-items:center; padding:16px; background:#c06a2c; }"
+      "description": "A battle cross-stitch in red thread (size 13), a turning-point cream diamond knot, and a castle square around a knot.",
+      "html": "<div class=\"ds-cloth\"><svg viewBox=\"-20 -20 40 40\" width=\"64\" height=\"64\" aria-hidden=\"true\"><path d=\"M-13 -10.66L13 11.7M11.96 -13L2.86 -2.34M-2.6 2.86L-11.44 12.35\" stroke=\"#13152f\" stroke-opacity=\".85\" stroke-linecap=\"round\" fill=\"none\" stroke-width=\"10.14\"/><path d=\"M11.96 -13L2.86 -2.34M-2.6 2.86L-11.44 12.35\" stroke=\"#b8402b\" stroke-linecap=\"round\" fill=\"none\" stroke-width=\"5.46\"/><path d=\"M-13 -10.66L13 11.7\" stroke=\"#ff5b3f\" stroke-linecap=\"round\" fill=\"none\" stroke-width=\"5.46\"/><path d=\"M-13 -10.66L13 11.7\" stroke=\"#ffb29e\" stroke-width=\"1.56\" stroke-linecap=\"round\" opacity=\".75\" transform=\"translate(-1.04 -1.04)\"/><circle cx=\"-13\" cy=\"-10.66\" r=\"2.6\" fill=\"#13152f\"/><circle cx=\"13\" cy=\"11.7\" r=\"2.6\" fill=\"#13152f\"/><circle cx=\"11.96\" cy=\"-13\" r=\"2.6\" fill=\"#13152f\"/><circle cx=\"-11.44\" cy=\"12.35\" r=\"2.6\" fill=\"#13152f\"/></svg><svg viewBox=\"-20 -20 40 40\" width=\"64\" height=\"64\" aria-hidden=\"true\"><path d=\"M0 -10.4L10.4 0L0 10.4L-10.4 0Z\" stroke=\"#13152f\" stroke-opacity=\".85\" stroke-width=\"5.72\" fill=\"none\" stroke-linejoin=\"round\"/><path d=\"M0 -10.4L10.4 0L0 10.4L-10.4 0Z\" stroke=\"#efe6d3\" stroke-width=\"3.12\" fill=\"none\" stroke-linejoin=\"round\"/><circle r=\"2.9\" fill=\"#efe6d3\"/></svg><svg viewBox=\"-10 -10 20 20\" width=\"64\" height=\"64\" aria-hidden=\"true\"><rect x=\"-6\" y=\"-6\" width=\"12\" height=\"12\" fill=\"rgba(19,21,47,.78)\" stroke=\"#efe6d3\" stroke-width=\"1.4\"/><circle r=\"2\" fill=\"#efe6d3\"/></svg></div>",
+      "css": ".ds-cloth { display:inline-flex; gap:12px; align-items:center; padding:16px; background:#c06a2c; }"
+    },
+    {
+      "name": "Mode Switch",
+      "kind": "nav",
+      "refersTo": "mode-switch",
+      "description": "History 歴史 / Landmarks 名所: a dashed-stitch pill; the pressed side is solid cream.",
+      "html": "<div class=\"ds-sea\"><div class=\"ds-mode\" role=\"group\" aria-label=\"Which map\"><button aria-pressed=\"true\">History <span lang=\"ja\">歴史</span></button><button aria-pressed=\"false\">Landmarks <span lang=\"ja\">名所</span></button></div></div>",
+      "css": ".ds-sea { background:var(--kon, #1a1e47); padding:20px; } .ds-mode { display:inline-flex; padding:3px; gap:2px; border:1.5px dashed rgba(239,230,211,.5); border-radius:22px; background:rgba(19,21,47,.72); } .ds-mode button { padding:7px 14px; border:0; border-radius:18px; background:none; cursor:pointer; font:500 .82rem/1 var(--gothic, 'Zen', 'Yu Gothic UI', 'Hiragino Sans', sans-serif); color:var(--muted, #adb2d2); letter-spacing:.02em; transition:background .2s, color .2s; } .ds-mode button [lang=ja] { font-family:var(--mincho, 'Shippori', 'Yu Mincho', 'Hiragino Mincho ProN', serif); margin-left:.3em; letter-spacing:.08em; } .ds-mode button:hover { color:var(--cream, #efe6d3); } .ds-mode button[aria-pressed=true] { background:var(--cream, #efe6d3); color:var(--kachi, #13152f); } .ds-mode button:focus-visible { outline:1.5px dashed var(--cream, #efe6d3); outline-offset:3px; }"
+    },
+    {
+      "name": "Zoom Buttons",
+      "kind": "button",
+      "refersTo": "zoom-button",
+      "description": "Zoom in, out and show all: 36px dashed-stitch circles in the cloth's corner.",
+      "html": "<div class=\"ds-sea\"><div class=\"ds-zoom\"><button aria-label=\"Zoom in\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M7 2.5h2v4.5h4.5v2H9v4.5H7V9H2.5V7H7z\"/></svg></button><button aria-label=\"Zoom out\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M2.5 7h11v2h-11z\"/></svg></button><button class=\"ds-home\" aria-label=\"Show all of Japan\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M2 2h4.5v1.8H3.8v2.7H2zM9.5 2H14v4.5h-1.8V3.8H9.5zM2 9.5h1.8v2.7h2.7V14H2zM12.2 9.5H14V14H9.5v-1.8h2.7z\"/></svg></button></div></div>",
+      "css": ".ds-sea { background:var(--kon, #1a1e47); padding:20px; } .ds-zoom { display:grid; gap:8px; width:36px; } .ds-zoom button { width:36px; height:36px; border-radius:50%; display:grid; place-items:center; cursor:pointer; background:rgba(19,21,47,.55); border:1.5px dashed rgba(239,230,211,.5); transition:border-color .2s, background .2s; } .ds-zoom button:hover { border-color:var(--cream, #efe6d3); background:rgba(19,21,47,.85); } .ds-zoom button:focus-visible { outline:1.5px dashed var(--cream, #efe6d3); outline-offset:3px; } .ds-zoom svg { width:14px; height:14px; fill:var(--cream, #efe6d3); } .ds-home { opacity:.45; }"
+    },
+    {
+      "name": "Follow a Life",
+      "kind": "custom",
+      "refersTo": "portrait",
+      "description": "Mounted portrait prints to pick a life, and the dashed pill that plays it.",
+      "html": "<div class=\"ds-lin\"><p class=\"ds-sep\">Follow a life <span lang=\"ja\">生涯</span></p><ul class=\"ds-lives\"><li><button><span class=\"ds-face\"></span>Nobunaga</button></li><li><button><span class=\"ds-face ds-blank\" lang=\"ja\">秀</span>Hideyoshi</button></li><li><button><span class=\"ds-face\"></span>Ieyasu</button></li></ul><button class=\"ds-playlife\"><svg viewBox=\"0 0 18 18\" aria-hidden=\"true\"><path d=\"M4 2.2v13.6L15.5 9z\"/></svg>Play this life, 1534–1582</button></div>",
+      "css": ".ds-lin { background:var(--lining, #16193a); color:var(--cream, #efe6d3); padding:20px; } .ds-sep { margin:0 0 .5rem; font:500 .72rem/1.3 var(--gothic, 'Zen', 'Yu Gothic UI', 'Hiragino Sans', sans-serif); color:var(--faint, #8489ad); letter-spacing:.12em; text-transform:uppercase; } .ds-sep [lang=ja] { font-family:var(--mincho, 'Shippori', 'Yu Mincho', 'Hiragino Mincho ProN', serif); color:var(--muted, #adb2d2); letter-spacing:.1em; text-transform:none; margin-left:.3em; } .ds-lives { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(5, 1fr); gap:8px 4px; } .ds-lives button { display:grid; justify-items:center; gap:4px; width:100%; padding:4px 0; border:0; border-radius:3px; background:none; cursor:pointer; font:500 .7rem/1.2 var(--gothic, 'Zen', 'Yu Gothic UI', 'Hiragino Sans', sans-serif); color:var(--muted, #adb2d2); } .ds-lives button:hover { background:rgba(239,230,211,.06); color:var(--cream, #efe6d3); } .ds-lives button:focus-visible { outline:1.5px dashed var(--cream, #efe6d3); outline-offset:3px; } .ds-face { width:34px; height:40px; display:block; background:#b9ae97; border:3px solid #e9e0cc; } .ds-blank { display:grid; place-items:center; background:#e9e0cc; font:400 1rem/1 var(--mincho, 'Shippori', 'Yu Mincho', 'Hiragino Mincho ProN', serif); color:#5d5a66; } .ds-playlife { display:inline-flex; align-items:center; gap:8px; margin-top:1.1rem; padding:8px 14px 8px 12px; border:1.5px dashed rgba(239,230,211,.55); border-radius:22px; background:none; color:inherit; cursor:pointer; font:500 .85rem/1 var(--gothic, 'Zen', 'Yu Gothic UI', 'Hiragino Sans', sans-serif); } .ds-playlife:hover { border-color:var(--cream, #efe6d3); background:rgba(239,230,211,.06); } .ds-playlife svg { width:12px; height:12px; fill:var(--cream, #efe6d3); } .ds-playlife:focus-visible { outline:1.5px dashed var(--cream, #efe6d3); outline-offset:3px; }"
+    },
+    {
+      "name": "Landmark Stencils",
+      "kind": "custom",
+      "refersTo": "landmark-row",
+      "description": "Drawn stencils per kind (city, mountain, shrine, castle shown), indigo on a bare-cotton halo over the height bands, and the panel list rows.",
+      "html": "<div class=\"ds-wrap2\"><div class=\"ds-land\"><svg viewBox=\"-7 -7 14 14\" width=\"40\" height=\"40\" aria-hidden=\"true\"><path class=\"h\" fill-rule=\"evenodd\" d=\"M0-5.8a5.8 5.8 0 1 0 .01 0ZM0-4.2a4.2 4.2 0 1 1-.01 0ZM0-2.5a2.5 2.5 0 1 0 .01 0Z\"/><path class=\"i c\" fill-rule=\"evenodd\" d=\"M0-5.8a5.8 5.8 0 1 0 .01 0ZM0-4.2a4.2 4.2 0 1 1-.01 0ZM0-2.5a2.5 2.5 0 1 0 .01 0Z\"/></svg><svg viewBox=\"-7 -7 14 14\" width=\"40\" height=\"40\" aria-hidden=\"true\"><path class=\"h\" d=\"M-5.6 4.2L0-5.2L5.6 4.2Z\"/><path class=\"i\" d=\"M-5.6 4.2L0-5.2L5.6 4.2Z\"/></svg><svg viewBox=\"-7 -7 14 14\" width=\"40\" height=\"40\" aria-hidden=\"true\"><path class=\"h\" d=\"M-5.8-4.6Q0-3.6 5.8-4.6V-3.1Q0-2.2-5.8-3.1ZM-4.4-1.5H4.4V-.4H-4.4ZM-3.5-3H-2.2V5H-3.5ZM2.2-3H3.5V5H2.2Z\"/><path class=\"i\" d=\"M-5.8-4.6Q0-3.6 5.8-4.6V-3.1Q0-2.2-5.8-3.1ZM-4.4-1.5H4.4V-.4H-4.4ZM-3.5-3H-2.2V5H-3.5ZM2.2-3H3.5V5H2.2Z\"/></svg><svg viewBox=\"-7 -7 14 14\" width=\"40\" height=\"40\" aria-hidden=\"true\"><path class=\"h\" fill-rule=\"evenodd\" d=\"M-4-4H4V4H-4ZM-2.3-2.3V2.3H2.3V-2.3Z\"/><path class=\"i\" fill-rule=\"evenodd\" d=\"M-4-4H4V4H-4ZM-2.3-2.3V2.3H2.3V-2.3Z\"/></svg></div><ul class=\"ds-lm\"><li><button><span>Mount Fuji</span><span lang=\"ja\">富士山</span></button></li><li><button><span>Sakurajima</span><span lang=\"ja\">桜島</span></button></li></ul></div>",
+      "css": ".ds-wrap2 { background:var(--lining, #16193a); color:var(--cream, #efe6d3); padding:16px; } .ds-land { display:flex; gap:10px; padding:14px; margin-bottom:12px; background:linear-gradient(90deg, #9fb26e, #b6bb73 30%, #d0bf7c 55%, #c49a68 75%, #9d7c5a); } .ds-land .h { fill:#e2d9c5; stroke:#e2d9c5; stroke-width:2.6; stroke-linejoin:round; } .ds-land .i { fill:#1a1e47; } .ds-land .c { fill:#13152f; } .ds-land svg { overflow:visible; transition:transform .2s cubic-bezier(.16,1,.3,1); } .ds-land svg:hover { transform:scale(1.3); } .ds-lm { list-style:none; margin:0; padding:0; display:grid; gap:1px; } .ds-lm button { width:100%; display:flex; align-items:baseline; gap:.5em; text-align:left; padding:5px 6px 5px 22px; border:0; border-radius:3px; background:none; color:inherit; cursor:pointer; font:400 .98rem/1.35 var(--mincho, 'Shippori', 'Yu Mincho', 'Hiragino Mincho ProN', serif); } .ds-lm button:hover { background:rgba(239,230,211,.06); } .ds-lm button:focus-visible { outline:1.5px dashed var(--cream, #efe6d3); outline-offset:3px; } .ds-lm [lang=ja] { color:var(--muted, #adb2d2); font-size:.84rem; }"
     }
   ],
   "narrative": {
     "northStar": "Indigo Cloth",
-    "overview": "Japan is one length of indigo-dyed cotton, made in the katazome and aizome tradition. The ground is the vat itself: near-black kachi-iro at the cloth's edge, kon in the open sea, and lighter hanada where the resist paste kept the dye from biting at the coasts. Every clan is a natural dye with a small stencil motif, and every province is a resist-dyed field outlined by a pale resist line. Conquest is not shown by redrawing a border. The new dye soaks across the province from the conqueror's side while the old dye lingers as a ghost and fades.\n\nThe map leads and the interface recedes. The side panel is the same cloth folded under, with a sashiko seam between them. The timeline is a woven band in which each year is a column of 68 threads, one per province, dyed by its holder. Everything that marks something is a textile act: alliances are running stitches, battles are red cross-stitches, focus and selection are dashed stitch lines, and pictures are prints stitched onto the lining. A little busy is acceptable. Gilt, parchment, strategy-game chrome and the flat legend-box atlas are not.",
+    "overview": "Japan is one length of indigo-dyed cotton, made in the katazome and aizome tradition. The ground is the vat itself: near-black kachi-iro at the cloth's edge, kon in the open sea, and lighter hanada where the resist paste kept the dye from biting at the coasts. Every clan is a natural dye with a small stencil motif, and every province is a resist-dyed field outlined by a pale resist line. Conquest is not shown by redrawing a border. The new dye soaks across the province from the conqueror's side while the old dye lingers as a ghost and fades. A clan's crest is resist-dyed into its largest province, so it reads as cotton the dye never reached.\n\nThe map leads and the interface recedes. The side panel is the same cloth folded under, lined with a faint asanoha (hemp-leaf) pattern and joined to the cloth by a sashiko seam. The timeline is a woven band in which each year from 1467 to 1945 is a column of 68 threads, one per province, dyed by its holder. Everything that marks something is a textile act: alliances are running stitches, battles are red cross-stitches, other turning points are cream diamond knots, castles are small cream squares around a knot, focus and selection are dashed stitch lines, and pictures are prints stitched onto the lining. Seigaiha waves are printed faintly over the sea, and the period's name runs in vertical kanji beside the year. A little busy is acceptable. Gilt, parchment, strategy-game chrome and the flat legend-box atlas are not.\n\nThe same cloth has a second face, Landmarks 名所. The wars and dynasties are taken off and the land is printed by height in flat bands of dye colour, with the cloth's weave multiplied over it. Cities and landmarks are small drawn stencils in indigo on a halo of bare cotton. A dashed pill switch at the top right of the map (bottom right on a phone) turns between the two.",
     "keyCharacteristics": [
-      "An indigo ground with a visible cotton weave (1px lines on a 3px pitch) on the cloth, the lining and the band.",
-      "One job per colour: indigo for ground, natural dyes for clans, undyed cotton for local lords, red thread for war, cream for text and stitches.",
-      "Mincho for every name, kanji, the year and reading text; a quiet gothic for UI.",
-      "Dashed lines read as stitches and carry every selection, focus, alliance, seam and mount.",
-      "Motion is dye and thread: a soak, a stitch drawn in, a mark that pulses once."
+      "An indigo ground with a visible cotton weave (1px lines on a 3px pitch) on the cloth, the lining and the band, and multiplied over the land in Landmarks.",
+      "One job per colour: indigo for ground, natural dyes for clans, undyed cotton for local lords, red thread for battles, cream for text, stitches, knots and resist figures.",
+      "Mincho for every name, kanji, the year and reading text; a quiet gothic for UI; kanji beside every panel heading.",
+      "Dashed lines read as stitches and carry every selection, focus, alliance, seam, mount, switch and the vertical phase rule.",
+      "Marks and labels keep their reading size when zooming: marks scale by zoom^-0.7, labels by zoom^-0.8, the waves stay fixed on screen.",
+      "Motion is dye and thread: a soak, a stitch drawn in, a mark that pulses once, the land sinking back when following a life."
     ],
     "rules": [
       {
         "name": "The One Job Rule",
-        "body": "Every colour has exactly one meaning. Indigo is ground, sea and panel. Dyes are clans. Undyed cotton means many local lords. Red is war. Cream is text, resist lines and stitches. A new element takes the colour of its meaning or no colour at all.",
+        "body": "Every colour has exactly one meaning. Indigo is ground, sea and panel (and the printing ink in Landmarks). Dyes are clans. Undyed cotton means many local lords. Red is battle. Cream is text, resist figures and stitches. A new element takes the colour of its meaning or no colour at all.",
         "section": "colors"
       },
       {
@@ -802,40 +996,63 @@
       },
       {
         "name": "The Brightest Thread Rule",
-        "body": "Red thread is brighter and more saturated than any dye, so a battle reads over any province. No dye may approach it.",
+        "body": "Red thread is brighter and more saturated than any dye, so a battle reads over any province. No dye may approach it, and nothing that is not a battle may wear it.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Faces Rule",
+        "body": "History and Landmarks never share a layer. In Landmarks the crests, soak, stitches, castles, battles, flash, approximation note and band are all removed and the provinces go clear; in History the height bands and landmark stencils are hidden. Height-band colours never appear in History.",
         "section": "colors"
       },
       {
         "name": "The English-then-Kanji Rule",
-        "body": "Every name is the romanized English followed by its kanji in the same Mincho at a smaller size and in muted colour, for example \"Oda 織田\".",
+        "body": "Every name is the romanized English followed by its kanji in the same Mincho at a smaller size and in muted colour, for example \"Oda 織田\". Panel headings, section labels and the mode switch carry their kanji the same way (\"Follow a life 生涯\", \"Landmarks 名所\").",
         "section": "typography"
       },
       {
         "name": "The Kanji Floor Rule",
-        "body": "On the map, a clan label's kanji is at least 10.5px on screen (max(size × .6, 10.5px ÷ screen scale)). If that would exceed .85 × the label size, the kanji is dropped instead of shrunk. Map labels are Mincho 700 with a .32 × size dark halo (paint-order stroke). A label that collides with a battle, a stitch or another label is removed, because the roster still names it.",
+        "body": "On the map, a clan label's kanji is at least 10.5px on screen (max(size × .6, 10.5px ÷ screen scale)). If that would exceed .85 × the label size, the kanji is dropped instead of shrunk. Map labels are Mincho 700 with a .32 × size dark halo (paint-order stroke). A label that collides with a crest, a battle, a castle, a stitch, another label or the overlays (year block, zoom buttons, switch) is removed, because the roster still names it.",
+        "section": "typography"
+      },
+      {
+        "name": "The Screen-Size Rule",
+        "body": "Map type is sized for the screen, not the map. Clan labels are min(17, 7 + √provinces × 2.6) × zoom^-0.8; clans with one province are labelled only past zoom 1.8. Province names (12.5px on screen, kanji at .95) appear only from zoom 2.2. In Landmarks, city names are 13.5px on screen (11px under 600px wide) with kanji at .82 and a .24 halo, and other landmark names are 12px (10.5px) from zoom 1.6.",
+        "section": "typography"
+      },
+      {
+        "name": "The Named City Rule",
+        "body": "In Landmarks every city is named in English and kanji at every zoom, kachi on a cream .95 halo. A smaller mark that a city name has to cover fades to .28 and returns on hover or selection.",
         "section": "typography"
       },
       {
         "name": "The Sunk Thread Rule",
-        "body": "Anything stitched on the cloth sits on a darker under-stroke instead of casting a shadow. Alliance stitches use a 3.4px kachi under-thread at .55. Battle marks use a kachi under-cross at .85. Nothing floats above the cloth.",
+        "body": "Anything stitched on the cloth sits on a darker under-stroke instead of casting a shadow. Alliance stitches use a 3.4px kachi under-thread at .55. Battle marks and turning-point knots use a kachi under-stroke at .85; the battle cross also has a cream halo at .5 outside it so it never sinks into a red dye. Castle squares are filled with kachi at .78. Nothing floats above the cloth.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Resist Rule",
+        "body": "Crests are not printed on the cloth; they are where the dye did not take. Every crest is turned into a cream figure (#efe6d3) by one of three resist filters chosen per crest in `data/crests.js`: dark-on-light keeps the dark parts; white-on-dark keeps the light parts using the green channel alone (so a coloured ground such as Mōri's red drops out); holes keeps the holes cut in a dark square, with the filter region inset 2.5% so the square's soft edge does not become a frame. The crest is then screened over the dye at .78.",
         "section": "elevation"
       }
     ],
     "dos": [
       "**Do** give every new clan a dye from `DYES` and a motif, as a dye + motif pair no other clan uses and one that passes the neighbour test in `test.js`.",
-      "**Do** draw any new marker on the cloth as a textile act (a stitch, a dye or a resist line) with a darker under-stroke rather than a shadow.",
+      "**Do** draw any new marker on the cloth as a textile act (a stitch, a knot, a dye or a resist line) with a darker under-stroke rather than a shadow, and scale it by zoom^-0.7.",
       "**Do** set every name as English then kanji in Mincho, and keep map kanji at or above 10.5px on screen or drop it.",
       "**Do** use dashed cream for selection, focus and borders; they read as stitches.",
-      "**Do** mount every picture on the cream mount with its dashed stitch and an author · licence caption.",
+      "**Do** mount every picture and portrait on the cream mount, and give every plate its dashed stitch and an author · licence caption.",
+      "**Do** bring a crest in through one of the three resist filters so it lands as a cream figure, never as the drawing's own colours.",
+      "**Do** draw a new landmark kind as a small stencil path in the same 14-unit box, indigo on a bare-cotton halo.",
       "**Do** keep the playhead below the threshold names on the band.",
-      "**Do** keep motion to dye and thread (soak, stitch draw-in, one pulse) on the shared ease cubic-bezier(.16, 1, .3, 1), and switch it off under reduced motion."
+      "**Do** keep motion to dye and thread (soak, stitch draw-in, one pulse, the dim) on the shared ease cubic-bezier(.16, 1, .3, 1), and switch it off under reduced motion."
     ],
     "donts": [
-      "**Don't** use red for anything but war, and don't use a dye for anything but a clan.",
-      "**Don't** fill land with indigo or with any colour that is not a clan dye or undyed cotton.",
+      "**Don't** use red for anything but battles, and don't use a dye for anything but a clan.",
+      "**Don't** fill History's land with indigo or with any colour that is not a clan dye or undyed cotton; height bands belong to Landmarks only.",
       "**Don't** let a split or contested province read as solid; it is kasuri or undyed.",
       "**Don't** use gilt, parchment, campaign-map chrome or a legend box; the roster is the legend.",
       "**Don't** add drop shadows or offset shadows; depth is the dye and the under-thread.",
+      "**Don't** use a font glyph as a map symbol; every stencil is drawn.",
       "**Don't** let two neighbouring clans share a dye in the same year."
     ]
   }

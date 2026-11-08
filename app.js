@@ -352,7 +352,7 @@
     }
     const placed = [], hits = (a, b) => a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
     // the overlays drawn over the map (the year, the zoom buttons) are no-go areas for labels
-    for (const id of ['#when', '#zoom', '#mode']) {
+    for (const id of ['#when', '#tate', '#zoom', '#mode']) {
       const r = $(id).getBoundingClientRect(), a = toMap(r.left, r.top), b = toMap(r.right, r.bottom);
       placed.push({ x: a.x, y: a.y, width: b.x - a.x, height: b.y - a.y });
     }
@@ -389,13 +389,15 @@
           t.textContent = l.en;
           if (city) { const j = el('tspan', { 'font-size': fs * .82, dx: fs * .3, 'font-weight': 400 }, t); j.textContent = l.ja; }
           const b = t.getBBox();
-          if (inView(b) && (strict === 'loose' || (!placed.some(p => hits(b, p)) && !(strict && others.some(p => hits(b, p)))))) { placed.push(b); if (!strict) over.push(b); return; }
+          const clear = strict === 'loose' ? !keep.some(p => hits(b, p)) : !placed.some(p => hits(b, p)) && !(strict && others.some(p => hits(b, p)));
+          if (inView(b) && clear) { if (city) keep.push(b); placed.push(b); if (!strict) over.push(b); return; }
           t.remove();
         }
       };
       // the cities are always named, in English and kanji, clear of other marks if they can be; the rest once there is room
       const over = []; // city names that had to sit on a smaller mark: that mark fades back under the name
-      for (const q of pts.filter(isCity)) label(q, [true, false, 'loose']); // a city is always named, even over another name
+      const keep = placed.slice(0, 4); // the overlays (year, its vertical name, zoom, switch) and the city names placed so far
+      for (const q of pts.filter(isCity)) label(q, [true, false, 'loose']); // a city is named if there is any room at all
       for (const g of landmarksG.querySelectorAll('.landmark:not(.city)')) {
         const l = LANDMARKS.find(x => x.id === g.dataset.l);
         g.classList.toggle('under', over.some(b => hits(box([l, lmAt(l)]), b)));

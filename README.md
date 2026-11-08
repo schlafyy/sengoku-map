@@ -12,8 +12,8 @@ An interactive map of Japan from the Ōnin War (1467) to the end of the Second W
 - **Play** runs 1467→1945. It holds on the turning points: Ōnin, Okehazama, Honnō-ji, Odawara, Sekigahara, the black ships, Meiji and 1945. Quiet decades pass in seconds. Space plays and pauses.
 - **The woven band:** each year is a column of 68 threads, one per province, in its holder's dye. Busy years get more room than quiet ones. Click or drag anywhere on it to jump. With it focused, ←/→ move a year, PageUp/PageDown ten, Home/End to either end.
 - **Zoom:** scroll wheel or pinch, drag to pan, or the buttons at bottom left (+, −, show all). Keys: `+`, `-`, `0`. Close in, each province shows its name.
-- **Click a province** to see who held it over the whole period. **Click a clan** in the roster for its story, key people, alliances, battles and crest. **Click a red cross-stitch** for a battle or turning point; marks for events abroad sit out at sea in their direction. **Click a stitched square** for a castle, with its photo. Esc closes the story.
-- **Landmarks 名所 (the switch at the top right of the map; bottom right on a phone):** the same cloth with the wars and dynasties taken off. The land is coloured by height like an atlas, in dye colours: moegi-green plains, ochre hills, brown mountains, snow on the highest peaks. On it sit 13 great cities (◎, always named in English and kanji) and 53 landmarks, each kind with its own small stencil: mountains, nature, shrines, temples, castles, gardens, towns, memorials. Click one, or pick it from the list in the panel, for its photo and story (cities also give their population), and for the battles fought in the same province (clicking one takes you back to History at that year). At the full view a mark under a city's name fades back; close in, every mark and province shows its name.
+- **Click a province** to see who held it over the whole period. **Click a clan** in the roster for its story, key people, alliances, battles and crest. **Click a red cross-stitch** for a battle, or a cream knot for another turning point; marks for events abroad sit out at sea in their direction. **Click a stitched square** for a castle, with its photo. Esc closes the story.
+- **Landmarks 名所 (the switch at the top right of the map; bottom right on a phone):** the same cloth with the wars and dynasties taken off. The land is coloured by height like an atlas, in flat bands of dye colour with the cloth's weave over them: moegi-green plains, hiwa and kariyasu hills, kaki-shibu uplands, kurumi-brown mountains, bare cotton on the high peaks. The view frames all of Hokkaido. On it sit 13 great cities (◎, named in English and kanji; on a phone some names wait until you zoom in) and 53 landmarks, each kind with its own small stencil: mountains, nature, shrines, temples, castles, gardens, towns, memorials. Click one, or pick it from the list in the panel, for its photo and story (cities also give their population), and for the battles fought in the same province (clicking one takes you back to History at that year). At the full view a mark under a city's name fades back; close in, every mark and province shows its name.
 - **Japanese touches:** seigaiha waves printed faintly over the sea, the period's name in vertical kanji beside the year, asanoha (hemp-leaf) pattern on the panel lining, and kanji on the panel headings.
 - **Follow a life:** pick one of ten portraits at the top of the panel (Nobunaga, Hideyoshi, Ieyasu, Shingen, Kenshin, Motonari, Masamune, Mitsunari, Yoshinobu, Saigō). The map dims everything that wasn't theirs, the band marks their lifespan, and "Play this life" runs from birth to death.
 - **Reading the cloth:**
@@ -22,7 +22,7 @@ An interactive map of Japan from the Ōnin War (1467) to the end of the Second W
   - Undyed, flecked cotton: many small lords.
   - Cream silhouettes on a clan's land: its family crest (kamon).
   - Cream running stitches: alliances.
-  - Red cross-stitches: battles.
+  - Red cross-stitches: battles. A cream diamond knot: another turning point (a treaty, a fire, an eruption).
   - Stitched squares: castles.
   - In 1600 and 1868 the provinces are dyed by side (Sekigahara; the Boshin War). From 1871 Japan is one state.
 
@@ -78,13 +78,13 @@ Done tonight:
 - the Wikipedia check of 1604–1945 (see above)
 - the Landmarks view with atlas-coloured terrain, 13 cities and 53 landmarks with photos (one missing: Sado has no lead image)
 - the Japanese touches; the exe rebuilt with all of it
-- a finish review of everything since the first build was started (captures in `.impeccable/review/round4/`); see the commit after this one for its result
+- a finish review of everything since the first build, and two rounds of its fixes: red thread only for battles (other turning points are a cream knot), finer kasuri, waves that keep their size when zooming, all of Hokkaido framed in Landmarks, the terrain in flat bands of dye colour with the weave over it, crest and label collisions, every city named on phones (captures in `.impeccable/review/round6/`)
+- DESIGN.md brought up to date with all of the above
 
 Open, in order:
-1. **The review's fixes**, if it asked for any that aren't in yet.
-2. **Update DESIGN.md** (it still describes only the first build): run the documenter.
-3. **Check the city texts and populations against Wikipedia** (`tools/wiki_check.py` doesn't cover `data/landmarks.js` yet).
-4. **Ideas not started:** a search box; a phone version (Home Screen, like the reading app); Okinawa and the rest of Hokkaido are off the map's edge.
+1. **Check the city texts and populations against Wikipedia** (`tools/wiki_check.py` doesn't cover `data/landmarks.js` yet).
+2. **A formal last verdict** from the finish reviewer on `.impeccable/review/round6/` (its last pass listed three items, all fixed since).
+3. **Ideas not started:** a search box; a phone version (Home Screen, like the reading app); Okinawa is off the map's southern edge.
 
 ## Credits
 
