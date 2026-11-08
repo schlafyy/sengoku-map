@@ -1,5 +1,6 @@
 // Checks the history data and the model: node test.js
 const fs = require('fs'), assert = require('assert'), vm = require('vm');
+new vm.Script(fs.readFileSync(__dirname + '/app.js', 'utf8'), { filename: 'app.js' }); // app.js at least parses
 const ctx = {};
 vm.createContext(ctx);
 for (const f of ['data/provinces.js', 'data/history.js', 'data/images.js', 'data/places.js', 'data/modern.js', 'data/georef.js', 'data/relief.js', 'data/landmarks.js']) vm.runInContext(fs.readFileSync(__dirname + '/' + f, 'utf8'), ctx);

@@ -84,7 +84,8 @@
     const g = el('filter', { id: 'resist-inv', x: 0, y: 0, width: 1, height: 1, 'color-interpolation-filters': 'sRGB' }, defs);
     el('feColorMatrix', { type: 'matrix', values: '0 0 0 0 .937  0 0 0 0 .902  0 0 0 0 .827  0 2.2 0 0 -.45' }, g);
     // for crests cut as holes in a dark square: the holes resist; the region stops at the image's own box
-    const h = el('filter', { id: 'resist-holes', x: 0, y: 0, width: 1, height: 1, 'color-interpolation-filters': 'sRGB' }, defs);
+    // inset a little: the square's soft edge would otherwise turn into a cream frame
+    const h = el('filter', { id: 'resist-holes', x: .025, y: .025, width: .95, height: .95, 'color-interpolation-filters': 'sRGB' }, defs);
     el('feColorMatrix', { type: 'matrix', values: '0 0 0 0 .937  0 0 0 0 .902  0 0 0 0 .827  0 0 0 -1 1' }, h);
   }
   const crestOf = c => (typeof CRESTS !== 'undefined' && CRESTS[c]) || null;
@@ -379,6 +380,8 @@
       // the cities are always named, in English and kanji, and may cover a smaller mark's corner; the rest once there is room
       const others = pts.filter(q => !isCity(q)).map(box);
       for (const q of pts.filter(isCity)) placed.push(box(q));
+      const chosen = sel?.type === 'landmark' && pts.find(([l]) => l.id === sel.id);
+      if (chosen && !isCity(chosen)) placed.push(box(chosen)); // the selected mark is drawn larger: no name may sit on it
       const label = ([l, [x, y]], strictness) => {
         const city = l.kind === 'city', fs = (city ? (narrow ? 11 : 13.5) : narrow ? 10.5 : 12) / scale, gap = mk + 2 / scale;
         for (const strict of strictness) for (const [dx, dy, anchor] of [[gap, 0, 'start'], [-gap, 0, 'end'], [0, -gap - fs * .4, 'middle'], [0, gap + fs * .9, 'middle']]) {
@@ -386,13 +389,13 @@
           t.textContent = l.en;
           if (city) { const j = el('tspan', { 'font-size': fs * .82, dx: fs * .3, 'font-weight': 400 }, t); j.textContent = l.ja; }
           const b = t.getBBox();
-          if (inView(b) && !placed.some(p => hits(b, p)) && !(strict && others.some(p => hits(b, p)))) { placed.push(b); if (!strict) over.push(b); return; }
+          if (inView(b) && (strict === 'loose' || (!placed.some(p => hits(b, p)) && !(strict && others.some(p => hits(b, p)))))) { placed.push(b); if (!strict) over.push(b); return; }
           t.remove();
         }
       };
       // the cities are always named, in English and kanji, clear of other marks if they can be; the rest once there is room
       const over = []; // city names that had to sit on a smaller mark: that mark fades back under the name
-      for (const q of pts.filter(isCity)) label(q, [true, false]);
+      for (const q of pts.filter(isCity)) label(q, [true, false, 'loose']); // a city is always named, even over another name
       for (const g of landmarksG.querySelectorAll('.landmark:not(.city)')) {
         const l = LANDMARKS.find(x => x.id === g.dataset.l);
         g.classList.toggle('under', over.some(b => hits(box([l, lmAt(l)]), b)));
