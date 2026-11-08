@@ -188,8 +188,9 @@
   const AREAS = { ezo: { en: 'Ezo', ja: '蝦夷', now: 'Hokkaido' }, ryukyu: { en: 'Ryukyu', ja: '琉球', now: 'Okinawa' } }; // beyond the provinces
   const place = at => P[at] || AREAS[at];
   const inRyukyu = l => l.lat < RYUKYU.frames[0].lat1; // south of the province map: drawn in the insets
+  const ryuFrame = (lon, lat) => RYUKYU.frames.find(f => lon > f.lon0 && lon < f.lon1 && lat > f.lat0 && lat < f.lat1);
   const ryuAt = (lon, lat) => {
-    const f = RYUKYU.frames.find(f => lon > f.lon0 && lon < f.lon1 && lat > f.lat0 && lat < f.lat1) || RYUKYU.frames[0];
+    const f = ryuFrame(lon, lat) || RYUKYU.frames[0];
     return [f.x + (lon - f.lon0) * RYUKYU.k * RYUKYU.c, f.y + (f.lat1 - lat) * RYUKYU.k];
   };
 
@@ -381,13 +382,18 @@
     }
     const scale = svg.getScreenCTM()?.a || 1; // map units to screen pixels
     { // the inset boxes' names keep a readable size; on a phone only the larger box has room for one
-      const fs = Math.min(10 / scale, 25);
+      const fs = Math.min(11.5 / scale, 25);
       ryukyu.querySelectorAll('.inset-label').forEach((t, i) => {
         const f = RYUKYU.frames[i];
-        Object.entries({ 'font-size': fs, x: f.x + fs * .6, y: f.y + fs * 1.3 }).forEach(([k, v]) => t.setAttribute(k, v));
-        t.style.display = i && fs > 14 ? 'none' : '';
+        Object.entries({ 'font-size': fs, 'stroke-width': fs * .32, x: f.x + fs * .6, y: f.y + fs * 1.3 }).forEach(([k, v]) => t.setAttribute(k, v));
+        t.style.display = i && scale < .714 ? 'none' : '';
+        if (t.style.display !== 'none') placed.push(t.getBBox());
       });
     }
+    const fixed = placed.length; // the overlays and the inset names: nothing is ever drawn over them
+    // the inset boxes are their own sheets: names from the main map stay out, and an island's name stays inside its box
+    const inside = (b, f) => b.x >= f.x && b.y >= f.y && b.x + b.width <= f.x + f.width && b.y + b.height <= f.y + f.height;
+    const offInsets = b => !RYUKYU.frames.some(f => hits(b, f));
     // close in, each province shows its own name where there is room
     const provinceNames = () => {
       if (zoom < 2.2) return;
@@ -398,7 +404,7 @@
         const j = el('tspan', { 'font-size': fs * .95 }, t);
         j.textContent = P[p].ja;
         const b = t.getBBox();
-        if (placed.some(q => hits(b, q))) t.remove(); else placed.push(b);
+        if (placed.some(q => hits(b, q)) || !offInsets(b)) t.remove(); else placed.push(b);
       }
     };
     if (landMode) { // landmark names beside their marks once there is room, then the provinces
@@ -419,7 +425,13 @@
           const t = el('text', { class: 'prov-label lm-label' + (city ? ' city-label' : ''), x: x + dx, y: y + dy + fs * .35, 'text-anchor': anchor, 'font-size': fs, 'stroke-width': fs * (city ? .24 : .3) }, labels);
           t.textContent = l.en;
           if (city) { const j = el('tspan', { 'font-size': fs * .82, dx: fs * .3, 'font-weight': 400 }, t); j.textContent = l.ja; }
-          const b = t.getBBox();
+          let b = t.getBBox();
+          const fr = inRyukyu(l) && ryuFrame(l.lon, l.lat);
+          if (fr) { // slide a name that overhangs its box back inside
+            const dx = Math.max(0, fr.x + 2 - b.x) - Math.max(0, b.x + b.width - fr.x - fr.width + 2);
+            if (dx) { t.setAttribute('x', +t.getAttribute('x') + dx); b = t.getBBox(); }
+          }
+          if (fr ? !inside(b, fr) : !offInsets(b)) { t.remove(); continue; }
           const clear = strict === 'loose' ? !keep.some(p => hits(b, p)) : !placed.some(p => hits(b, p)) && !(strict && others.some(p => hits(b, p)));
           if (inView(b) && clear) { if (city) keep.push(b); placed.push(b); if (!strict) over.push(b); return; }
           t.remove();
@@ -427,7 +439,7 @@
       };
       // the cities are always named, in English and kanji, clear of other marks if they can be; the rest once there is room
       const over = []; // city names that had to sit on a smaller mark: that mark fades back under the name
-      const keep = placed.slice(0, 4); // the overlays (year, its vertical name, zoom, switch) and the city names placed so far
+      const keep = placed.slice(0, fixed); // the overlays (year, its vertical name, zoom, switch), the inset names, and the city names placed so far
       for (const q of pts.filter(isCity)) label(q, [true, false, 'loose']); // a city is named if there is any room at all
       for (const g of landmarksG.querySelectorAll('.landmark:not(.city)')) {
         const l = LANDMARKS.find(x => x.id === g.dataset.l);
@@ -440,6 +452,7 @@
     }
     paintCrests(st, realm0());
     for (const c of crestsG.children) placed.push(c.getBBox());
+    placed.push(...RYUKYU.frames.map(f => ({ x: f.x, y: f.y, width: f.width, height: f.height })));
     const mk = 7 * markScale();
     for (const b of [...battles.children, ...castlesG.children]) { const [, x, y] = b.getAttribute('transform').match(/([-\d.]+) ([-\d.]+)/).map(Number); placed.push({ x: x - mk, y: y - mk, width: mk * 2, height: mk * 2 }); }
     for (const s of stitches.querySelectorAll('.stitch:not(.under)')) {
@@ -1055,24 +1068,34 @@
   {
     const q = $('#q'), hits = $('#hits');
     let found = [], at = -1;
-    const show = open => { hits.hidden = !open; q.setAttribute('aria-expanded', open); };
+    const status = $('#find-status');
+    const show = open => { hits.hidden = !open; q.setAttribute('aria-expanded', open); if (!open) q.removeAttribute('aria-activedescendant'); };
     const mark = i => {
       at = i;
       hits.querySelectorAll('[role=option]').forEach((li, j) => li.setAttribute('aria-selected', j === i));
       if (i >= 0) { q.setAttribute('aria-activedescendant', 'hit-' + i); hits.children[i].scrollIntoView({ block: 'nearest' }); } else q.removeAttribute('aria-activedescendant');
     };
-    const pick = i => { const r = found[i]; if (!r) return; q.value = ''; show(false); q.blur(); act({ dataset: r.d }); };
+    const pick = i => {
+      const r = found[i];
+      if (!r) return;
+      q.value = ''; show(false); status.textContent = '';
+      act({ dataset: r.d });
+      const h = side.querySelector('h2, h3'); // the focus follows to what opened
+      if (h) { h.tabIndex = -1; h.focus({ preventScroll: true }); }
+    };
     q.addEventListener('input', () => {
       found = search(q.value);
       hits.innerHTML = found.length ? found.map((r, i) => `<li id="hit-${i}" role="option" aria-selected="false"><span class="name">${esc(r.en)}<span lang="ja">${r.ja}</span>${r.note ? `<small>${esc(r.note)}</small>` : ''}</span><span class="kind${r.war ? ' war' : ''}">${esc(r.kind)}</span></li>`).join('')
-        : `<li class="none">Nothing found for “${esc(q.value.trim())}”</li>`;
-      show(q.value.trim() !== ''); mark(found.length ? 0 : -1);
+        : `<li class="none" role="option" aria-disabled="true">Nothing found for “${esc(q.value.trim())}”</li>`;
+      const typed = q.value.trim() !== '';
+      show(typed); mark(found.length ? 0 : -1);
+      status.textContent = !typed ? '' : found.length ? `${found.length} result${found.length > 1 ? 's' : ''}` : `Nothing found for ${q.value.trim()}`;
     });
     q.addEventListener('keydown', e => {
       e.stopPropagation(); // typing here is not a shortcut for the map
       if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); if (found.length) mark((at + (e.key === 'ArrowDown' ? 1 : found.length - 1)) % found.length); }
       if (e.key === 'Enter') { e.preventDefault(); pick(at); }
-      if (e.key === 'Escape') { if (!hits.hidden) show(false); else { q.value = ''; q.blur(); } }
+      if (e.key === 'Escape') { if (!hits.hidden) show(false); else { q.value = ''; status.textContent = ''; } }
     });
     hits.addEventListener('mousedown', e => e.preventDefault()); // keep the focus in the field until the click picks
     hits.addEventListener('click', e => { const li = e.target.closest('[role=option]'); if (li) pick(+li.id.slice(4)); });

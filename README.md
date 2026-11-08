@@ -91,7 +91,7 @@ Then, in the afternoon:
 - the event panel no longer breaks for places outside the provinces (Hakodate), and Ezo no longer shows its dye over the terrain in Landmarks
 
 Open, in order:
-1. **The finish reviewer's verdict** on everything since round 6 (see `.impeccable/review/`).
+1. The finish reviewer looked at Okinawa and the search (round 7); its eight fixes are in (`fixed-*` captures in `.impeccable/review/round7/`).
 2. **Ideas not started:** a phone version (Home Screen, like the reading app).
 
 ## Credits
