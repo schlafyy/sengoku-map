@@ -597,7 +597,7 @@
 
   // ---------- the side panel ----------
 
-  const side = $('#side');
+  const side = $('#panel'), aside = $('#side'); // the panel's content; the aside scrolls it, under the search
   const fmt = v => (v % 1 ? (Math.floor(v) || '') + '½' : String(v));
   const clanName = c => c ? `${esc(CLANS[c].en)} <span lang="ja">${CLANS[c].ja}</span>` : 'Local lords';
   const holderText = h => h == null ? 'No single power: many local lords' : holders(h).length < (Array.isArray(h) ? 2 : 1) ? `${clanName(holders(h)[0])} and local lords` : holders(h).map(clanName).join(' / ');
@@ -808,7 +808,7 @@
     $('#mode-land').setAttribute('aria-pressed', landMode);
     svg.setAttribute('aria-label', landMode ? 'Japan\'s landmarks over the shape of the land' : 'The provinces of Japan, dyed by who held them');
     Object.assign(HOME, landMode ? LAND_HOME : HIST_HOME); zoomHome();
-    paintWhen(); refresh(); side.scrollTop = 0;
+    paintWhen(); refresh(); aside.scrollTop = 0;
     requestAnimationFrame(() => { // the band comes and goes, so the map has resized
       if (!landMode) { drawWeave(); tidyBand(); }
       paintLandmarks(); paintLabels();
@@ -997,15 +997,18 @@
   function refresh() { renderSide(); paintBattles(); paintCastles(); paintFollow(); paintLandmarks(); paintLabels(); }
   svg.addEventListener('click', e => {
     if (dragged) { dragged = false; return; }
-    if (landMode) { const l = e.target.closest('.landmark'); sel = l ? { type: 'landmark', id: l.dataset.l } : null; refresh(); if (l) side.scrollTop = 0; return; }
+    if (landMode) { const l = e.target.closest('.landmark'); sel = l ? { type: 'landmark', id: l.dataset.l } : null; refresh(); if (l) aside.scrollTop = 0; return; }
     const b = e.target.closest('.battle'), k = e.target.closest('.castle'), g = e.target.closest('.prov');
     sel = b ? { type: 'event', id: b.dataset.e } : k ? { type: 'castle', id: k.dataset.c } : g ? { type: 'province', id: g.dataset.p } : null;
     refresh();
   });
   for (const layer of [battles, castlesG, landmarksG]) layer.addEventListener('keydown', e => { if (e.key === 'Enter') e.target.dispatchEvent(new MouseEvent('click', { bubbles: true })); });
-  side.addEventListener('click', e => {
-    const b = e.target.closest('button');
-    if (!b) return;
+  side.addEventListener('click', e => { const b = e.target.closest('button'); if (b) act(b); });
+  // what a button in the panel (or a search result, passing {dataset}) asks for; anything not a landmark is on the history map
+  function act(b) {
+    const d = b.dataset;
+    if (d.clan || d.castle || d.follow || d.province) setMode(false);
+    if (d.landmark) setMode(true);
     if (b.dataset.act === 'back') { sel = null; refresh(); return; }
     if (b.dataset.act === 'unfollow') { follow = null; refresh(); return; }
     if (b.dataset.act === 'playlife') {
@@ -1013,18 +1016,70 @@
       document.body.classList.add('playing', 'started'); $('#play').setAttribute('aria-label', 'Pause'); timer = setTimeout(tick, 600);
       return;
     }
-    if (b.dataset.follow) { follow = b.dataset.follow; sel = null; const p = person(); stop(); if (year < p.born || year > p.died) setYear(Math.max(START, p.born)); refresh(); side.scrollTop = 0; return; }
+    if (b.dataset.follow) { follow = b.dataset.follow; sel = null; const p = person(); stop(); if (year < p.born || year > p.died) setYear(Math.max(START, p.born)); refresh(); aside.scrollTop = 0; return; }
     if (b.dataset.act === 'more') {
       const long = side.querySelector('.long'); long.hidden = !long.hidden;
       b.setAttribute('aria-expanded', !long.hidden); b.textContent = long.hidden ? 'Read the full story' : 'Show less';
       return;
     }
-    if (b.dataset.clan) { sel = { type: 'clan', id: b.dataset.clan }; renderSide(); side.scrollTop = 0; return; }
-    if (b.dataset.castle) { const k = CASTLES.find(c => c.id === b.dataset.castle); sel = { type: 'castle', id: k.id }; if (year < k.from || year > k.to) setYear(k.from <= START ? START : k.from); refresh(); side.scrollTop = 0; return; }
-    if (b.dataset.landmark) { sel = { type: 'landmark', id: b.dataset.landmark }; refresh(); side.scrollTop = 0; return; }
-    if (b.dataset.event) { setMode(false); stop(); const ev = EVENTS.find(x => x.id === b.dataset.event); sel = { type: 'event', id: ev.id }; setYear(ev.year); refresh(); side.scrollTop = 0; return; }
+    if (b.dataset.clan) { sel = { type: 'clan', id: b.dataset.clan }; renderSide(); aside.scrollTop = 0; return; }
+    if (b.dataset.castle) { const k = CASTLES.find(c => c.id === b.dataset.castle); sel = { type: 'castle', id: k.id }; if (year < k.from || year > k.to) setYear(k.from <= START ? START : k.from); refresh(); aside.scrollTop = 0; return; }
+    if (b.dataset.landmark) { sel = { type: 'landmark', id: b.dataset.landmark }; refresh(); aside.scrollTop = 0; return; }
+    if (b.dataset.event) { setMode(false); stop(); const ev = EVENTS.find(x => x.id === b.dataset.event); sel = { type: 'event', id: ev.id }; setYear(ev.year); refresh(); aside.scrollTop = 0; return; }
+    if (b.dataset.province) { sel = { type: 'province', id: b.dataset.province }; refresh(); aside.scrollTop = 0; return; }
     if (b.dataset.year) { stop(); setYear(+b.dataset.year); }
-  });
+  }
+
+  // ---------- the search ----------
+  // every clan (and the people named in its story), every life to follow, event, province, castle and landmark;
+  // macrons don't matter ("hojo" finds Hōjō) and kanji match as typed
+  const fold = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  const followed = new Set(PEOPLE.map(p => p.en));
+  const INDEX = [
+    ...PEOPLE.map(p => ({ d: { follow: p.id }, en: p.en, ja: p.ja, kind: 'Life', note: `${p.born}–${p.died} · follow it on the map` })),
+    ...Object.entries(CLANS).map(([id, c]) => ({ d: { clan: id }, en: c.en, ja: c.ja, kind: 'House', note: c.title })),
+    ...Object.entries(CLANS).flatMap(([id, c]) => c.people.filter(([n]) => !followed.has(n.split(' (')[0]))
+      .map(([en, ja, years]) => ({ d: { clan: id }, en, ja, kind: 'Person', note: `${years} · ${c.en}` }))),
+    ...EVENTS.map(e => ({ d: { event: e.id }, en: e.en, ja: e.ja, kind: `${e.kind === 'battle' ? 'Battle' : 'Event'} ${e.year}`, war: e.kind === 'battle', note: place(e.at).en })),
+    ...PIDS.map(p => ({ d: { province: p }, en: P[p].en, ja: P[p].ja, kind: 'Province' })),
+    ...CASTLES.map(k => ({ d: { castle: k.id }, en: k.en, ja: k.ja, kind: 'Castle', note: P[k.at].en })),
+    ...LANDMARKS.map(l => ({ d: { landmark: l.id }, en: l.en, ja: l.ja, kind: KINDS[l.kind].one, note: 'Landmarks map' })),
+  ].map((r, i) => ({ ...r, i, key: fold(`${r.en} ${r.ja} ${r.note || ''}`), name: fold(r.en) }));
+  function search(q) {
+    const words = fold(q).trim().split(/\s+/).filter(Boolean);
+    if (!words.length) return [];
+    // a name that starts with what was typed first, then a word in the name, then anything that matches at all
+    const rank = r => r.name.startsWith(words[0]) || r.ja.startsWith(q.trim()) ? 0 : r.name.split(/[\s'’-]+/).some(w => w.startsWith(words[0])) ? 1 : 2;
+    return INDEX.filter(r => words.every(w => r.key.includes(w))).map(r => [rank(r), r]).sort((a, b) => a[0] - b[0] || a[1].i - b[1].i).slice(0, 12).map(x => x[1]);
+  }
+  {
+    const q = $('#q'), hits = $('#hits');
+    let found = [], at = -1;
+    const show = open => { hits.hidden = !open; q.setAttribute('aria-expanded', open); };
+    const mark = i => {
+      at = i;
+      hits.querySelectorAll('[role=option]').forEach((li, j) => li.setAttribute('aria-selected', j === i));
+      if (i >= 0) { q.setAttribute('aria-activedescendant', 'hit-' + i); hits.children[i].scrollIntoView({ block: 'nearest' }); } else q.removeAttribute('aria-activedescendant');
+    };
+    const pick = i => { const r = found[i]; if (!r) return; q.value = ''; show(false); q.blur(); act({ dataset: r.d }); };
+    q.addEventListener('input', () => {
+      found = search(q.value);
+      hits.innerHTML = found.length ? found.map((r, i) => `<li id="hit-${i}" role="option" aria-selected="false"><span class="name">${esc(r.en)}<span lang="ja">${r.ja}</span>${r.note ? `<small>${esc(r.note)}</small>` : ''}</span><span class="kind${r.war ? ' war' : ''}">${esc(r.kind)}</span></li>`).join('')
+        : `<li class="none">Nothing found for “${esc(q.value.trim())}”</li>`;
+      show(q.value.trim() !== ''); mark(found.length ? 0 : -1);
+    });
+    q.addEventListener('keydown', e => {
+      e.stopPropagation(); // typing here is not a shortcut for the map
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); if (found.length) mark((at + (e.key === 'ArrowDown' ? 1 : found.length - 1)) % found.length); }
+      if (e.key === 'Enter') { e.preventDefault(); pick(at); }
+      if (e.key === 'Escape') { if (!hits.hidden) show(false); else { q.value = ''; q.blur(); } }
+    });
+    hits.addEventListener('mousedown', e => e.preventDefault()); // keep the focus in the field until the click picks
+    hits.addEventListener('click', e => { const li = e.target.closest('[role=option]'); if (li) pick(+li.id.slice(4)); });
+    q.addEventListener('blur', () => show(false));
+    q.addEventListener('focus', () => { if (q.value.trim()) show(true); });
+    addEventListener('keydown', e => { if (e.key === '/' && !e.target.closest('input, textarea')) { e.preventDefault(); q.focus(); } });
+  }
 
   $('#zoom-in').addEventListener('click', () => zoomBy(1.5));
   $('#zoom-out').addEventListener('click', () => zoomBy(1 / 1.5));
