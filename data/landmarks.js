@@ -1,5 +1,5 @@
 // The landmarks map: the country itself, with no wars or dynasties. Placed by latitude and longitude (data/georef.js).
-// kind: city, temple, shrine, castle, mountain, nature, garden, town, memorial. wiki: the article its photo comes from.
+// kind: city, temple, shrine, castle, mountain, nature, garden, town, memorial, shop. wiki: the article its photo comes from.
 // file: a Commons photo picked by hand where the article's lead image is wrong.
 // at: the old province, only where the position alone would pick the wrong one (islands, sites on a border).
 // South of 28.65°N a landmark sits in the Ryukyu inset (data/ryukyu.js), not on the main map.
@@ -74,6 +74,34 @@ const LANDMARKS = [
     short: 'Katō Kiyomasa\'s fortress with its curving walls, besieged in 1877 and badly damaged by an earthquake in 2016; it is being restored.' },
   { id: 'goryokaku', en: 'Goryōkaku', ja: '五稜郭', kind: 'castle', lat: 41.797, lon: 140.757, wiki: 'Goryōkaku',
     short: 'A star-shaped fort of the European kind at Hakodate, finished in 1866; the last stand of the shogunate\'s supporters in 1869.' },
+  // with Himeji, Matsumoto, Hikone, Matsue and Inuyama: all twelve castles that keep a keep from before the Meiji era
+  { id: 'hirosaki', en: 'Hirosaki Castle', ja: '弘前城', kind: 'castle', lat: 40.6069, lon: 140.4644, wiki: 'Hirosaki Castle',
+    short: 'Seat of the Tsugaru lords in the far north, built in 1611. Lightning burned its first keep in 1627; the present one dates from 1810. The 2,600 cherry trees in its park make it one of Japan\'s most famous blossom spots.' },
+  { id: 'maruoka', en: 'Maruoka Castle', ja: '丸岡城', kind: 'castle', lat: 36.1523, lon: 136.2721, wiki: 'Maruoka Castle',
+    short: 'A small castle in Echizen, thought to have been begun in 1576 by Shibata Katsutoyo; its keep claims to be the oldest in Japan. It fell in the Fukui earthquake of 1948 and was put back up in 1955, mostly from its own timbers.' },
+  { id: 'bitchu_matsuyama', en: 'Bitchū Matsuyama Castle', ja: '備中松山城', kind: 'castle', lat: 34.8091, lon: 133.6223, wiki: 'Bitchū Matsuyama Castle',
+    short: 'The highest castle in Japan, 430 m up a mountain above Takahashi, with one of the twelve keeps that survive from before the Meiji era.' },
+  { id: 'marugame', en: 'Marugame Castle', ja: '丸亀城', kind: 'castle', lat: 34.2862, lon: 133.8002, wiki: 'Marugame Castle',
+    short: 'Its small keep of 1660 stands on tiers of stone walls some 20 m high, built on a scale far beyond its small domain in Sanuki.' },
+  { id: 'iyo_matsuyama', en: 'Matsuyama Castle', ja: '松山城', kind: 'castle', lat: 33.8455, lon: 132.7657, wiki: 'Matsuyama Castle (Iyo)',
+    short: 'Built from 1603 on Mount Katsuyama in the middle of the city of Matsuyama; one of the twelve castles that keep their original keep.' },
+  { id: 'uwajima', en: 'Uwajima Castle', ja: '宇和島城', kind: 'castle', lat: 33.2195, lon: 132.5652, wiki: 'Uwajima Castle',
+    short: 'Seat of a branch of the Date, founded by Date Masamune\'s eldest son. Its keep dates from 1666, and the castle was never damaged in war.' },
+  { id: 'kochi', en: 'Kōchi Castle', ja: '高知城', kind: 'castle', lat: 33.5608, lon: 133.5315, wiki: 'Kōchi Castle',
+    short: 'Seat of the Yamauchi lords of Tosa from 1601 to 1871. Much of it burned in 1727 and was rebuilt in the old style by 1753; its keep is one of the twelve originals.' },
+  { id: 'nijo', en: 'Nijō Castle', ja: '二条城', kind: 'castle', lat: 35.0142, lon: 135.7475, wiki: 'Nijō Castle',
+    short: 'The shoguns\' castle in Kyoto, begun by Ieyasu in 1601 and finished in 1626. In its Ninomaru Palace in 1867 the last shogun handed power back to the emperor. A World Heritage site.' },
+  { id: 'takeda', en: 'Takeda Castle', ja: '竹田城', kind: 'castle', lat: 35.3, lon: 134.8289, wiki: 'Takeda Castle',
+    short: 'The stone walls of a mountain castle 353 m up above Asago, often standing above a sea of cloud: the "Machu Picchu of Japan". Probably begun in 1441, it has been a ruin since the end of the Sengoku period.' },
+  { id: 'tsuruga', en: 'Tsuruga Castle', ja: '鶴ヶ城', kind: 'castle', lat: 37.4878, lon: 139.9297, wiki: 'Aizuwakamatsu Castle',
+    short: 'The castle of Aizu-Wakamatsu, besieged in 1868 in the Boshin War. Its buildings, battered by the guns, were pulled down in 1874; the keep was rebuilt in concrete in 1965.' },
+  { id: 'shuri', en: 'Shuri Castle', ja: '首里城', kind: 'castle', lat: 26.217, lon: 127.7195, wiki: 'Shuri Castle',
+    short: 'The palace of the Ryukyu kings from 1429 to 1879, on a hill above Naha. Almost completely destroyed in the Battle of Okinawa in 1945, it was rebuilt from 1992, burned again in 2019, and is being rebuilt once more.' },
+  // two convenience stores famous in their own right
+  { id: 'seven_toyosu', en: 'The first 7-Eleven in Japan', ja: 'セブン-イレブン豊洲店', kind: 'shop', lat: 35.6553, lon: 139.7979, wiki: 'Seven-Eleven Japan', file: '7-Eleven store Toyosu store Tokyo Japan 20140319.jpg',
+    short: 'The Toyosu store in Tokyo, opened in May 1974: the first 7-Eleven in Japan, and the country\'s first full franchise convenience store. Seven-Eleven Japan is now the largest chain in the country, and since 2005 it has owned 7-Eleven worldwide.' },
+  { id: 'lawson_fuji', en: 'The Mount Fuji Lawson', ja: 'ローソン河口湖駅前店', kind: 'shop', lat: 35.5031, lon: 138.7694, wiki: 'Fujikawaguchiko', file: 'That famous Lawson and Mount Fuji in Kawaguchiko (54244854384).jpg',
+    short: 'A Lawson in Fujikawaguchiko where, from across the road, Mount Fuji seems to sit on the shop\'s roof. The photo spot drew such crowds from social media that in May 2024 the town put up a large black screen to block the view.' },
   // gardens
   { id: 'kenrokuen', en: 'Kenroku-en', ja: '兼六園', kind: 'garden', lat: 36.5621, lon: 136.6627, wiki: 'Kenroku-en',
     short: 'The Maeda lords\' garden at Kanazawa, laid out over two centuries; one of the Three Great Gardens of Japan.' },

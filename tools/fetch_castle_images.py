@@ -15,9 +15,10 @@ def save(text, images):  # after every picture, so a throttled run keeps what it
     open(PATH, "w", encoding="utf8").write(head + "const IMAGES = " + json.dumps(images, ensure_ascii=False, indent=1) + ";\n")
 
 
-def fetch(src, name, prefix):
+def fetch(srcs, name, prefix):
+    load = "".join(f"vm.runInContext(fs.readFileSync('data/{s}','utf8'),c);" for s in srcs)
     js = ("const fs=require('fs'),vm=require('vm'),c={};vm.createContext(c);"
-          f"vm.runInContext(fs.readFileSync('data/{src}','utf8'),c);console.log(vm.runInContext('JSON.stringify({name})',c))")
+          f"{load}console.log(vm.runInContext('JSON.stringify({name})',c))")
     places = json.loads(subprocess.run(["node", "-e", js], cwd=ROOT, capture_output=True, text=True, encoding="utf8").stdout)
     text = open(PATH, encoding="utf8").read()
     images = json.loads(text[text.index("{"):text.rindex("}") + 1])
@@ -43,7 +44,7 @@ def fetch(src, name, prefix):
 
 def main():
     sys.stdout.reconfigure(encoding="utf8")  # file names with macrons, when the log is redirected on Windows
-    for src, name, prefix in (("places.js", "CASTLES", "castle"), ("landmarks.js", "LANDMARKS", "landmark")):
+    for src, name, prefix in ((["history.js", "places.js", "modern.js"], "CASTLES", "castle"), (["landmarks.js"], "LANDMARKS", "landmark")):  # modern.js adds the later castles
         fetch(src, name, prefix)
 
 

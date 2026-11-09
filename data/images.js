@@ -1969,5 +1969,195 @@ const IMAGES = {
   "w": 1096,
   "h": 1600,
   "desc": "a Japanese man 勝海舟 (Kaishu Katsu)"
+ },
+ "castle:nagoya": {
+  "src": "images/castle_nagoya.jpg",
+  "file": "Nagoya_Castle2026.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Nagoya_Castle2026.jpg",
+  "licence": "CC0",
+  "artist": "加茂川の民",
+  "w": 1280,
+  "h": 1707,
+  "desc": "Nagoya Castle"
+ },
+ "castle:hikone": {
+  "src": "images/castle_hikone.jpg",
+  "file": "Hikone_Castle_November_2016_-02.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Hikone_Castle_November_2016_-02.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Martin Falbisoner",
+  "w": 1280,
+  "h": 853,
+  "desc": "Hikone Castle is a Japanese Edo-period castle in the city of Hikone, Shiga Prefecture."
+ },
+ "castle:hiroshima": {
+  "src": "images/castle_hiroshima.jpg",
+  "file": "Keep_tower,_Hiroshima_Castle,_Southwest_remote_view_20190417_1.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Keep_tower,_Hiroshima_Castle,_Southwest_remote_view_20190417_1.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "DXR",
+  "w": 1280,
+  "h": 1600,
+  "desc": "A southwest view of the keep of Hiroshima Castle"
+ },
+ "castle:nijo": {
+  "src": "images/castle_nijo.jpg",
+  "file": "NinomaruPalace.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:NinomaruPalace.jpg",
+  "licence": "Public domain",
+  "artist": "Unknown",
+  "w": 1280,
+  "h": 964,
+  "desc": ""
+ },
+ "castle:goryokaku": {
+  "src": "images/castle_goryokaku.jpg",
+  "file": "Hakodate_Goryokaku_Panorama_1.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Hakodate_Goryokaku_Panorama_1.JPG",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Keihin nike",
+  "w": 1280,
+  "h": 853,
+  "desc": "Panoramic view of the Goryokaku fortification in Hakodate"
+ },
+ "castle:shuri": {
+  "src": "images/castle_shuri.jpg",
+  "file": "Naha_Okinawa_Japan_Shuri-Castle-01.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Naha_Okinawa_Japan_Shuri-Castle-01.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "CEphoto, Uwe Aranas",
+  "w": 1280,
+  "h": 745,
+  "desc": "Naha, Okinawa, Japan: Palace building of Shuri Castle."
+ },
+ "landmark:hirosaki": {
+  "src": "images/landmark_hirosaki.jpg",
+  "file": "Hirosaki-castle_Aomori_with_Sakura_blossoms.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Hirosaki-castle_Aomori_with_Sakura_blossoms.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Si-take. at Japanese Wikipedia(しいたけ)",
+  "w": 1024,
+  "h": 749,
+  "desc": "The castle of Hirosaki with cherry blossom (Aomori prefecture, Japan)"
+ },
+ "landmark:maruoka": {
+  "src": "images/landmark_maruoka.jpg",
+  "file": "Maruoka_Castle_20100529-01.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Maruoka_Castle_20100529-01.jpg",
+  "licence": "CC BY-SA 2.1 jp",
+  "artist": "baku13",
+  "w": 1280,
+  "h": 853,
+  "desc": "Maruoka Castle"
+ },
+ "landmark:bitchu_matsuyama": {
+  "src": "images/landmark_bitchu_matsuyama.jpg",
+  "file": "Bitchu_Matsuyama_Castle_1.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Bitchu_Matsuyama_Castle_1.JPG",
+  "licence": "CC BY-SA 3.0",
+  "artist": "by Reggaeman",
+  "w": 1280,
+  "h": 851,
+  "desc": "photo of Bitchū Matsuyama castle Hon-maru"
+ },
+ "landmark:marugame": {
+  "src": "images/landmark_marugame.jpg",
+  "file": "Marugame_Castle01.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Marugame_Castle01.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "Toto-tarou",
+  "w": 1280,
+  "h": 960,
+  "desc": "丸亀城 - 日本国香川県丸亀市。"
+ },
+ "landmark:iyo_matsuyama": {
+  "src": "images/landmark_iyo_matsuyama.jpg",
+  "file": "Matsuyama_castle(Iyo)6.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:Matsuyama_castle(Iyo)6.JPG",
+  "licence": "CC BY 3.0",
+  "artist": "Jyo81 (ja: User)",
+  "w": 1280,
+  "h": 960,
+  "desc": "The Matsuyama-castle is one of the three famous and large - multiple-wing castles in Japan. The Castle Tower was destroyed by fire in 1784,. However, when it was reconstructed in 1854, great care was "
+ },
+ "landmark:uwajima": {
+  "src": "images/landmark_uwajima.jpg",
+  "file": "Uwajima_Castle_Keep_Tower_20170611.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Uwajima_Castle_Keep_Tower_20170611.jpg",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Suicasmo",
+  "w": 1280,
+  "h": 853,
+  "desc": "Uwajima Castle Keep Tower"
+ },
+ "landmark:kochi": {
+  "src": "images/landmark_kochi.jpg",
+  "file": "Kochi_Castle_2025.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Kochi_Castle_2025.jpg",
+  "licence": "CC BY 4.0",
+  "artist": "AlphaBetaGamma",
+  "w": 1280,
+  "h": 1707,
+  "desc": "Kochi Castle taken from a viewpoint identical to the file this thing will replace on Wikipedia"
+ },
+ "landmark:nijo": {
+  "src": "images/landmark_nijo.jpg",
+  "file": "NinomaruPalace.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:NinomaruPalace.jpg",
+  "licence": "Public domain",
+  "artist": "Unknown",
+  "w": 1280,
+  "h": 964,
+  "desc": ""
+ },
+ "landmark:takeda": {
+  "src": "images/landmark_takeda.jpg",
+  "file": "竹田城.JPG",
+  "page": "https://commons.wikimedia.org/wiki/File:%E7%AB%B9%E7%94%B0%E5%9F%8E.JPG",
+  "licence": "CC BY-SA 4.0",
+  "artist": "Wae35244",
+  "w": 1280,
+  "h": 960,
+  "desc": "夏の竹田城"
+ },
+ "landmark:tsuruga": {
+  "src": "images/landmark_tsuruga.jpg",
+  "file": "若松城（鶴ヶ城）20220917-P1003471.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:%E8%8B%A5%E6%9D%BE%E5%9F%8E%EF%BC%88%E9%B6%B4%E3%83%B6%E5%9F%8E%EF%BC%8920220917-P1003471.jpg",
+  "licence": "CC BY 4.0",
+  "artist": "くろふね",
+  "w": 1280,
+  "h": 960,
+  "desc": "若松城（鶴ヶ城）"
+ },
+ "landmark:shuri": {
+  "src": "images/landmark_shuri.jpg",
+  "file": "Naha_Okinawa_Japan_Shuri-Castle-01.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:Naha_Okinawa_Japan_Shuri-Castle-01.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "CEphoto, Uwe Aranas",
+  "w": 1280,
+  "h": 745,
+  "desc": "Naha, Okinawa, Japan: Palace building of Shuri Castle."
+ },
+ "landmark:seven_toyosu": {
+  "src": "images/landmark_seven_toyosu.jpg",
+  "file": "7-Eleven store Toyosu store Tokyo Japan 20140319.jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:7-Eleven_store_Toyosu_store_Tokyo_Japan_20140319.jpg",
+  "licence": "CC BY-SA 3.0",
+  "artist": "LERK",
+  "w": 1280,
+  "h": 960,
+  "desc": "The 7-Eleven store Toyosu store in Kōtō city, Tokyo, Japan"
+ },
+ "landmark:lawson_fuji": {
+  "src": "images/landmark_lawson_fuji.jpg",
+  "file": "That famous Lawson and Mount Fuji in Kawaguchiko (54244854384).jpg",
+  "page": "https://commons.wikimedia.org/wiki/File:That_famous_Lawson_and_Mount_Fuji_in_Kawaguchiko_(54244854384).jpg",
+  "licence": "CC BY-SA 2.0",
+  "artist": "Sergiy Galyonkin from Raleigh, USA",
+  "w": 1280,
+  "h": 819,
+  "desc": "That famous Lawson and Mount Fuji in Kawaguchiko"
  }
 };

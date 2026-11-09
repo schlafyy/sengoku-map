@@ -543,8 +543,8 @@
     castlesG.replaceChildren();
     for (const k of CASTLES) {
       if (k.from > year || k.to < year) continue;
-      const [x, y] = center(k.at);
-      const g = el('g', { class: 'castle' + (sel?.type === 'castle' && sel.id === k.id ? ' sel' : ''), transform: `translate(${x + k.dx} ${y + k.dy}) scale(${markScale()})`, tabindex: 0, role: 'button', 'aria-label': k.en }, castlesG);
+      const [x, y] = markAt(k);
+      const g = el('g', { class: 'castle' + (sel?.type === 'castle' && sel.id === k.id ? ' sel' : ''), transform: `translate(${x} ${y}) scale(${markScale()})`, tabindex: 0, role: 'button', 'aria-label': k.en }, castlesG);
       g.dataset.c = k.id;
       el('rect', { class: 'hit', x: -7, y: -7, width: 14, height: 14 }, g);
       el('rect', { class: 'keep', x: -3.4, y: -3.4, width: 6.8, height: 6.8 }, g);
@@ -679,9 +679,9 @@
     side.innerHTML = `${back()}
       <div class="head"><svg class="swatch castle-mark" viewBox="-10 -10 20 20" aria-hidden="true"><rect class="keep" x="-6" y="-6" width="12" height="12"/><circle class="knot" r="2"/></svg><h3>${esc(k.en)}<span lang="ja">${k.ja}</span></h3></div>
       ${plate('castle:' + k.id, k.photo)}
-      <p class="sub">${esc(P[k.at].en)} <span lang="ja">${P[k.at].ja}</span> · stands ${k.from <= START ? 'from before ' + START : 'from ' + k.from}${k.to >= END ? '' : ' to ' + k.to}</p>
+      <p class="sub">${esc(place(k.at).en)} <span lang="ja">${place(k.at).ja}</span> · stands ${k.from <= START ? 'from before ' + START : 'from ' + k.from}${k.to >= END ? '' : ' to ' + k.to}</p>
       <p class="lede">${esc(k.short)}</p>
-      <p class="local" style="margin-top:1rem">${swatch(holders(st)[0] || null)}<span>In ${year}: ${holderText(st)}</span></p>`;
+      ${P[k.at] ? `<p class="local" style="margin-top:1rem">${swatch(holders(st)[0] || null)}<span>In ${year}: ${holderText(st)}</span></p>` : ''}`;
   }
 
   const back = () => `<button class="back" data-act="back"><svg viewBox="0 0 8 10" aria-hidden="true"><path d="M8 0v10L0 5z"/></svg>All clans in ${year}</button>`;
@@ -761,6 +761,7 @@
     garden: { en: 'Gardens', one: 'Garden', ja: '庭園', d: 'M0-4.6a2 2 0 1 0 .01 0ZM-3 .7a2 2 0 1 0 .01 0ZM3 .7a2 2 0 1 0 .01 0Z' },
     town: { en: 'Towns', one: 'Town', ja: '町並み', d: 'M0-4.8L4.8 0L0 4.8L-4.8 0Z' },
     memorial: { en: 'Memorials', one: 'Memorial', ja: '記念碑', d: 'M-1.9-5.2H1.9V3.4H-1.9ZM-3.8 3.4H3.8V5.2H-3.8Z' },
+    shop: { en: 'Convenience stores', one: 'Convenience store', ja: 'コンビニ', d: 'M-5.6-4.8H5.6L4.6-1.8H-4.6ZM-4.2-.8H4.2V4.8H1.1V1.2H-1.1V4.8H-4.2Z' }, // an awning over a shopfront with its door
   };
   const glyph = k => ['lm-halo', 'lm-ink'].map(c => `<path class="${c}" d="${KINDS[k].d}" fill-rule="${KINDS[k].rule || 'nonzero'}"/>`).join('');
   const glyphIcon = (k, cls = 'lm-icon') => `<svg class="${cls}" viewBox="-7 -7 14 14" aria-hidden="true">${glyph(k)}</svg>`;
@@ -797,7 +798,7 @@
   function renderLand() {
     const groups = Object.keys(KINDS).map(k => [k, LANDMARKS.filter(l => l.kind === k)]).filter(([, ls]) => ls.length);
     side.innerHTML = `<h2>Landmarks <span lang="ja">名所</span><span class="count">${LANDMARKS.length}</span></h2>
-      <p class="intro">The country itself, without the wars or the dynasties: its great cities, mountains, shrines, temples, castles, gardens and towns, over the shape of the land.</p>
+      <p class="intro">The country itself, without the wars or the dynasties: its great cities, mountains, shrines, temples, castles, gardens and towns, and two famous convenience stores, over the shape of the land.</p>
       ${groups.map(([k, ls]) => `<div class="block"><h4>${glyphIcon(k)}${KINDS[k].en} <span lang="ja">${KINDS[k].ja}</span></h4>
         <ul class="lm-list">${ls.map(l => `<li><button data-landmark="${l.id}"><span class="name">${esc(l.en)}</span><span lang="ja">${l.ja}</span></button></li>`).join('')}</ul></div>`).join('')}
       <p class="note">Each mark is placed from its latitude and longitude: close, not surveyed. Heights: Terrain Tiles on AWS (SRTM, GMTED2010 and other public data). Shaded relief: Natural Earth, public domain. Photos: Wikimedia Commons, credited with each landmark.</p>`;
@@ -1003,7 +1004,7 @@
   castlesG.addEventListener('pointermove', e => {
     const g = e.target.closest('.castle'); if (!g) return;
     const k = CASTLES.find(c => c.id === g.dataset.c), r = cloth.getBoundingClientRect();
-    tip.innerHTML = `<b>${esc(k.en)}</b><span class="ja" lang="ja">${k.ja}</span><span class="who">${holderText(stateAt(year)[k.at])}</span>`;
+    tip.innerHTML = `<b>${esc(k.en)}</b><span class="ja" lang="ja">${k.ja}</span><span class="who">${P[k.at] ? holderText(stateAt(year)[k.at]) : place(k.at).en}</span>`;
     tip.style.left = Math.min(e.clientX - r.left + 16, r.width - tip.offsetWidth - 8) + 'px'; tip.style.top = (e.clientY - r.top + 18) + 'px';
     tip.classList.add('on');
   });
@@ -1064,7 +1065,7 @@
       .map(([en, ja, years]) => ({ d: { clan: id }, en, ja, kind: 'Person', note: `${years} · ${c.en}` }))),
     ...EVENTS.map(e => ({ d: { event: e.id }, en: e.en, ja: e.ja, kind: `${e.kind === 'battle' ? 'Battle' : 'Event'} ${e.year}`, war: e.kind === 'battle', note: place(e.at).en })),
     ...PIDS.map(p => ({ d: { province: p }, en: P[p].en, ja: P[p].ja, kind: 'Province' })),
-    ...CASTLES.map(k => ({ d: { castle: k.id }, en: k.en, ja: k.ja, kind: 'Castle', note: P[k.at].en })),
+    ...CASTLES.map(k => ({ d: { castle: k.id }, en: k.en, ja: k.ja, kind: 'Castle', note: place(k.at).en })),
     ...LANDMARKS.map(l => ({ d: { landmark: l.id }, en: l.en, ja: l.ja, kind: KINDS[l.kind].one, note: 'Landmarks map' })),
   ].map((r, i) => ({ ...r, i, key: fold(`${r.en} ${r.ja} ${r.note || ''}`), name: fold(r.en) }));
   function search(q) {

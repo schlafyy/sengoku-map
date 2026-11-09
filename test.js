@@ -71,7 +71,7 @@ for (const [k, im] of Object.entries(IMAGES)) {
 }
 
 const { CASTLES, PEOPLE } = JSON.parse(vm.runInContext('JSON.stringify({CASTLES, PEOPLE})', ctx));
-for (const c of CASTLES) assert(provs.includes(c.at) && c.from <= c.to && c.short && c.en && c.ja, `castle ${c.id}`);
+for (const c of CASTLES) assert((provs.includes(c.at) || (['ezo', 'ryukyu'].includes(c.at) && c.lon && c.lat)) && c.from <= c.to && c.short && c.en && c.ja, `castle ${c.id}`);
 for (const p of PEOPLE) {
   assert(p.born < p.died && p.portrait && p.short, `person ${p.id}`); // the portrait may still be downloading: the app shows the name alone
   for (const [from, to, clan, how] of p.roles) assert(from <= to && clan in CLANS && ['leads', 'serves', 'married'].includes(how), `${p.id} role ${clan}`);
@@ -120,7 +120,7 @@ const toMap = (lon, lat) => GEOREF.toMap.map(r => r.reduce((s, k, i) => s + k * 
 const lmIds = new Set();
 for (const l of LANDMARKS) {
   assert(!lmIds.has(l.id), `landmark ${l.id} twice`); lmIds.add(l.id);
-  assert(['city', 'temple', 'shrine', 'castle', 'mountain', 'nature', 'garden', 'town', 'memorial'].includes(l.kind) && (l.kind !== 'city' || l.pop), `landmark ${l.id}: kind`);
+  assert(['city', 'temple', 'shrine', 'castle', 'mountain', 'nature', 'garden', 'town', 'memorial', 'shop'].includes(l.kind) && (l.kind !== 'city' || l.pop), `landmark ${l.id}: kind`);
   assert(l.en && l.ja && l.short && l.wiki, `landmark ${l.id}: text`);
   assert(!l.at || provs.includes(l.at), `landmark ${l.id}: province ${l.at}`);
   if (l.lat < RYUKYU.frames[0].lat1) { assert(inInset(l) && !l.at, `landmark ${l.id} outside the Ryukyu inset`); continue; }

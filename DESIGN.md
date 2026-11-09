@@ -285,7 +285,7 @@ The cloth is flat; depth comes from dye and thread, not from lift. There are no 
 
 The forms are textile: square fields, dashed stitches and woven columns. Corners are barely softened, 2px for anything thread- or swatch-sized and 3px for hover fields, chips and the tooltip. Full circles are the play button and the 36px zoom buttons, each ringed by a dashed stitch. The only pills are the mode switch (22px outer, 18px inner) and "Play this life" (22px). Selection and focus are always dashed, never solid: a selected province gets a 4/3 dash at 2.2px, a selected landmark a 3/2.4 kon dashed ring, focus is a 1.5px dashed cream outline offset 3px, and text actions use a dashed underline. Small markers are diamonds rotated 45°: solid red for battles, a 1.5px cream outline for other turning points.
 
-The landmark stencils are drawn shapes, never font glyphs: ◎ three rings for a city, a triangle for a mountain, a dot for nature, a torii for a shrine, a roof over a hall for a temple, a hollow square for a castle, three stones for a garden, a diamond for a town, a stele on a base for a memorial. Each is indigo ink on a 2.6 halo of bare cotton, and grows to 1.3× on hover or selection.
+The landmark stencils are drawn shapes, never font glyphs: ◎ three rings for a city, a triangle for a mountain, a dot for nature, a torii for a shrine, a roof over a hall for a temple, a hollow square for a castle, three stones for a garden, a diamond for a town, a stele on a base for a memorial, an awning over a shopfront for a convenience store. Each is indigo ink on a 2.6 halo of bare cotton, and grows to 1.3× on hover or selection.
 
 ## Components
 

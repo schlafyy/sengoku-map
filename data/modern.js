@@ -248,12 +248,18 @@ EVENTS.push(
 
 // later castles; and when the earlier ones fell or were pulled down after 1603
 CASTLES.push(
-  { id: 'nagoya', en: 'Nagoya Castle', ja: '名古屋城', at: 'owari', dx: 2, dy: 2, from: 1610, to: 1945, wiki: 'Nagoya Castle',
+  { id: 'nagoya', photo: 'The keep in the photo was rebuilt in 1959.', en: 'Nagoya Castle', ja: '名古屋城', at: 'owari', dx: 2, dy: 2, from: 1610, to: 1945, wiki: 'Nagoya Castle',
     short: 'Built by Ieyasu from 1610 for his son, replacing Kiyosu, with golden dolphins on its keep. The keep burned in an American air raid in May 1945.' },
   { id: 'hikone', en: 'Hikone Castle', ja: '彦根城', at: 'omi', dx: 0, dy: -10, from: 1622, to: 1945, wiki: 'Hikone Castle',
     short: 'Seat of the Ii, the Tokugawa\'s red-armoured vassals, built after Sekigahara partly from the stones of Ishida Mitsunari\'s Sawayama castle. Its keep still stands.' },
-  { id: 'hiroshima', en: 'Hiroshima Castle', ja: '広島城', at: 'aki', dx: 6, dy: 8, from: 1591, to: 1945, wiki: 'Hiroshima Castle',
+  { id: 'hiroshima', photo: 'The keep in the photo was rebuilt in 1958.', en: 'Hiroshima Castle', ja: '広島城', at: 'aki', dx: 6, dy: 8, from: 1591, to: 1945, wiki: 'Hiroshima Castle',
     short: 'Built by Mōri Terumoto from 1589 on the delta of the Ōta river, and later the Asano clan\'s. Imperial headquarters in the war of 1894–95; destroyed by the atomic bomb in August 1945.' },
+  { id: 'nijo', en: 'Nijō Castle', ja: '二条城', at: 'yamashiro', dx: -3, dy: -5, from: 1603, to: 1945, wiki: 'Nijō Castle',
+    short: 'The shoguns\' seat in Kyoto, begun by Ieyasu in 1601 and finished in 1626. In 1867 the last shogun, Yoshinobu, handed power back to the emperor in its Ninomaru Palace.' },
+  { id: 'goryokaku', en: 'Goryōkaku', ja: '五稜郭', at: 'ezo', lon: 140.757, lat: 41.797, from: 1866, to: 1945, wiki: 'Goryōkaku',
+    short: 'A star-shaped fort of the European kind at Hakodate, finished in 1866. In 1869 it was the headquarters of the short-lived Republic of Ezo, and the scene of the last battle of the Boshin War.' },
+  { id: 'shuri', photo: 'The halls in the photo were rebuilt from 1992.', en: 'Shuri Castle', ja: '首里城', at: 'ryukyu', lon: 127.7195, lat: 26.217, from: 1467, to: 1945, wiki: 'Shuri Castle',
+    short: 'The palace of the Ryukyu kings from 1429 until Japan annexed the kingdom in 1879. The Japanese defence of Okinawa centred on it in 1945, and the castle was almost completely destroyed.' },
 );
 {
   const until = { odawara: 1870, kasugayama: 1607, sunpu: 1868, okazaki: 1873, kiyosu: 1610, gifu: 1601, fushimi: 1623,

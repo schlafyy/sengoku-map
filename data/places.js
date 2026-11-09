@@ -1,6 +1,7 @@
 // Castles and the lives you can follow. Written for this app; facts checked against Wikipedia's articles.
 
-// castles: at a province (nudged by dx/dy in map units), standing from..to. wiki: the article its photo comes from.
+// castles: at a province (nudged by dx/dy in map units), or in 'ezo' / 'ryukyu' at lon/lat; standing from..to.
+// wiki: the article its photo comes from. Later castles, and when these fell after 1603, are in data/modern.js.
 const CASTLES = [
   { id: 'edo', en: 'Edo Castle', ja: '江戸城', at: 'musashi', dx: 8, dy: 9, from: 1467, to: 1603, wiki: 'Edo Castle',
     short: 'Built by Ōta Dōkan in 1457, taken by the Hōjō in 1524, and Tokugawa Ieyasu\'s seat from 1590. After 1603 it was the shoguns\' castle; its inner grounds are today\'s Imperial Palace in Tokyo.' },
